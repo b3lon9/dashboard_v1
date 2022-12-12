@@ -1,6 +1,10 @@
 # dashboard_v1
 team project
 
+> pip install -r requirements.txt
+
+<br/>
+
 ![image](https://user-images.githubusercontent.com/119420119/206973833-193d7539-2416-4ca8-aa95-c46873b10bd7.png)
 
 ```
