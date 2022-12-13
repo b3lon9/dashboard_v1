@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
     'login.apps.LoginConfig',
+    
+    
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount', 
+    'allauth.socialaccount.providers.naver',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -51,9 +60,27 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+SOCIALACCOUNT_PROVIDERS = {
+    'naver': {'APP': {
+                        'client_id': 'OHMvkdP7YhMZcLpBInJV',
+                        'secret': '1HmSQuY0hE',
+                        'key': ''
+                }},
+    'google': {
+        'APP': {
+                        'client_id': '828070438862-4c272d37ib16lqpk9g4glklfviig0rvf.apps.googleusercontent.com',
+                        'secret': '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',
+                        'key': ''
+                }},
+    }
+LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/home"  # Route defined in home/urls.py
+LOGOUT_REDIRECT_URL = "http://127.0.0.1:8000/home" 
 ROOT_URLCONF = 'config.urls'
-
+SITE_ID = 1
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")  # ROOT dir for templates
 TEMPLATES = [
     {

@@ -1,4 +1,7 @@
 {% load static %}
+{% load i18n %}
+{% load socialaccount %}
+{% load account %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +28,9 @@
             </div>
             <div class="caption">
                 <a href="">Forgot Password?</a>
+        		<p class="mb-2">Naver Login <a href="{% provider_login_url 'naver'%}" class="f-w-400">Sign in</a></p>
+				<p class="mb-2">Google Login <a href="{% provider_login_url 'google'%}" class="btn btn-google btn-user btn-block">
+                    <i class="fab fa-google fa-fw"></i>Sign in</a></p>
             </div>
         </form>
     </section>
