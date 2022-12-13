@@ -25263,7 +25263,8 @@ pre[class*=language-]:before {
 }
 
 .doc-img.header-color > a[data-value="header-green"] > span:nth-child(1) {
-    background: linear-gradient(to right, #11c788, #54e2b7);
+    /* background: linear-gradient(to right, #11c788, #54e2b7); */
+    background: linear-gradient(to right, #8EC3B0, #DEF5E5 );
 }
 
 .doc-img.header-color > a[data-value="header-green"] > span:nth-child(1):after, .doc-img.header-color > a[data-value="header-green"] > span:nth-child(1):before {
