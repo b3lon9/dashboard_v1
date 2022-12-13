@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.naver',
     'allauth.socialaccount.providers.google',
 ]
-
+SOCIALACCOUNT_LOGIN_ON_GET=True
+SOCIALACCOUNT_LOGOUT_ON_GET = True 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -85,7 +86,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")  # ROOT dir for templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'accounts')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
