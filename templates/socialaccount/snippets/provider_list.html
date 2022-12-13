@@ -6,10 +6,6 @@
 {% if provider.id == "openid" %}
 {% for brand in provider.get_brands %}
 <li>
-<<<<<<< HEAD
-=======
-  <a title="응디 섹스">
->>>>>>> 06f7fb4420e6fc18c0f5d6186c3630cfbf3571f6
   <a title="{{brand.name}}" 
      class="socialaccount_provider {{provider.id}} {{brand.id}}" 
      href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
