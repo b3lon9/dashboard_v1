@@ -1,10 +1,16 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html>
+=======
+{% load static %}
+<html lang="ko">
+>>>>>>> 06f7fb4420e6fc18c0f5d6186c3630cfbf3571f6
   <head>
     <title>{% block head_title %}{% endblock %}</title>
     {% block extra_head %}
     {% endblock %}
   </head>
+<<<<<<< HEAD
   <body>
     {% block body %}
 
@@ -38,3 +44,17 @@
     {% endblock %}
   </body>
 </html>
+=======
+  <body class="">
+    {% block body %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% endblock %}
+
+    {% block extra_body %}
+    {% endblock %}
+  </body>
+</html>
+>>>>>>> 06f7fb4420e6fc18c0f5d6186c3630cfbf3571f6
