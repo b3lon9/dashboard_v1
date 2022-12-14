@@ -18,9 +18,8 @@
 
     <!-- vendor css -->
     <link rel="stylesheet" href="/static/assets/css/style.css">
-
     <link rel="stylesheet" href="/static/assets/css/style_somtrend.css">
-
+    <link rel="stylesheet" href="/static/assets/css/search.css">
 
     <!-- Specific Page CSS goes HERE  -->
 
@@ -33,13 +32,7 @@
 
 
 
-	<!-- [ Pre-loader ] start -->
-	<div class="loader-bg">
-		<div class="loader-track">
-			<div class="loader-fill"></div>
-		</div>
-	</div>
-	<!-- [ Pre-loader ] End -->
+	{% include 'includes/progressbar.html' %}
     
     {% include 'includes/sidebar.html' %} 
 

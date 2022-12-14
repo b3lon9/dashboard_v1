@@ -4792,6 +4792,7 @@ textarea.form-control-lg {
 
     .navbar-expand-lg .navbar-nav {
         flex-direction: row;
+        flex-wrap:wrap;
     }
 
     .navbar-expand-lg .navbar-nav .dropdown-menu {
