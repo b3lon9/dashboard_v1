@@ -1,12 +1,30 @@
 {% extends "socialaccount/base.html" %}
+
 {% load i18n %}
+
+
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
+
+
 {% block content %}
+
 <span>googlr</span>
+
 <form method="post">
+<<<<<<< HEAD
   {% csrf_token %}
   <button type="submit">{% trans "Continue" %}</button>
 </form>
 {% endblock %}
+=======
+
+  {% csrf_token %}
+
+  <button id="test_btn" type="submit">{% trans "Continue" %}</button>
+
+</form>
+
+{% endblock %}
+>>>>>>> b69c3507ee2a59f6710630a75acc25cec90acd86
