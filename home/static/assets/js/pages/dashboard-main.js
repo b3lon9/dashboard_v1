@@ -30,7 +30,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // [ campaign-scroll ] end
 });
-
+const city_json = dict;
+var dataPoint = []
+for(var i = 0; i< city_json.length;i++){
+    dataPoint.push({
+        count:city_json[i].population,
+        categories:String(city_json[i].name),
+        year:String(city_json[i].year)
+    });
+}
+const dataJson = JSON.stringify(dataPoint)
+console.log("-------------------------------------------------------")
+console.log(dataJson.count)
 function floatchart() {
 
     // [ coversions-chart ] start
@@ -374,8 +385,8 @@ function floatchart() {
                 curve: 'smooth'
             },
             series: [{
-                name: 'Arts',
-                data: [20, 50, 30, 60, 30, 50]
+                name: "Tokyo",
+                data: dataPoint.data
             }, {
                 name: 'Commerce',
                 data: [60, 30, 65, 45, 67, 35]
@@ -384,8 +395,7 @@ function floatchart() {
                 position: 'top',
             },
             xaxis: {
-                type: 'datetime',
-                categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000'],
+                categories: dataPoint.year,
                 axisBorder: {
                     show: false,
                 },

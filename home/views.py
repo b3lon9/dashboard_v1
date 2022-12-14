@@ -4,12 +4,21 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+from django.http import JsonResponse
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+from home.models import City
 
 
 
 # Create your views here.
 def index(request):
-    return render(request, 'home/index.html')
+    city = City.objects.values()
+    city_json = json.dumps(list(city),cls=DjangoJSONEncoder)
+    context={
+        'city_json':city_json,
+    }
+    return render(request, 'home/index.html',context)
 
 @login_required(login_url="/login/")
 

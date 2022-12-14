@@ -1,5 +1,5 @@
-'use strict';
-setTimeout(function() {
+$(function() 
+    {
     (function () {
         var options = {
             chart: {
@@ -25,7 +25,7 @@ setTimeout(function() {
             },
             series: [{
                 name: "Desktops",
-                data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+                data: [10,20,30,40,50,10,60]
             }],
             title: {
                 text: 'Product Trends by Month',
@@ -303,4 +303,4 @@ setTimeout(function() {
         );
         chart.render();
     })();
-}, 700);
+})
