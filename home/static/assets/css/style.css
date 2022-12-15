@@ -22717,6 +22717,7 @@ pre[class*=language-]:before {
     display: inline-flex;
     align-items: center;
     padding: 0 25px;
+    justify-content: center;
 }
 
 .pcoded-header .m-header .logo-dark,
@@ -22753,6 +22754,7 @@ pre[class*=language-]:before {
     list-style: none;
     margin-bottom: 0;
     display: inline-block;
+    align-items: center;
 }
 
 .pcoded-header .navbar-nav > li {
