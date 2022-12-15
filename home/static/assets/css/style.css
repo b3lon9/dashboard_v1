@@ -8227,6 +8227,7 @@ textarea.form-control-lg {
 }
 
 .me-auto {
+    margin-left:auto;
     margin-right: auto !important;
 }
 
@@ -23121,7 +23122,7 @@ pre[class*=language-]:before {
     width: 37px;
     height: 56px;
     position: absolute;
-    right: 0;
+    left: 0;
     top: 0;
     padding: 0 10px;
 }
