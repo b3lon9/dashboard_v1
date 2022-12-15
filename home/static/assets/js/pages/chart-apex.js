@@ -155,7 +155,7 @@ setTimeout(function() {
     (function () {
         var options = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'bar',
             },
             plotOptions: {
@@ -193,12 +193,12 @@ setTimeout(function() {
                 },
             },
             series: [{
-                data: [44, 55, 41, 64, 22, 43, 21]
+                data: [44, 55, ]
             }, {
-                data: [53, 32, 33, 52, 13, 44, 32]
+                data: [53, 32, ]
             }],
             xaxis: {
-                categories: [2001, 2002, 2003, 2004, 2005, 2006, 2007],
+                categories: [2001, 2002,],
             },
         }
         var chart = new ApexCharts(
@@ -303,4 +303,5 @@ setTimeout(function() {
         );
         chart.render();
     })();
+    
 }, 700);

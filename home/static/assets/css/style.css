@@ -29430,3 +29430,7 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
 
 /**====== Icon layouts css end ======**/
 
+#chartdiv {
+    width: 100%;
+    height: 100%;
+  }
