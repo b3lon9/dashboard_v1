@@ -80,21 +80,37 @@
         
             // Create series
             var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
-        
+            chart.legend = new am4charts.Legend();
             // Set data
             series.data = [{
                 "name": "갤럭시",
                 "value": 190,
-                "link": ["아이폰"]
+                "link": ["아이폰"],
+                "fixed": true,
+                "x": am4core.percent(35),
+                "y": am4core.percent(50), 
               }, {
                 "name": "아이폰",
                 "value": 289
-                ,"link": ["갤럭시"]
+                ,"link": ["갤럭시"],
+                "fixed": true,
+                "x": am4core.percent(65),
+                "y": am4core.percent(50), 
               }, ];
+
+              series.colors.list = [
+                am4core.color("#F42B03"),
+                am4core.color("#D84A05"),
+                am4core.color("#EC7505"),
+                am4core.color("#E89005")
+                ];
               
 
 
             series.links.template.strokeOpacity = 0;
+            series.dataFields.fixed = "fixed";
+            series.nodes.template.propertyFields.x = "x";
+            series.nodes.template.propertyFields.y = "y";
             
             
             // Set up data fields
@@ -103,14 +119,14 @@
 
             series.dataFields.id = "name";
             series.dataFields.linkWith = "link";
-
-            // Add labels
-            series.nodes.template.tooltipText = "{value}[/]";
-            series.nodes.template.label.text = "{name}";
-            series.fontSize = 10;
+            
+            series.nodes.template.label.text = "{value}";
+            series.fontSize = 20;
             series.minRadius = 15;
             series.maxRadius = 60;
             series.centerStrength = 0.5;
+
+            
         
         })();
 
