@@ -62,7 +62,8 @@ input.button-add {
 
 
 #btn-search:active {
-    background-image: url("../images/btn-focus.png"); /* 16px x 16px */
+    /* background-image: url("../images/btn-focus.png");  16px x 16px */
+    background-image: url("../images/btn-active.png"); /* 16px x 16px */
 }
 
 .navbar .login {
@@ -72,4 +73,12 @@ input.button-add {
 
 .navbar-justify {
     justify-content: space-between;
+}
+
+.drp-user {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-top: 8px;
+    padding-right: 8px;
 }
