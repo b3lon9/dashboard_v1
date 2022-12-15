@@ -10,8 +10,9 @@
     var dict = {{ city_json | safe }};
     console.log(dict)
 </script>
-<script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
-<script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-content">
@@ -92,7 +93,8 @@
                             <h5>Word Charts donut</h5>
                         </div>
                         <div class="card-body">
-                            <div id="word-chart-1" style="width:100%"></div>
+                            {% comment %} <div id="my_dataviz"></div> {% endcomment %}
+                            <svg id="my_dataviz" width="700" height="300"></svg>
                         </div>
                     </div>
                 </div>
@@ -116,43 +118,7 @@
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
     <script src="/static/assets/js/pages/chart-apex.js"></script>
 <script>
-anychart.onDocumentReady(function () {
-    var data = [
-        {
-            "x": "IT",
-            "value": 590000000,
-            category: "Sino-Tibetan"
-        },
-        {
-            "x": "Python",
-            "value": 283000000,
-            category: "Indo-European"
-        },
-        {
-            "x": "소프트웨어",
-            "value": 544000000,
-            category: "Indo-European"
-        },
-        {
-            "x": "JAVA",
-            "value": 527000000,
-            category: "Indo-European"
-        }, {
-            "x": "C++",
-            "value": 422000000,
-            category: "Afro-Asiatic"
-        }, {
-            "x": "HTML",
-            "value": 620000000,
-            category: "Afro-Asiatic"
-        }
-    ];
-    var chart = anychart.tagCloud(data);
-    chart.angles([0]);
-    chart.container("word-chart-1");
-    // chart.getCredits().setEnabled(false);
-    chart.draw();
-});
+
 </script>
 
 {% endblock javascripts %}

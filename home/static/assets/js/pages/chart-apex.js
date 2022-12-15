@@ -11,7 +11,6 @@ $(function()
         var dataYear = []
         var dataPop=[]
         var dataCate=[]
-        console.log(typeof(dict))
         for(var i = 0; i< city_json.length;i++){
             wordcloud.push({
                 year:String(city_json[i].year),
@@ -41,7 +40,7 @@ $(function()
           }],
             chart: {
             height: 350,
-            type: 'line',
+            type: 'bar',
             zoom: {
               enabled: false
             }
@@ -100,11 +99,27 @@ $(function()
   
           var chart_pie = new ApexCharts(document.querySelector("#pie-chart-1"), options_pie);
           chart_pie.render();
-          anychart.onDocumentReady(function () {
-
-              var chart = anychart.tagCloud(wordcloud);
-              chart.container("word-chart-1");
-              // chart.getCredits().setEnabled(false);
-              chart.draw();
-          });
+          // d3
+          var fill = d3.scaleOrdinal(d3.schemeCategory20);
+          console.log(fill)
+          var layout = d3.layout.cloud()
+                      .size([700, 300])
+                      .words(wordcloud)
+                      .on("end", draw);
+          layout.start();
+          function draw(words) {
+            d3.select("#my_dataviz")
+            .append("g")
+            .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+            .selectAll("text")
+            .data(words)
+            .enter()
+            .append("text")
+            .text((d) => d.categories)
+            .style("font-size", (d) => d.count/3000 + "px")
+            .style("fill", (d, i) => fill(i))
+            .style("font-family", (d) => d.font)
+            .attr("text-anchor", "middle")
+            .attr("transform", (d) => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")");
+    }
 })
