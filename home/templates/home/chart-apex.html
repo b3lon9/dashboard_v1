@@ -1,12 +1,18 @@
 {% extends "layouts/base.html" %}
-
+{% load static %}
 {% block title %} Apex Charts {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-
+<script type='text/javascript' id='city'>
+    var dict = {{ city_json | safe }};
+    console.log(dict)
+</script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-content">
@@ -84,10 +90,11 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Pie Charts donut</h5>
+                            <h5>Word Charts donut</h5>
                         </div>
                         <div class="card-body">
-                            <div id="pie-chart-2" style="width:100%"></div>
+                            {% comment %} <div id="my_dataviz"></div> {% endcomment %}
+                            <svg id="my_dataviz" width="700" height="300"></svg>
                         </div>
                     </div>
                 </div>
@@ -102,8 +109,16 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+    var dict = {{ city_json|safe }};
+</script>
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
     <script src="/static/assets/js/pages/chart-apex.js"></script>
+<script>
+
+</script>
 
 {% endblock javascripts %}
