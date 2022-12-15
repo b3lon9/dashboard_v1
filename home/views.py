@@ -25,6 +25,11 @@ def index(request):
 def pages(request):
 
     context = {}
+    city = City.objects.values()
+    city_json = json.dumps(list(city),cls=DjangoJSONEncoder)
+    context={
+        'city_json':city_json,
+    }
 
     # All resource paths end in .html.
 
