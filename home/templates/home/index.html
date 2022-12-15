@@ -12,6 +12,11 @@
     <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
     <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
     <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
     <script>
 
         function changeClassName(s_num) {
@@ -73,7 +78,7 @@
    
         (function() {
 
-            am4core.useTheme(am4themes_animated);
+            //am4core.useTheme(am4themes_animated);
 
             // Create chart
             var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
@@ -125,9 +130,99 @@
             series.minRadius = 15;
             series.maxRadius = 60;
             series.centerStrength = 0.5;
+ 
+        })();
 
-            
-        
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+
+            const DATA_COUNT = 7;
+            const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
+
+            const labels = ['갤럭시','아이폰'];
+            const data = {
+            labels: labels,
+            datasets: [
+                {
+                label: '긍정',
+                data: [8,2],
+                borderColor: '#4dc9f6',            
+                backgroundColor: '#4dc9f6',//Utils.transparentize('#4dc9f6', 0.5),
+                pointStyle: 'circle',
+                
+                },
+                {
+                label: '부정',
+                data: [-3,-7],
+                borderColor: '#f67019',
+                backgroundColor: '#f67019',//Utils.transparentize('#f67019',, 0.5),
+                pointStyle: 'circle',
+                
+                
+                }
+            ]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                  indexAxis: 'y',
+                  // Elements options apply to all of the options unless overridden in a dataset
+                  // In this case, we are setting the border of each horizontal bar to be 2px wide
+                  elements: {
+                    bar: {
+                      borderWidth: 2,
+                    }
+                  },
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                        labels: {
+                            usePointStyle: true,
+                            
+                            },
+                        position: 'top',
+                        pointRadius: 5,
+                    },
+                    title: {
+                      display: false,
+                      //text: 'Chart.js Horizontal Bar Chart'
+                    }
+                  },
+                  scales: {
+                    x: {
+                        display:true,
+                        min:-10,
+                        max:10,
+                        grid: {
+                            color: function(context) {
+                                if (context.tick.value == 0) {
+                                  return '#000000';
+                                } else {
+                                  return '#ffffff';
+                                }
+                    
+                                return '#000000';
+                              },
+                            },
+
+                      
+
+                    },
+                    y:{
+                        display:true,
+                        grid: {
+                            color: '#ffffff',
+                            },
+                        
+                    }
+                  }
+                },
+            };
+
+            var chart = new Chart(ctx, config);
         })();
 
         </script>
@@ -195,9 +290,9 @@
 
                                     <h5>갤럭시</h5><br>
                                     
-                                    <div class="align-items-center">
+                                    <div class="justify-content-center">
                                     
-                                        <ul class="tab-type5 tab comepare-origin-tabs " id="originalDocsKeywordUl">
+                                        <ul class="tab-type5 tab comepare-origin-tabs w-75" id="originalDocsKeywordUl" style='display: table;margin-left: auto;margin-right: auto;'>
                                             <li class="on" id ='1_pos'>
                                                 <a href="javascript:void(0)" class="" style="" onclick='changeClassName(1)'>
                                                     <em class="tab-name">긍정</em>
@@ -211,9 +306,9 @@
                                         </ul>
                                     </div>
 
-                                    <div class="original-data" id = "1_pos_post">
+                                    <div class="original-data" id = "1_pos_post"> 
                                         <div class="hidden-scroll yscroll-overlay">
-                                            <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list" id="originalDocsUl" data-id="original-data-list-compare-reputation" style="opacity: 1;">
+                                            <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list" id="originalDocsUl" data-id="original-data-list-compare-reputation" style="opacity: 1; ">
                                             <li class="original-data-item" style="cursor:pointer;" id = 'blog' onclick="window.open('https://blog.naver.com/aeyongly/222953745910')">
                                                 <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
                                                 <dl class="mention-desc">
@@ -289,7 +384,7 @@
 
                                     <div class="align-items-center">
                                     
-                                        <ul class="tab-type5 tab comepare-origin-tabs " id="originalDocsKeywordUl">
+                                        <ul class="tab-type5 tab comepare-origin-tabs w-75" id="originalDocsKeywordUl" style='display: table;margin-left: auto;margin-right: auto;'>
                                             <li class="on " id ='2_pos'>
                                             <a href="javascript:void(0)" class="" style="" onclick='changeClassName(2)'>
                                                 <em class="tab-name">긍정</em>
@@ -545,10 +640,11 @@
                             </div> 
 
                             <div class="card">
-                                <div class="card-header">
+                                {% comment %} <div class="card-header">
                                     <h5>Bar chart horizontal</h5>
-                                </div>
-                                <div id='bar-chart-3'> </div>
+                                </div> {% endcomment %}
+                                {% comment %} <div id='bar-chart-3'> </div> {% endcomment %}
+                                <canvas id="myChart"></canvas>
                             </div>
 
                             <div class="card">
