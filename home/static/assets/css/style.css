@@ -24448,10 +24448,12 @@ pre[class*=language-]:before {
     text-shadow: none;
 }
 
-.pcoded-navbar.menu-light .card {
-    background: rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0 0 1px #f6f7fb;
-    color: rgba(0, 0, 0, 0.6);
+/* 커뮤니티 css */
+.pcoded-navbar.menu-light .card { 
+    
+    /* background: rgba(0, 0, 0, 0.1);*/
+    box-shadow: 0 0 0 0px #f6f7fb; 
+    color: #5845ea;
 }
 
 .pcoded-navbar.menu-light .card h6, .pcoded-navbar.menu-light .card .h6 {
@@ -29434,3 +29436,17 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
     width: 100%;
     height: 100%;
   }
+
+.comment-box {
+    border: 0 solid rgba(0, 0, 0, 0.125);
+    background-color: #f5f6f8;
+    border-radius: 10px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-left: 6px;
+    min-width: calc(100% - 31px);
+    padding: 8px 13px;
+    transition: all .2s ease-in-out;
+    width: 100%;
+    text-align: left;
+}
