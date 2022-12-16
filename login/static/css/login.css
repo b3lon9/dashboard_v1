@@ -12,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url("../images/teams.png") no-repeat center;
+    background: url("../images/lama.jpg") no-repeat center;
     background-size: cover;     /* tight_layout() */
 }
 
@@ -30,6 +30,7 @@ body::before {
 .login-form {
     position: relative;
     z-index:2;
+    display: block;
 }
 
 .login-form h1 {
@@ -113,12 +114,37 @@ body::before {
     text-decoration: none;
 }
 
-#naver-img {
+.img-btn-container {
+    display:flex;
+    width: 300px;
+    height: 80px;
+    min-height: auto;
+    border:none;
+    background-color: white;
+    border-radius: 1rem;
+    justify-content:center;
+    align-items: center;
+}
 
+.margin-bottom {
+    margin-bottom:15px;
+}
+
+.img-test {
+    width: 100%;
+    height: 100%;
+    background:url("../images/google_default.png");
+    background-repeat: no-repeat;
+    object-fit: cover;
+}
+
+#naver-img {
+    /* background: url("../images/naver_default.png"); */
+    width: 100%;
 }
 
 #naver-img:hover {
-
+    src: "../images/naver_focus.jpg";
 }
 
 #naver-img:active {
@@ -126,7 +152,8 @@ body::before {
 }
 
 #google-img {
-
+    width: 100%;
+    /* background: url("/login/static/images/google_default.png"); */
 }
 
 #google-img:hover {
@@ -135,4 +162,28 @@ body::before {
 
 #google-img:active {
     
+}
+
+.link {
+    text-decoration-line: none;
+    vertical-align: middle;
+}
+
+.text {
+   
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    border:none;
+    font-size: 40px;
+    color: rgba(0, 0, 0, .7);
+    font-family: Arial;
+  }
+
+.img-btn-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    box-shadow: none;
+    border:none;
 }

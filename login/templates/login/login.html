@@ -13,8 +13,11 @@
 </head>
 <body>
     <section class="login-form">
-        <h1>Compare Items</h1>
-        <form action="">
+        <!--Login Title-->
+        <h1>Login</h1>
+
+        <!--Don't Remove login form tag / maybe use (2022.12.16.)-->
+        <form action="" style="display:none;">
             <div class="int-area">
                 <input type="text" name="id" id="id" autocomplete="off" required>
                 <label for="id">USER NAME</label>
@@ -33,9 +36,28 @@
                     <i class="fab fa-google fa-fw"></i>Sign in</a></p>
             </div>
         </form>
+        
+        <!--Naver Login API-->
+        <div name="naver" class="img-btn-container margin-bottom" onmouseenter="Ex_img()">
+            <a href="{% provider_login_url 'naver'%}" class="f-w-400">
+                <img  src="{% static 'images/naver_default.png' %}" alt="">
+            </a>
+        </div>
+
+        <!--Google Login API-->
+        <div class="img-btn-container" onmouse>
+            <a href="{% provider_login_url 'google'%}" class="link" class="f-w-400">
+                <img name="naver1" src="{% static 'images/google_default.png' %}" alt="">
+            </a>
+        </div>
     </section>
-    
+
     <script type="text/javascript">
+        function Ex_img() {
+            document.getElementsByName("naver1").src="../images/naver_focus.png";
+            (`.img-btn-container img`).attr({ src: "{% static 'images/google_default.png' %}" });
+        }
+        /*
         let id = $('#id');
         let pw = $('#pw');
         let btn = $('#btn');
@@ -49,7 +71,7 @@
             } else if ($(pw).val() == "") {
                 $(pw).next('label').addClass('warning');
             }
-        })
+        })*/
     </script>
 </body>
 </html>
