@@ -8,7 +8,7 @@ from django.http import JsonResponse
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from home.models import City
-
+from home.models import Wordcloud
 
 
 # Create your views here.
@@ -27,8 +27,12 @@ def pages(request):
     context = {}
     city = City.objects.values()
     city_json = json.dumps(list(city),cls=DjangoJSONEncoder)
+    
+    wordcloud = Wordcloud.objects.values()
+    wordcloud_json=json.dumps(list(wordcloud),cls=DjangoJSONEncoder)
     context={
         'city_json':city_json,
+        'wordcloud_json':wordcloud_json,
     }
 
     # All resource paths end in .html.

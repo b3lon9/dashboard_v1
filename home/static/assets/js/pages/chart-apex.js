@@ -1,21 +1,25 @@
 $(function() 
-    {   const color =[];
+    {   //create color
+        const color =[];
         while (color.length < 20) {
             do {
                 var arrs = Math.floor((Math.random()*1000000)+1);
             } while (color.indexOf(arrs) >= 0);
             color.push("#" + ("000000" + arrs.toString(16)).slice(-6));
         }
+        //end create color
+        //call database data
         const city_json = dict
-        var wordcloud = []
+        const wc_json = wordcloud
+        var wc= []
         var dataYear = []
         var dataPop=[]
         var dataCate=[]
-        for(var i = 0; i< city_json.length;i++){
-            wordcloud.push({
-                year:String(city_json[i].year),
-                count:city_json[i].population,
-                categories:String(city_json[i].name)
+        //create input data
+        for(var i = 0; i< wc_json.length;i++){
+          wc.push({
+              text:String(wc_json[i].text),
+              value:wc_json[i].value,
         });
         }
         for(var i = 0; i< city_json.length;i++){
@@ -32,7 +36,9 @@ $(function()
             dataPop.push(
                 city_json[i].population);
         }
+        //end create end data
 
+        //bar chart start
         var options_bar = {
             series: [{
               name: "Desktops",
@@ -40,7 +46,7 @@ $(function()
           }],
             chart: {
             height: 350,
-            type: 'bar',
+            type: 'line',
             zoom: {
               enabled: false
             }
@@ -67,7 +73,9 @@ $(function()
           };
         var chart_bar = new ApexCharts(document.querySelector("#line-chart-1"), options_bar);
         chart_bar.render();
+        //bar chart end
 
+        //pie chart start
         var options_pie = {
             series: dataPop,
             chart: {
@@ -96,16 +104,21 @@ $(function()
             }
           }]
           };
-  
           var chart_pie = new ApexCharts(document.querySelector("#pie-chart-1"), options_pie);
           chart_pie.render();
-          // d3
+          //pie chart end
+
+          // d3 word cloud start
+          // 데이터 형식 text:~~~~,value:~~~~~
           var fill = d3.scaleOrdinal(d3.schemeCategory20);
-          console.log(fill)
           var layout = d3.layout.cloud()
-                      .size([700, 300])
+                      .size([800, 320])
                       .words(wordcloud)
+                      .padding(10) //space between words
+                      .font('Helvetica')
+                      .fontWeight("bold")
                       .on("end", draw);
+                      
           layout.start();
           function draw(words) {
             d3.select("#my_dataviz")
@@ -115,10 +128,12 @@ $(function()
             .data(words)
             .enter()
             .append("text")
-            .text((d) => d.categories)
-            .style("font-size", (d) => d.count/3000 + "px")
+            .text((d) => d.text)
+            .style("font-size", (d) => Math.sqrt(d.value))
             .style("fill", (d, i) => fill(i))
             .style("font-family", (d) => d.font)
             .attr("text-anchor", "middle")
             .attr("transform", (d) => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")");
-    }    })
+    }    
+      //wordcloud end
+})

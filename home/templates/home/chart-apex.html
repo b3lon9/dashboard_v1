@@ -94,7 +94,7 @@
                         </div>
                         <div class="card-body">
                             {% comment %} <div id="my_dataviz"></div> {% endcomment %}
-                            <svg id="my_dataviz" width="700" height="300"></svg>
+                            <svg id="my_dataviz" width="800" height="320"></svg>
                         </div>
                     </div>
                 </div>
@@ -114,6 +114,7 @@
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script type="text/javascript">
     var dict = {{ city_json|safe }};
+    var wordcloud = {{ wordcloud_json|safe }};
 </script>
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
     <script src="/static/assets/js/pages/chart-apex.js"></script>
