@@ -1,151 +1,29 @@
-'use strict';
-setTimeout(function() {
-    (function () {
-        var options = {
-            chart: {
-                height: 300,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                }
-            },
-            dataLabels: {
-                enabled: false,
-                width: 2,
-            },
-            stroke: {
-                curve: 'straight',
-            },
-            colors: ["#4099ff"],
-            fill: {
-                type: "gradient",
-                gradient: {
-                    shade: 'light'
-                },
-            },
-            series: [{
-                name: "Desktops",
-                data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-            }],
-            title: {
-                text: 'Product Trends by Month',
-                align: 'left'
-            },
-            grid: {
-                row: {
-                    colors: ['#f3f6ff', 'transparent'], // takes an array which will be repeated on columns
-                    opacity: 0.5
-                },
-            },
-            xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-            }
+$(function() 
+    {   const color =[];
+        while (color.length < 20) {
+            do {
+                var arrs = Math.floor((Math.random()*1000000)+1);
+            } while (color.indexOf(arrs) >= 0);
+            color.push("#" + ("000000" + arrs.toString(16)).slice(-6));
         }
-        var chart = new ApexCharts(
-            document.querySelector("#line-chart-1"),
-            options
-        );
-        chart.render();
-    })();
-    (function () {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'area',
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            colors: ["#FFB64D", "#FF5370"],
-            series: [{
-                name: 'series1',
-                data: [31, 40, 28, 51, 42, 109, 100]
-            }, {
-                name: 'series2',
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }],
-
-            xaxis: {
-                type: 'datetime',
-                categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],
-            },
-            tooltip: {
-                x: {
-                    format: 'dd/MM/yy HH:mm'
-                },
-            }
+        const city_json = dict
+        var wordcloud = []
+        var dataYear = []
+        var dataPop=[]
+        var dataCate=[]
+        for(var i = 0; i< city_json.length;i++){
+            wordcloud.push({
+                year:String(city_json[i].year),
+                count:city_json[i].population,
+                categories:String(city_json[i].name)
+        });
         }
-
-        var chart = new ApexCharts(
-            document.querySelector("#area-chart-1"),
-            options
-        );
-
-        chart.render();
-    })();
-    (function () {
-        var options = {
-            chart: {
-                height: 350,
-                type: 'bar',
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '55%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            colors: ["#0e9e4a", "#4099ff", "#FF5370"],
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ['transparent']
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shade: 'light',
-                    type: "vertical",
-                    shadeIntensity: 0.25,
-                    inverseColors: true,
-                    opacityFrom: 1,
-                    opacityTo: 0.7,
-                    stops: [50, 100]
-                },
-            },
-            series: [{
-                name: 'Net Profit',
-                data: [44, 55, 57, 56, 61, 58, 63]
-            }, {
-                name: 'Revenue',
-                data: [76, 85, 101, 98, 87, 105, 91]
-            }, {
-                name: 'Free Cash Flow',
-                data: [35, 41, 36, 26, 45, 48, 52]
-            }],
-            xaxis: {
-                categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-            },
-            yaxis: {
-                title: {
-                    text: '$ (thousands)'
-                }
-            },
-            tooltip: {
-                y: {
-                    formatter: function(val) {
-                        return "$ " + val + " thousands"
-                    }
-                }
-            }
+        for(var i = 0; i< city_json.length;i++){
+            dataYear.push(
+                String(city_json[i].year)
+            );
         }
+<<<<<<< HEAD
         var chart = new ApexCharts(
             document.querySelector("#bar-chart-1"),
             options
@@ -200,100 +78,72 @@ setTimeout(function() {
             xaxis: {
                 categories: [2001, 2002,],
             },
+=======
+        for(var i = 0; i< city_json.length;i++){
+            dataPop.push(
+                city_json[i].population,
+            );
+>>>>>>> chang
         }
-        var chart = new ApexCharts(
-            document.querySelector("#bar-chart-3"),
-            options
-        );
-        chart.render();
-    })();
-    (function () {
-        var options = {
-            chart: {
-                height: 320,
-                type: 'pie',
-            },
-            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-            series: [44, 55, 13, 43, 22],
-            colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
-            legend: {
-                show: true,
-                position: 'bottom',
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shade: 'light',
-                    inverseColors: true,
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                dropShadow: {
-                    enabled: false,
-                }
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
+        for(var i = 0; i< city_json.length;i++){
+            dataCate.push(
+                String(city_json[i].name),
+            );
         }
-        var chart = new ApexCharts(
-            document.querySelector("#pie-chart-1"),
-            options
-        );
-        chart.render();
-    })();
-    (function () {
-        var options = {
+        var options_bar = {
+            series: [{
+              name: "Desktops",
+              data: dataPop
+          }],
             chart: {
-                height: 320,
-                type: 'donut',
+            height: 350,
+            type: 'bar',
+            zoom: {
+              enabled: false
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'straight'
+          },
+          title: {
+            text: 'Product Trends by Month',
+            align: 'left'
+          },
+          grid: {
+            row: {
+              colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+              opacity: 0.5
             },
-            series: [44, 55, 41, 17, 15],
-            colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shade: 'light',
-                    inverseColors: true,
-                }
-            },
-            legend: {
-                show: true,
-                position: 'bottom',
-            },
-            plotOptions: {
-                pie: {
-                    donut: {
-                        labels: {
-                            show: true,
-                            name: {
-                                show: true
-                            },
-                            value: {
-                                show: true
-                            }
-                        }
+          },
+          xaxis: {
+            categories: dataYear,
+          }
+          };
+        var chart_bar = new ApexCharts(document.querySelector("#line-chart-1"), options_bar);
+        chart_bar.render();
+
+        var options_pie = {
+            series: dataPop,
+            chart: {
+            width: 380,
+            type: 'donut',
+          },
+          labels: dataCate,
+          colors:color,
+          responsive: [{
+            breakpoint: 480,
+            options: {
+                plotOptions: {
+                    pie: {
+                        expandOnClick: false,
+                        donut: {
+                            size: 200
+                      }
                     }
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                dropShadow: {
-                    enabled: false,
-                }
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    legend: {
-                        position: 'bottom'
-                    }
+<<<<<<< HEAD
                 }
             }]
         }
@@ -305,3 +155,42 @@ setTimeout(function() {
     })();
     
 }, 700);
+=======
+                  },
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }]
+          };
+  
+          var chart_pie = new ApexCharts(document.querySelector("#pie-chart-1"), options_pie);
+          chart_pie.render();
+          // d3
+          var fill = d3.scaleOrdinal(d3.schemeCategory20);
+          console.log(fill)
+          var layout = d3.layout.cloud()
+                      .size([700, 300])
+                      .words(wordcloud)
+                      .on("end", draw);
+          layout.start();
+          function draw(words) {
+            d3.select("#my_dataviz")
+            .append("g")
+            .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+            .selectAll("text")
+            .data(words)
+            .enter()
+            .append("text")
+            .text((d) => d.categories)
+            .style("font-size", (d) => d.count/3000 + "px")
+            .style("fill", (d, i) => fill(i))
+            .style("font-family", (d) => d.font)
+            .attr("text-anchor", "middle")
+            .attr("transform", (d) => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")");
+    }
+})
+>>>>>>> chang
