@@ -19,77 +19,20 @@ $(function()
         });
         }
         for(var i = 0; i< city_json.length;i++){
-            dataYear.push(
-                String(city_json[i].year)
-            );
-        }
-<<<<<<< HEAD
-        var chart = new ApexCharts(
-            document.querySelector("#bar-chart-1"),
-            options
-        );
-        chart.render();
-    })();
-    (function () {
-        var options = {
-            chart: {
-                height: 200,
-                type: 'bar',
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: true,
-                    dataLabels: {
-                        position: 'top',
-                    },
-                }
-            },
-            colors: ["#4099ff", "#0e9e4a"],
-            dataLabels: {
-                enabled: true,
-                offsetX: -6,
-                style: {
-                    fontSize: '12px',
-                    colors: ['#fff']
-                }
-            },
-            stroke: {
-                show: true,
-                width: 1,
-                colors: ['#fff']
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shade: 'light',
-                    type: "horizontal",
-                    shadeIntensity: 0.25,
-                    inverseColors: true,
-                    opacityFrom: 0.8,
-                    opacityTo: 1,
-                    stops: [0, 100]
-                },
-            },
-            series: [{
-                data: [44, 55, ]
-            }, {
-                data: [53, 32, ]
-            }],
-            xaxis: {
-                categories: [2001, 2002,],
-            },
-=======
-        for(var i = 0; i< city_json.length;i++){
-            dataPop.push(
-                city_json[i].population,
-            );
->>>>>>> chang
-        }
-        for(var i = 0; i< city_json.length;i++){
             dataCate.push(
                 String(city_json[i].name),
             );
         }
+        for(var i = 0; i< city_json.length;i++){
+            dataYear.push(
+                String(city_json[i].year)
+            );
+        }
+        for(var i = 0; i< city_json.length;i++){
+            dataPop.push(
+                city_json[i].population);
+        }
+
         var options_bar = {
             series: [{
               name: "Desktops",
@@ -143,19 +86,6 @@ $(function()
                             size: 200
                       }
                     }
-<<<<<<< HEAD
-                }
-            }]
-        }
-        var chart = new ApexCharts(
-            document.querySelector("#pie-chart-2"),
-            options
-        );
-        chart.render();
-    })();
-    
-}, 700);
-=======
                   },
               chart: {
                 width: 200
@@ -191,6 +121,4 @@ $(function()
             .style("font-family", (d) => d.font)
             .attr("text-anchor", "middle")
             .attr("transform", (d) => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")");
-    }
-})
->>>>>>> chang
+    }    })
