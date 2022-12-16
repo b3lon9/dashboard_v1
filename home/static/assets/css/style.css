@@ -23201,7 +23201,7 @@ pre[class*=language-]:before {
     position: absolute;
     box-shadow: 2px 0 2.94px 0.06px rgba(4, 26, 55, 0.16);
     transition: all 0.05s ease-in-out;
-    width: 235px;
+    width: 275px;
     height: calc(100% - 56px);
     margin-top: 56px;
     top: 0;
@@ -23459,7 +23459,7 @@ pre[class*=language-]:before {
 }
 
 .pcoded-navbar.navbar-collapsed {
-    width: 70px;
+    width: 30px;
     height: 100%;
     transition: all 0.15s ease-in-out;
 }
