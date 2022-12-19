@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Dashboard {% endblock %} 
+{% block title %} home {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -17,9 +17,19 @@
 <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
 <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
 
+<<<<<<< HEAD
 <script src="//cdn.jsdelivr.net/npm/chart.js"></script>
+=======
+    <script src="//cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/chart.js"></script>
+>>>>>>> d7648a974d0ecf8340d219cdeea3981970b3c348
 
+    <script src="/static/assets/js/pages/ksw_charts.js"></script>
 
+<<<<<<< HEAD
 
     <script>
 
@@ -173,6 +183,8 @@
         })();
 
         </script>
+=======
+>>>>>>> d7648a974d0ecf8340d219cdeea3981970b3c348
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-content">
@@ -185,16 +197,50 @@
 
                     <div class="card text-center">
                         <div class=" p-3 ">
-                            <input type="checkbox" class="btn-check" id="btn-check-cafe" onclick='category("cafe")' autocomplete="on" checked>
+                            {% comment %} <input type="checkbox" class="btn-check" id="btn-check-cafe" onclick='category("cafe")' autocomplete="on" checked>
                             <label class="btn btn-outline-primary" for="btn-check-cafe">카페</label>
 
                             <input type="checkbox" class="btn-check" id="btn-check-blog" onclick='category("blog")' autocomplete="on" checked>
                             <label class="btn btn-outline-primary" for="btn-check-blog">블로그</label>
 
                             <input type="checkbox" class="btn-check" id="btn-check-news" onclick='category("news")' autocomplete="on" checked>
-                            <label class="btn btn-outline-primary" for="btn-check-news">뉴스</label>
+                            <label class="btn btn-outline-primary" for="btn-check-news">뉴스</label> {% endcomment %}
+                            
+                            <div class='top-search-bar top-search-option-box mt-3' style='justify-content: center'>
+                                <ul class="sns-switch-list" id="channelCheckBoxUl" >
+
+                                    <li class="switch-item type2 label-left fill-green">
+                                        <label for="btn-check-cafe" class="switch">
+                                            <span class="switch-text">카페</span>
+                                            <input type="checkbox" class="sourceCheckbox" id="btn-check-cafe" onclick='category("cafe")' checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </li>
+        
+                                    <li class="switch-item type2 label-left fill-green">
+                                        <label for="btn-check-blog" class="switch">
+                                            <span class="switch-text">블로그</span>
+                                            <input type="checkbox" class="sourceCheckbox" id="btn-check-blog" onclick='category("blog")' checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </li>
+
+                                    <li class="switch-item type2 label-left fill-green">
+                                        <label for="btn-check-news" class="switch">
+                                            <span class="switch-text">뉴스</span>
+                                            <input type="checkbox" class="sourceCheckbox" id="btn-check-news" onclick='category("news")' checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </li>
+        
+
+                                </ul>
+                            </div>
+                            
+
                         </div>
-                    
+                        
+                        <hr>
                     
                         <div class="row">
                             <div class="col-xl-6 pe-1">
@@ -503,8 +549,8 @@
                                 </div>
                             </div> 
 
-                            <div class="card">
-                                <canvas id="myChart"></canvas>
+                            <div class="card p-4">
+                                    <canvas id="myChart"></canvas>
                             </div>
 
                             <div class="card">
