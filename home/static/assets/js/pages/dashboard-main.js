@@ -366,8 +366,7 @@ function floatchart() {
         var chart = new ApexCharts(document.querySelector("#customer-chart1"), options1);
         chart.render();
     })();
-    // [ customer-chart ] end
-    // [ unique-visitor-chart ] start
+
     (function () {
         var options = {
             chart: {
@@ -385,8 +384,8 @@ function floatchart() {
                 curve: 'smooth'
             },
             series: [{
-                name: "Tokyo",
-                data: dataPoint.data
+                name: 'Arts',
+                data: [20, 50, 30, 60, 30, 50]
             }, {
                 name: 'Commerce',
                 data: [60, 30, 65, 45, 67, 35]
@@ -395,7 +394,8 @@ function floatchart() {
                 position: 'top',
             },
             xaxis: {
-                categories: dataPoint.year,
+                type: 'datetime',
+                categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000'],
                 axisBorder: {
                     show: false,
                 },

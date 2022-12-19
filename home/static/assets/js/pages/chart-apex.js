@@ -110,6 +110,19 @@ $(function()
 
           // d3 word cloud start
           // 데이터 형식 text:~~~~,value:~~~~~
+
+          //
+          var data = [
+            {text: "Hello", value:6260},
+            {text: "happy", value:5370},
+            {text: "beautiful", value:2480},
+            {text: "rainbow", value:4350},
+            {text: "unicorn", value:1250},
+            {text: "glitter", value:3140},
+            {text: "happy", value:990},
+            {text: "pie", value:4230}];
+          //
+
           var fill = d3.scaleOrdinal(d3.schemeCategory20);
           var layout = d3.layout.cloud()
                       .size([320, 320])
