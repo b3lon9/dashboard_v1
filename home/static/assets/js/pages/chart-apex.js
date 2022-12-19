@@ -75,11 +75,11 @@ $(function()
         chart_bar.render();
         //bar chart end
 
-        //pie chart start
-        var options_pie = {
+        //pie chart_1 start
+        var options_pie_1 = {
             series: dataPop,
             chart: {
-            width: 380,
+            width: 318,
             type: 'donut',
           },
           labels: dataCate,
@@ -104,30 +104,51 @@ $(function()
             }
           }]
           };
-          var chart_pie = new ApexCharts(document.querySelector("#pie-chart-1"), options_pie);
-          chart_pie.render();
-          //pie chart end
+          var chart_pie_1 = new ApexCharts(document.querySelector("#pie-chart-1"), options_pie_1);
+          chart_pie_1.render();
+          //pie chart_1 end
+
+        //pie chart_2 start
+        var options_pie_2 = {
+          series: dataPop,
+          chart: {
+          width: 318,
+          type: 'donut',
+        },
+        labels: dataCate,
+        colors:color,
+        responsive: [{
+          breakpoint: 480,
+          options: {
+              plotOptions: {
+                  pie: {
+                      expandOnClick: false,
+                      donut: {
+                          size: 200
+                    }
+                  }
+                },
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+        var chart_pie_2 = new ApexCharts(document.querySelector("#pie-chart-2"), options_pie_2);
+        chart_pie_2.render();
+        //pie chart_2 end
 
           // d3 word cloud start
           // 데이터 형식 text:~~~~,value:~~~~~
-
-          //
-          var data = [
-            {text: "Hello", value:6260},
-            {text: "happy", value:5370},
-            {text: "beautiful", value:2480},
-            {text: "rainbow", value:4350},
-            {text: "unicorn", value:1250},
-            {text: "glitter", value:3140},
-            {text: "happy", value:990},
-            {text: "pie", value:4230}];
-          //
 
           var fill = d3.scaleOrdinal(d3.schemeCategory20);
           var layout = d3.layout.cloud()
                       .size([320, 320])
                       .words(wordcloud)
-                      .padding(10) //space between words
+                      .padding(5) //space between words
                       .font('Helvetica')
                       .fontWeight("bold")
                       .on("end", draw);
