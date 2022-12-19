@@ -17,6 +17,12 @@
     <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
     <script src="//cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <script>
+        var positve_bar = {{ positve_bar|safe }};
+        var negative_bar = {{ negative_bar|safe }};
+        console.log(tmp)
+    </script>
+
     <script src="/static/assets/js/pages/ksw_charts.js"></script>
 
     <!-- [ Main Content ] start -->
@@ -31,14 +37,17 @@
 
                     <div class="card text-center">
                         <div class=" p-3 ">
-                            {% comment %} <input type="checkbox" class="btn-check" id="btn-check-cafe" onclick='category("cafe")' autocomplete="on" checked>
-                            <label class="btn btn-outline-primary" for="btn-check-cafe">카페</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-blog" onclick='category("blog")' autocomplete="on" checked>
-                            <label class="btn btn-outline-primary" for="btn-check-blog">블로그</label>
+                            {% comment %} 
+                                <input type="checkbox" class="btn-check" id="btn-check-cafe" onclick='category("cafe")' autocomplete="on" checked>
+                                <label class="btn btn-outline-primary" for="btn-check-cafe">카페</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-news" onclick='category("news")' autocomplete="on" checked>
-                            <label class="btn btn-outline-primary" for="btn-check-news">뉴스</label> {% endcomment %}
+                                <input type="checkbox" class="btn-check" id="btn-check-blog" onclick='category("blog")' autocomplete="on" checked>
+                                <label class="btn btn-outline-primary" for="btn-check-blog">블로그</label>
+
+                                <input type="checkbox" class="btn-check" id="btn-check-news" onclick='category("news")' autocomplete="on" checked>
+                                <label class="btn btn-outline-primary" for="btn-check-news">뉴스</label> 
+                            {% endcomment %}
                             
                             <div class='top-search-bar top-search-option-box mt-3' style='justify-content: center'>
                                 <ul class="sns-switch-list" id="channelCheckBoxUl" >
@@ -51,7 +60,7 @@
                                         </label>
                                     </li>
         
-                                    <li class="switch-item type2 label-left fill-green">
+                                    <li class="switch-item type2 label-left fill-green" style="margin-right:15px;margin-left: 15px;">
                                         <label for="btn-check-blog" class="switch">
                                             <span class="switch-text">블로그</span>
                                             <input type="checkbox" class="sourceCheckbox" id="btn-check-blog" onclick='category("blog")' checked>
@@ -101,68 +110,52 @@
                                     <div class="original-data" id = "1_pos_post"> 
                                         <div class="hidden-scroll yscroll-overlay">
                                             <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list" id="originalDocsUl" data-id="original-data-list-compare-reputation" style="opacity: 1; ">
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'blog' onclick="window.open('https://blog.naver.com/aeyongly/222953745910')">
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">NCT 127 플러스 콘서트 다녀왔습니다</dt>
-                                                    <dd class="mention-desc-text">그래서 <mark>갤럭시</mark> 짱</dd>
-                                                </dl>
                                                 
-                                            </li>
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'news' onclick="window.open('https://blog.naver.com/aeyongly/222953745910')">
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_news.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">NCT 127 플러스 콘서트 다녀왔습니다</dt>
-                                                    <dd class="mention-desc-text">그래서 <mark>갤럭시</mark> 짱</dd>
-                                                </dl>
-                                                
-                                            </li>
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'cafe' onclick="window.open('https://blog.naver.com/aeyongly/222953745910')">
-                                                <span class="icon-channel"><img src="https://ca-fe.pstatic.net/web-section/favicon.ico" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">NCT 127 플러스 콘서트 다녀왔습니다</dt>
-                                                    <dd class="mention-desc-text">그래서 <mark>갤럭시</mark> 짱</dd>
-                                                </dl>
-                                                
-                                            </li>
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'blog' onclick="window.open('https://blog.naver.com/aeyongly/222953745910')">
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">NCT 127 플러스 콘서트 다녀왔습니다</dt>
-                                                    <dd class="mention-desc-text">그래서 <mark>갤럭시</mark> 짱</dd>
-                                                </dl>
-                                                
-                                            </li>
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'blog' onclick="window.open('https://blog.naver.com/aeyongly/222953745910')">
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">NCT 127 플러스 콘서트 다녀왔습니다</dt>
-                                                    <dd class="mention-desc-text">그래서 <mark>갤럭시</mark> 짱</dd>
-                                                </dl>
-                                                
-                                            </li>
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'blog' onclick="window.open('https://blog.naver.com/aeyongly/222953745910')">
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">NCT 127 플러스 콘서트 다녀왔습니다</dt>
-                                                    <dd class="mention-desc-text">그래서 <mark>갤럭시</mark> 짱</dd>
-                                                </dl>
-                                                
-                                            </li>
+                                                {% for item in keword1_positive %}
+                                                    <li class="original-data-item" style="cursor:pointer;" id = {{item.cate}} onclick="window.open('{{item.link}}')">
+                                                        {%if item.cate == 'blog'%}
+                                                        <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
+                                                        {%elif item.cate == 'news'%}
+                                                        <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_news.svg" alt=""></span>
+                                                        {%elif item.cate == 'cafe'%}
+                                                        <span class="icon-channel"><img src="https://ca-fe.pstatic.net/web-section/favicon.ico" alt=""></span>
+                                                        {% endif %}
+                                                        <dl class="mention-desc">
+                                                            <dt class="mention-desc-title">{{item.title}}</dt>
+                                                            <dd class="mention-desc-text">{{item.text}}</dd>
+                                                        </dl>
+                                                        
+                                                    </li>
+
+                                                {% endfor %}
+                                            
+                                            </ul>
                                         </div>
                                     </div>
 
                                     <div class="original-data" id = "1_neg_post" style='display:none;'>
                                         <div class="hidden-scroll yscroll-overlay">
                                             <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list" id="originalDocsUl" data-id="original-data-list-compare-reputation" style="opacity: 1;">
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'blog' onclick="window.open('https://blog.naver.com/aeyongly/222953745910')">
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">NCT 127 플러스 콘서트 다녀왔습니다</dt>
-                                                    <dd class="mention-desc-text">그래서 <mark>갤럭시</mark> 짱</dd>
-                                                </dl>
                                                 
-                                            </li>
+                                                {% for item in keword1_negative %}
+                                                <li class="original-data-item" style="cursor:pointer;" id = {{item.cate}} onclick="window.open('{{item.link}}')">
+                                                    {%if item.cate == 'blog'%}
+                                                    <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
+                                                    {%elif item.cate == 'news'%}
+                                                    <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_news.svg" alt=""></span>
+                                                    {%elif item.cate == 'cafe'%}
+                                                    <span class="icon-channel"><img src="https://ca-fe.pstatic.net/web-section/favicon.ico" alt=""></span>
+                                                    {% endif %}
+                                                    <dl class="mention-desc">
+                                                        <dt class="mention-desc-title">{{item.title}}</dt>
+                                                        <dd class="mention-desc-text">{{item.text}}</dd>
+                                                    </dl>
+                                                    
+                                                </li>
+
+                                                {% endfor %}
+
+                                            </ul>
                                         </div>
                                     </div>
                                    
@@ -191,68 +184,53 @@
                                     <div class="original-data" id = "2_pos_post">
                                         <div class="hidden-scroll yscroll-overlay">
                                             <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list" id="originalDocsUl" data-id="original-data-list-compare-reputation" style="opacity: 1;">
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'cafe'>
-                                                <span class="icon-channel"><img src="https://ca-fe.pstatic.net/web-section/favicon.ico" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬</dt>
-                                                    <dd class="mention-desc-text"><mark>아이폰14</mark> 아니면 에어맥 밀키줘</dd>
-                                                </dl>
                                                 
-                                            </li>
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'news'>
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_news.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬</dt>
-                                                    <dd class="mention-desc-text"><mark>아이폰14</mark> 아니면 에어맥 밀키줘</dd>
-                                                </dl>
+                                                {% for item in keword2_positive %}
+                                                <li class="original-data-item" style="cursor:pointer;" id = {{item.cate}} onclick="window.open('{{item.link}}')">
+                                                    {%if item.cate == 'blog'%}
+                                                    <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
+                                                    {%elif item.cate == 'news'%}
+                                                    <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_news.svg" alt=""></span>
+                                                    {%elif item.cate == 'cafe'%}
+                                                    <span class="icon-channel"><img src="https://ca-fe.pstatic.net/web-section/favicon.ico" alt=""></span>
+                                                    {% endif %}
+                                                    <dl class="mention-desc">
+                                                        <dt class="mention-desc-title">{{item.title}}</dt>
+                                                        <dd class="mention-desc-text">{{item.text}}</dd>
+                                                    </dl>
+                                                    
+                                                </li>
+
+                                                {% endfor %}
                                                 
-                                            </li>
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'blog'>
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬</dt>
-                                                    <dd class="mention-desc-text"><mark>아이폰14</mark> 아니면 에어맥 밀키줘</dd>
-                                                </dl>
                                                 
-                                            </li>
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'blog'>
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬</dt>
-                                                    <dd class="mention-desc-text"><mark>아이폰14</mark> 아니면 에어맥 밀키줘</dd>
-                                                </dl>
-                                                
-                                            </li>
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'blog'>
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬</dt>
-                                                    <dd class="mention-desc-text"><mark>아이폰14</mark> 아니면 에어맥 밀키줘</dd>
-                                                </dl>
-                                                
-                                            </li>
-                                            <li class="original-data-item" style="cursor:pointer;" id = 'blog'>
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬</dt>
-                                                    <dd class="mention-desc-text"><mark>아이폰14</mark> 아니면 에어맥 밀키줘</dd>
-                                                </dl>
-                                                
-                                            </li>
+                                            </ul>
                                         </div>
                                     </div>
 
                                     <div class="original-data" id = "2_neg_post" style='display:none;' id = 'blog'>
                                         <div class="hidden-scroll yscroll-overlay">
                                             <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list" id="originalDocsUl" data-id="original-data-list-compare-reputation" style="opacity: 1;">
-                                            <li class="original-data-item" style="cursor:pointer;">
-                                                <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
-                                                <dl class="mention-desc">
-                                                    <dt class="mention-desc-title">[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬</dt>
-                                                    <dd class="mention-desc-text"><mark>아이폰14</mark> 아니면 에어맥 밀키줘</dd>
-                                                </dl>
                                                 
-                                            </li>
+                                                {% for item in keword2_negative %}
+                                                <li class="original-data-item" style="cursor:pointer;" id = {{item.cate}} onclick="window.open('{{item.link}}')">
+                                                    {%if item.cate == 'blog'%}
+                                                    <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
+                                                    {%elif item.cate == 'news'%}
+                                                    <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_news.svg" alt=""></span>
+                                                    {%elif item.cate == 'cafe'%}
+                                                    <span class="icon-channel"><img src="https://ca-fe.pstatic.net/web-section/favicon.ico" alt=""></span>
+                                                    {% endif %}
+                                                    <dl class="mention-desc">
+                                                        <dt class="mention-desc-title">{{item.title}}</dt>
+                                                        <dd class="mention-desc-text">{{item.text}}</dd>
+                                                    </dl>
+                                                    
+                                                </li>
+
+                                                
+                                                {% endfor %}
+                                            </ul>
                                         </div>
                                     </div>
                                 </div> 

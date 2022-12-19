@@ -119,13 +119,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const DATA_COUNT = 7;
     const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
 
+    var min_neg = Math.min(...negative_bar)
+    var max_pos = Math.max(...positve_bar)
+
+    console.log(min_neg)
+    console.log(max_pos)
+
+    max_pos = max_pos / 0.8
+    min_neg = min_neg / 0.8
+
+    var val = Math.max(max_pos,Math.abs(min_neg))
+
+    console.log(negative_bar)
+    console.log(positve_bar)
+
     const labels = ['갤럭시','아이폰'];
     const data = {
     labels: labels,
     datasets: [
         {
         label: '긍정',
-        data: [8,2],
+        data: positve_bar,
         borderColor: '#4dc9f6',            
         backgroundColor: '#4dc9f6',//Utils.transparentize('#4dc9f6', 0.5),
         pointStyle: 'circle',
@@ -134,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
         label: '부정',
-        data: [-3,-7],
+        data: negative_bar,
         borderColor: '#f67019',
         backgroundColor: '#f67019',//Utils.transparentize('#f67019',, 0.5),
         pointStyle: 'circle',
@@ -176,8 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
           scales: {
             x: {
                 display:true,
-                min:-10,
-                max:10,
+                min:-val,
+                max:val,
                 grid: {
                     color: function(context) {
                         if (context.tick.value == 0) {
