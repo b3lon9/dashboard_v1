@@ -15,8 +15,11 @@ from home.models import Wordcloud
 def index(request):
     city = City.objects.values()
     city_json = json.dumps(list(city),cls=DjangoJSONEncoder)
+    wordcloud = Wordcloud.objects.values()
+    wordcloud_json=json.dumps(list(wordcloud),cls=DjangoJSONEncoder)
     context={
         'city_json':city_json,
+        'wordcloud_json':wordcloud_json,
     }
     return render(request, 'home/index.html',context)
 

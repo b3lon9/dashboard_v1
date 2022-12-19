@@ -5181,8 +5181,11 @@ textarea.form-control-lg {
 }
 
 .card-body {
-    flex: 1 1 auto;
+    /* flex: 1 1 auto; */
     padding: 25px 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-title {

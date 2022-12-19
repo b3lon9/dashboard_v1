@@ -36,7 +36,7 @@ $(function()
             dataPop.push(
                 city_json[i].population);
         }
-        //end create end data
+        //end create data
 
         //bar chart start
         var options_bar = {
@@ -125,9 +125,8 @@ $(function()
 
           var fill = d3.scaleOrdinal(d3.schemeCategory20);
           var layout = d3.layout.cloud()
-                      .size([800, 320])
-                      //.words(wordcloud)
-                      .words(data)
+                      .size([320, 320])
+                      .words(wordcloud)
                       .padding(10) //space between words
                       .font('Helvetica')
                       .fontWeight("bold")
