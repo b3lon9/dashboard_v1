@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -7,8 +7,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-from home.models import City
-from home.models import Wordcloud
+from home.models import City,Wordcloud,Question,Choice
 
 
 # Create your views here.
@@ -17,46 +16,36 @@ def index(request):
     city_json = json.dumps(list(city),cls=DjangoJSONEncoder)
     wordcloud = Wordcloud.objects.values()
     wordcloud_json=json.dumps(list(wordcloud),cls=DjangoJSONEncoder)
+    currnet_questions = Question.objects.order_by('-pub_date')[:5]
+    question = Question.objects.get(pk=1)
+    count_value = Choice.objects.values()
+    count_value_json=json.dumps(list(count_value),cls=DjangoJSONEncoder)
     context={
         'city_json':city_json,
         'wordcloud_json':wordcloud_json,
+        'currnet_questions':currnet_questions,
+        'question':question,
+        'count_value':count_value_json,
     }
     return render(request, 'home/index.html',context)
 
-@login_required(login_url="/login/")
-def pages(request):
-
-    context = {}
-    city = City.objects.values()
-    city_json = json.dumps(list(city),cls=DjangoJSONEncoder)
-    
-    wordcloud = Wordcloud.objects.values()
-    wordcloud_json=json.dumps(list(wordcloud),cls=DjangoJSONEncoder)
-    context={
-        'city_json':city_json,
-        'wordcloud_json':wordcloud_json,
-    }
-
-    # All resource paths end in .html.
-    # Pick out the html file name from the url. And load that template.
-
+def vote(request):
+    # print(request.POST['choice'])
+    question = get_object_or_404(Question, pk=1)
     try:
-        load_template = request.path.split('/')[-1]
-
-        if load_template == 'admin':
-            return HttpResponseRedirect(reverse('admin:index'))
-
-        context['segment'] = load_template
-        html_template = loader.get_template('home/' + load_template)
-
-        return HttpResponse(html_template.render(context, request))
-
-    except template.TemplateDoesNotExist:
-        html_template = loader.get_template('home/page-404.html')
-
-        return HttpResponse(html_template.render(context, request))
-
-    except:
-        html_template = loader.get_template('home/page-500.html')
-
-        return HttpResponse(html_template.render(context, request))
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        # Redisplay the question voting form.
+        return render(request, '', {
+            'question': question,
+            'error_message': "You didn't select a choice.",
+        })
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        print("---------------------------")
+        print(selected_choice.votes)
+        return render(request, 'home/index.html')

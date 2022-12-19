@@ -10,13 +10,14 @@
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
+<script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+<script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+<script src="//cdn.amcharts.com/lib/4/core.js"></script>
+<script src="//cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
 
-    <script src="//cdn.amcharts.com/lib/4/core.js"></script>
-    <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
-    <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
-    <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
-
-    <script src="//cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="//cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 
@@ -78,63 +79,6 @@
 
             return;
         }
-   
-        (function() {
-
-            //am4core.useTheme(am4themes_animated);
-
-            // Create chart
-            var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
-        
-            // Create series
-            var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
-            chart.legend = new am4charts.Legend();
-            // Set data
-            series.data = [{
-                "name": "갤럭시",
-                "value": 190,
-                "link": ["아이폰"],
-                "fixed": true,
-                "x": am4core.percent(35),
-                "y": am4core.percent(50), 
-              }, {
-                "name": "아이폰",
-                "value": 289
-                ,"link": ["갤럭시"],
-                "fixed": true,
-                "x": am4core.percent(65),
-                "y": am4core.percent(50), 
-              }, ];
-
-              series.colors.list = [
-                am4core.color("#F42B03"),
-                am4core.color("#D84A05"),
-                am4core.color("#EC7505"),
-                am4core.color("#E89005")
-                ];
-              
-
-
-            series.links.template.strokeOpacity = 0;
-            series.dataFields.fixed = "fixed";
-            series.nodes.template.propertyFields.x = "x";
-            series.nodes.template.propertyFields.y = "y";
-            
-            
-            // Set up data fields
-            series.dataFields.value = "value";
-            series.dataFields.name = "name";
-
-            series.dataFields.id = "name";
-            series.dataFields.linkWith = "link";
-            
-            series.nodes.template.label.text = "{value}";
-            series.fontSize = 20;
-            series.minRadius = 15;
-            series.maxRadius = 60;
-            series.centerStrength = 0.5;
- 
-        })();
 
         document.addEventListener('DOMContentLoaded', () => {
 
@@ -435,11 +379,6 @@
                             </div>  
                         </div>
                     </div>
-
-                    
-
-                    
-                    
                     <div class="row"> 
                         <div class="col-md-6 col-xl-4">
                             <div class="card">
@@ -590,14 +529,13 @@
 <script type="text/javascript">
     var dict = {{ city_json|safe }};
     var wordcloud = {{ wordcloud_json|safe }};
+    var count_value={{count_value|safe}};
 </script>
-<script src="/static/assets/js/plugins/apexcharts.min.js"></script>
-<script src="/static/assets/js/pages/chart-apex.js"></script>
-    <!-- Apex Chart -->
-    <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+
 
     <!-- custom-chart js -->
     <script src="/static/assets/js/pages/dashboard-main.js"></script>
+    <script src="/static/assets/js/pages/chart-apex.js"></script>
 
 
 {% endblock javascripts %}

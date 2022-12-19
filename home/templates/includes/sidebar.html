@@ -1,36 +1,29 @@
-
-	<!-- [ navigation menu ] start -->
+<!-- [ navigation menu ] start -->
 	<nav class="pcoded-navbar menupos-fixed menu-light ">
 		<div class="navbar-wrapper">
 			<div class="navbar-content scroll-div ">
 				<div class="card text-center">
 					<div class="card-head">
-						<span style='font-size:20px'>갤럭시 vs 아이폰<span>
+							<h1>{{ question.question_text }}</h1>
 					</div>
 					<div class="card-body">
-						<div class="row">
-							<div class="col-md-12 col-xl-6">
-								<input class="form-check-input" type="radio" name="chk_info" value="keywords_1" style='margin-top: 0em;'>
-								<span> 190 </span>
-							</div>
-							<div class="col-md-12 col-xl-6">
-								<input class="form-check-input" type="radio" name="chk_info" value="keywords_2"  style='margin-top: 0em;'>
-								<span> 289 </span>
-							</div>
-						</div>
+						<form action="{% url 'home:vote' %}" method="post">
+							{% csrf_token %} 
+							{% for choice in question.choice_set.all %}
+								<div class="form-check">
+									<input
+										type="radio"
+										name="choice"
+										class="form-check-input"
+										id="choice{{ forloop.counter }}"
+										value="{{ choice.id }}"
+									/>
+									<label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+								</div>
+							{% endfor %}
+							<input type="submit" value="Vote" class="btn btn-info btn-lg btn-block mt-4" />
+						</form>
 					</div>
-
-					<div class="row">
-						<div class="col-xl-8">
-							<textarea  rows="2" cols=5 class="comment-box"> </textarea>
-						</div>
-						<div class="col-xl-4  my-auto ps-2">
-							<button type="button" class="btn  btn-primary wid-55">투표</button>
-						</div>
-					</div>
-
-
-
 				</div>
 
 				<ul class="nav pcoded-inner-navbar ">

@@ -76,7 +76,7 @@ $(function()
         //bar chart end
 
         //pie chart_1 start
-        var options_pie_1 = {
+        var options_donut_1 = {
             series: dataPop,
             chart: {
             width: 318,
@@ -104,12 +104,12 @@ $(function()
             }
           }]
           };
-          var chart_pie_1 = new ApexCharts(document.querySelector("#pie-chart-1"), options_pie_1);
-          chart_pie_1.render();
+          var chart_donut_1 = new ApexCharts(document.querySelector("#pie-chart-1"), options_donut_1);
+          chart_donut_1.render();
           //pie chart_1 end
 
         //pie chart_2 start
-        var options_pie_2 = {
+        var options_donut_2 = {
           series: dataPop,
           chart: {
           width: 318,
@@ -137,8 +137,8 @@ $(function()
           }
         }]
         };
-        var chart_pie_2 = new ApexCharts(document.querySelector("#pie-chart-2"), options_pie_2);
-        chart_pie_2.render();
+        var chart_donut_2 = new ApexCharts(document.querySelector("#pie-chart-2"), options_donut_2);
+        chart_donut_2.render();
         //pie chart_2 end
 
           // d3 word cloud start

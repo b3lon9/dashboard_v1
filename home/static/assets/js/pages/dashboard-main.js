@@ -11,10 +11,13 @@ $(function() {
     //call database data
     const city_json = dict
     const wc_json = wordcloud
+    const cv_json = count_value
     var wc= []
     var dataYear = []
     var dataPop=[]
     var dataCate=[]
+    var voteCon=[]
+    var voteLabel=[]
     //create input data
     for(var i = 0; i< wc_json.length;i++){
       wc.push({
@@ -36,7 +39,14 @@ $(function() {
         dataPop.push(
             city_json[i].population);
     }
-    console.log(dataPop)
+    for(var i = 0; i< cv_json.length;i++){
+        voteLabel.push(
+            cv_json[i].choice_text);
+    }
+    for(var i = 0; i< cv_json.length;i++){
+        voteCon.push(
+            cv_json[i].votes);
+    }
     //end create data
     //bar chart start
     var options_bar = {
@@ -73,5 +83,38 @@ $(function() {
       };
     var chart_bar = new ApexCharts(document.querySelector("#unique-visitor-chart"), options_bar);
     chart_bar.render();
+    
+    //pie chart_1 start
+    var options_pie_1 = {
+        series: voteCon,
+        chart: {
+        width: 318,
+        type: 'pie',
+      },
+      labels: voteLabel,
+      colors:color,
+      responsive: [{
+        breakpoint: 480,
+        options: {
+            plotOptions: {
+                pie: {
+                    expandOnClick: false,
+                    donut: {
+                        size: 200
+                  }
+                }
+              },
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+      };
+      var chart_pie_1 = new ApexCharts(document.querySelector("#chartdiv"), options_pie_1);
+      chart_pie_1.render();
+      //pie chart_1 end
 
 })
