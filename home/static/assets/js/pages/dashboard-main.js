@@ -294,7 +294,7 @@ function floatchart() {
             plotOptions: {
                 pie: {
                     donut: {
-                        size: '75%'
+                        size: '60%'
                     }
                 }
             },
@@ -335,7 +335,7 @@ function floatchart() {
             plotOptions: {
                 pie: {
                     donut: {
-                        size: '75%'
+                        size: '60%'
                     }
                 }
             },
@@ -355,7 +355,7 @@ function floatchart() {
                     left: 0
                 },
             },
-            colors: ["#fff", "#2ed8b6"],
+            colors: ["#4680ff", "#2ed8b6"],
             fill: {
                 opacity: [1, 1]
             },
@@ -371,6 +371,7 @@ function floatchart() {
         var options = {
             chart: {
                 height: 230,
+                width:450,
                 type: 'line',
                 toolbar: {
                     show: false,
