@@ -30,7 +30,8 @@
                                 <img src="/static/assets/images/user/purple.png" class="img-radius"
                                 alt="User-Profile-Image">
                                 <span>
-                                    {{ request.user.username }}
+                                    {{ request.user.last_name}}
+                                    {{request.user.first_name }}
                                     <!-- todo, get user profile image / nickname -->
                                     <!-- {{ request.user.id }} -->
                                 </span>
