@@ -1,4 +1,7 @@
-
+{% load static %}
+{% load i18n %}
+{% load socialaccount %}
+{% load account %}
 	<!-- [ Header ] start -->
 	<header class="navbar pcoded-header navbar-expand-lg navbar-light headerpos-fixed header-green">
 			
@@ -23,13 +26,30 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end profile-notification">
                             <div class="pro-head">
+                                {% if request.user.is_authenticated %}
                                 <img src="/static/assets/images/user/purple.png" class="img-radius"
-                                    alt="User-Profile-Image">
+                                alt="User-Profile-Image">
                                 <span>
                                     {{ request.user.username }}
+                                    <!-- todo, get user profile image / nickname -->
+                                    <!-- {{ request.user.id }} -->
                                 </span>
+                                {% else %}
+                                
+                                {% endif %}
                             </div>
-                            <ul class="pro-body">
+                            <ul class="pro-flex-body">
+                                {% if request.user.is_authenticated %}
+                                <li>
+                                    <a href="{% url 'account_logout' %}" class="dropdown-item">
+                                        <i class="feather"></i>logout</a></li>
+                                {% else %}
+                                    <li><a href="{% provider_login_url 'naver'%}"><img src="{% static 'assets/images/login_icon/icon_naver.png' %}" alt="" class="img-radius wid-40 hei-40"></a></li>
+                                    <li><a href="{% provider_login_url 'google'%}"><img src="{% static 'assets/images/login_icon/icon_google.png' %}" alt="" class="img-radius wid-40 hei-40"></a></li>
+                                {% endif %}
+                            </ul>
+
+                            {% comment %} <ul class="pro-body">
                                 <li>
                                     <a href="/login/" 
                                        class="dropdown-item"><i
@@ -38,7 +58,7 @@
                                     <a href="{% url 'account_logout' %}"
                                         class="dropdown-item"><i
                                             class="feather icon-lock"></i>Logout</a></li>
-                            </ul>
+                            </ul> {% endcomment %}
                         </div>
                     </div>
                 </li>
