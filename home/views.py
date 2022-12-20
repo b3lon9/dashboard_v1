@@ -7,8 +7,9 @@ from django.urls import reverse
 from django.http import JsonResponse
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-from home.models import City,Wordcloud,Question,Choice
-
+from home.models import City,Wordcloud,Question,Choice,Vote
+from django.contrib import messages
+from allauth.socialaccount.models import SocialAccount
 
 # Create your views here.
 def index(request):
@@ -82,7 +83,10 @@ def index(request):
     
     
     # ---->권석원 context
-    
+    # 장현광 context
+    # world cloud: value(단어),count(빈도수)
+    # pie-chart: 점수(1~5점),점수 횟수(ex: 1점 10회,2점 30회등)
+
     context={
         'city_json':city_json,
         'wordcloud_json':wordcloud_json,
@@ -103,20 +107,24 @@ def index(request):
 
 def vote(request):
     # print(request.POST['choice'])
+    choice = get_object_or_404(Choice, pk=1)
     question = get_object_or_404(Question, pk=1)
-    print("-----------------------")
-    print("nomuhon")
+    if Vote.objects.filter(choice=choice,voter=request.user).exists():
+      messages.error(request,"Already Voted on this choice")
+      return HttpResponseRedirect('/home')
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
+        print("-------------------------------")
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
         return render(request, '', {
-            'question': question,
+            'question': question,   
             'error_message': "You didn't select a choice.",
         })
     else:
         selected_choice.votes += 1
         selected_choice.save()
+        Vote.objects.create(voter=request.user, choice=choice)
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.

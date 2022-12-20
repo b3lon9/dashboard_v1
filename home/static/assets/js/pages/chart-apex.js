@@ -148,9 +148,10 @@ $(function()
           var layout = d3.layout.cloud()
                       .size([320, 320])
                       .words(wordcloud)
-                      .padding(5) //space between words
+                      .padding(0) //space between words
                       .font('Helvetica')
                       .fontWeight("bold")
+                      .rotate(0)//word cloud 형태
                       .on("end", draw);
                       
           layout.start();
