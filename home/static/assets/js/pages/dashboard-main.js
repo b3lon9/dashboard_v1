@@ -48,6 +48,7 @@ $(function() {
             cv_json[i].votes);
     }
     //end create data
+    
     //bar chart start
     var options_bar = {
         series: [{
