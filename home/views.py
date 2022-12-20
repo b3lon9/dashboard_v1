@@ -86,6 +86,7 @@ def index(request):
     # 장현광 context
     # world cloud: value(단어),count(빈도수)
     # pie-chart: 점수(1~5점),점수 횟수(ex: 1점 10회,2점 30회등)
+
     context={
         'city_json':city_json,
         'wordcloud_json':wordcloud_json,
