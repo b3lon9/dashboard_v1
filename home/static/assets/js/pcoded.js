@@ -15,15 +15,15 @@ document.addEventListener("DOMContentLoaded", function () {
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl)
     })
-    document.querySelector("#mobile-collapse").addEventListener('click', function () {
-        if (vw > 991) {
-            if (document.querySelector(".pcoded-navbar:not(.theme-horizontal)").classList.contains('navbar-collapsed')) {
-                document.querySelector(".pcoded-navbar:not(.theme-horizontal)").classList.remove('navbar-collapsed');
-            } else {
-                document.querySelector(".pcoded-navbar:not(.theme-horizontal)").classList.add('navbar-collapsed');
-            }
-        }
-    });
+    // document.querySelector("#mobile-collapse").addEventListener('click', function () {
+    //     if (vw > 991) {
+    //         if (document.querySelector(".pcoded-navbar:not(.theme-horizontal)").classList.contains('navbar-collapsed')) {
+    //             document.querySelector(".pcoded-navbar:not(.theme-horizontal)").classList.remove('navbar-collapsed');
+    //         } else {
+    //             document.querySelector(".pcoded-navbar:not(.theme-horizontal)").classList.add('navbar-collapsed');
+    //         }
+    //     }
+    // });
     document.querySelector(".mob-toggler").addEventListener('click', function () {
         document.querySelector('.pcoded-header > .collapse,.pcoded-header > .container > .collapse').classList.toggle('d-flex');
     });
@@ -249,38 +249,38 @@ function menuclick() {
     }
 }
 
-document.querySelector(".mobile-menu").addEventListener('click', function () {
-    if (document.querySelector(".mobile-menu").classList.contains('on')) {
-        document.querySelector(".mobile-menu").classList.remove('on');
-    } else {
-        document.querySelector(".mobile-menu").classList.add('on');
-    }
-});
+// document.querySelector(".mobile-menu").addEventListener('click', function () {
+//     if (document.querySelector(".mobile-menu").classList.contains('on')) {
+//         document.querySelector(".mobile-menu").classList.remove('on');
+//     } else {
+//         document.querySelector(".mobile-menu").classList.add('on');
+//     }
+// });
 // menu [ Mobile ]
-document.querySelector("#mobile-collapse").addEventListener("click", function (e) {
-    var vw = window.innerWidth;
-    if (vw < 992) {
-        if (document.querySelector(".pcoded-navbar").classList.contains('mob-open')) {
-            document.querySelector(".pcoded-navbar").classList.remove('mob-open');
-        } else {
-            document.querySelector(".pcoded-navbar").classList.add('mob-open');
-        }
-        e.stopPropagation();
-    }
-});
+// document.querySelector("#mobile-collapse").addEventListener("click", function (e) {
+//     var vw = window.innerWidth;
+//     if (vw < 992) {
+//         if (document.querySelector(".pcoded-navbar").classList.contains('mob-open')) {
+//             document.querySelector(".pcoded-navbar").classList.remove('mob-open');
+//         } else {
+//             document.querySelector(".pcoded-navbar").classList.add('mob-open');
+//         }
+//         e.stopPropagation();
+//     }
+// });
 document.addEventListener("DOMContentLoaded", function () {
     var vw = window.innerWidth;
     document.querySelector(".pcoded-navbar").addEventListener('click tap', function (e) {
         e.stopPropagation();
     });
-    document.querySelector('.pcoded-main-container').addEventListener("click", function () {
-        if (vw < 992) {
-            if (document.querySelector(".pcoded-navbar").classList.contains("mob-open") == true) {
-                document.querySelector(".pcoded-navbar").classList.remove('mob-open');
-                document.querySelector("#mobile-collapse,#mobile-collapse1").classList.remove('on');
-            }
-        }
-    });
+    // document.querySelector('.pcoded-main-container').addEventListener("click", function () {
+    //     if (vw < 992) {
+    //         if (document.querySelector(".pcoded-navbar").classList.contains("mob-open") == true) {
+    //             document.querySelector(".pcoded-navbar").classList.remove('mob-open');
+    //             document.querySelector("#mobile-collapse,#mobile-collapse1").classList.remove('on');
+    //         }
+    //     }
+    // });
 });
 
 // active menu item list start
