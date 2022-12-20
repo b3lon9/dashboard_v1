@@ -27,11 +27,14 @@ def index(request):
         'question':question,
         'count_value':count_value_json,
     }
+
     return render(request, 'home/index.html',context)
 
 def vote(request):
     # print(request.POST['choice'])
     question = get_object_or_404(Question, pk=1)
+    print("-----------------------")
+    print("nomuhon")
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
@@ -46,6 +49,5 @@ def vote(request):
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        print("---------------------------")
-        print(selected_choice.votes)
-        return render(request, 'home/index.html')
+        # return render(request, 'home/index.html')
+        return HttpResponseRedirect('/home')

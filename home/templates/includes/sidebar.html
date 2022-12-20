@@ -8,7 +8,8 @@
 					</div>
 					<div class="card-body">
 						<form action="{% url 'home:vote' %}" method="post">
-							{% csrf_token %} 
+							{% csrf_token %}
+							{% if user.is_authenticated %}
 							{% for choice in question.choice_set.all %}
 								<div class="form-check">
 									<input
@@ -21,7 +22,8 @@
 									<label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
 								</div>
 							{% endfor %}
-							<input type="submit" value="Vote" class="btn btn-info btn-lg btn-block mt-4" />
+							{% endif %}
+							<input type="submit" value="투표" class="btn btn-info btn-lg btn-block mt-4" />
 						</form>
 					</div>
 				</div>
