@@ -13,18 +13,18 @@ from allauth.socialaccount.models import SocialAccount
 
 # Create your views here.
 def index(request):
-    city = City.objects.values()
-    city_json = json.dumps(list(city),cls=DjangoJSONEncoder)
-    wordcloud = Wordcloud.objects.values()
-    wordcloud_json=json.dumps(list(wordcloud),cls=DjangoJSONEncoder)
-    currnet_questions = Question.objects.order_by('-pub_date')[:5]
-    question = Question.objects.get(pk=1)
-    count_value = Choice.objects.values()
-    count_value_json=json.dumps(list(count_value),cls=DjangoJSONEncoder)
+    # currnet_questions = Question.objects.order_by('-pub_date')[:5]
+    # question = Question.objects.get(pk=1)
+    # count_value = Choice.objects.values()
+    # count_value_json=json.dumps(list(count_value),cls=DjangoJSONEncoder)
 
+    #print(list(wordcloud))
+    
+
+    
     # <----권석원 context
     '''
-    키워드 별 긍부정 분류 명세
+    #### 키워드 별 긍부정 분류 명세 #### 
     keword1_positive : 키워드1에 대한 긍정 분류 결과
     keword2_positive : 키워드2에 대한 긍정 분류 결과
     
@@ -39,7 +39,7 @@ def index(request):
     ex2) keword1_positive[0].title : 키워드1에 대한 긍정 분류 결과 0번째 글의 제목
     
     '''
-    keword1_positive = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
+    keyword1_positive = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
                          'text' : '갤럭시로 찍었는데 좋아요',
                          'link' : 'https://blog.naver.com/aeyongly/222953745910',
                          'cate' : 'blog'},
@@ -52,24 +52,24 @@ def index(request):
                          'link' : 'https://blog.naver.com/aeyongly/222953745910',
                          'cate' : 'cafe'},]
     
-    keword1_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
+    keyword1_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
                          'text' : '갤럭시로 찍었는데 좋아요',
                          'link' : 'https://blog.naver.com/aeyongly/222953745910',
                          'cate' : 'news'}]
     
-    keword2_positive = [{'title' : '[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬',
+    keyword2_positive = [{'title' : '[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬',
                          'text' : '아이폰내용',
                          'link' : 'https://blog.naver.com/aeyongly/222953745910',
                          'cate' : 'cafe'}]
     
-    keword2_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
+    keyword2_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
                          'text' : '아이폰내용',
                          'link' : 'https://blog.naver.com/aeyongly/222953745910',
                          'cate' : 'blog'}]
     
     
     '''
-    바 차트 ()
+    #### 바 차트 #### 
     positve_bar : 키워드1,키워드2에 대한 각각 긍정 개수
     negative_bar : 키워드1,키워드2에 대한 각각 부정 개수
     
@@ -81,25 +81,123 @@ def index(request):
     positve_bar = [8,2]
     negative_bar = [-3,-7]
     
+    '''
+    #### 라인 차트 #### 
+    keyword1_serise : 키워드1과 시간대 별 최저가
+    keyword2_serise : 키워드2과 시간대 별 최저가
+    serise_xaxis    : 각 최저가에 대한 시간
+    
+    keyword1_serise의 data와 keyword2_serise의 data의 길이와
+    serise_xaxis 길이가 일치해야합니다.
+    
+    '''
+    
+    keyword1_serise = {'name' : '갤럭시',
+                       'data' : [20, 50, 30, 60, 30, 50]}
+    
+    keyword2_serise = {'name' : '아이폰',
+                       'data' : [60, 30, 65, 45, 67, 35]}
+    
+    serise_xaxis = ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000']
+                       
     
     # ---->권석원 context
-    # 장현광 context
-    # world cloud: value(단어),count(빈도수)
-    # pie-chart: 점수(1~5점),점수 횟수(ex: 1점 10회,2점 30회등)
+    
+    # <----장현광 context
+    '''
+    #### 워드 클라우드 #### 
+    keyword1_wordcloud_13 : 키워드1 에 대한 1~3점 평점 키워드
+    keyword2_wordcloud_13 : 키워드2 에 대한 1~3점 평점 키워드
+    keyword1_wordcloud_45 : 키워드1 에 대한 4~5점 평점 키워드
+    keyword2_wordcloud_45 : 키워드2 에 대한 4~5점 평점 키워드
+    
+    위 변수들은 list(dict()) 형태로 이루어져 있음
+    
+    dict key : text(평점), value(개수)
+    
+    minmax scaling 후에 1000 을 곱하면 될 것 같아요
+    
+    '''
+    
+    keyword1_wordcloud_13 = [{'text': '언리쉬드', 'value': 300}, 
+                {'text': '건담', 'value': 500}, 
+                {'text': 'Z건담', 'value': 200}, 
+                {'text': 'FAZZ', 'value': 700}, 
+                {'text': '머신러닝', 'value': 200}, 
+                {'text': '딥러닝', 'value': 400}, 
+                {'text': '랜덤포레스트', 'value': 240},]
+    
+    keyword1_wordcloud_13_json=json.dumps(keyword1_wordcloud_13,cls=DjangoJSONEncoder)
+    
+    keyword2_wordcloud_13 = [{'text': '언리쉬드', 'value': 300}, 
+                {'text': '건담', 'value': 500}, 
+                {'text': 'Z건담', 'value': 200}, 
+                {'text': 'FAZZ', 'value': 700}, 
+                {'text': '머신러닝', 'value': 200}, 
+                {'text': '딥러닝', 'value': 400}, 
+                {'text': '랜덤포레스트', 'value': 240},]
+    
+    keyword2_wordcloud_13_json=json.dumps(keyword2_wordcloud_13,cls=DjangoJSONEncoder)
+    
+    keyword1_wordcloud_45 = [{'text': '언리쉬드', 'value': 300}, 
+                {'text': '건담', 'value': 500}, 
+                {'text': 'Z건담', 'value': 200}, 
+                {'text': 'FAZZ', 'value': 700}, 
+                {'text': '머신러닝', 'value': 200}, 
+                {'text': '딥러닝', 'value': 400}, 
+                {'text': '랜덤포레스트', 'value': 240},]
+    
+    keyword1_wordcloud_45_json=json.dumps(keyword1_wordcloud_45,cls=DjangoJSONEncoder)
+    
+    keyword2_wordcloud_45 = [{'text': '언리쉬드', 'value': 300}, 
+                {'text': '건담', 'value': 500}, 
+                {'text': 'Z건담', 'value': 200}, 
+                {'text': 'FAZZ', 'value': 1000}, 
+                {'text': '머신러닝', 'value': 200}, 
+                {'text': '딥러닝', 'value': 400}, 
+                {'text': '랜덤포레스트', 'value': 240},]
+    
+    keyword2_wordcloud_45_json=json.dumps(keyword2_wordcloud_45,cls=DjangoJSONEncoder)
+    
+    '''
+    #### 파이 차트 #### 
+    keyword1_pie : 키워드1에 대한 평점 별 개수
+    keyword2_pie : 키워드2에 대한 평점 별 개수
+    
+    0번부터 순서대로 1점 ~ 5점
+    
+    '''
+    
+    keyword1_pie = [300,100,10,400,600]
+    
+    keyword2_pie = [300,100,10,400,600]
+    
+    # ---->장현광 context
 
     context={
-        'city_json':city_json,
-        'wordcloud_json':wordcloud_json,
-        'currnet_questions':currnet_questions,
-        'question':question,
-        'count_value':count_value_json,
+        # 'currnet_questions':currnet_questions,
+        # 'question':question,
+        # 'count_value':count_value_json,
 
-        'keword1_positive':keword1_positive,
-        'keword1_negative':keword1_negative,
-        'keword2_positive':keword2_positive,
-        'keword2_negative':keword2_negative,
+        'keyword1_positive':keyword1_positive,
+        'keyword1_negative':keyword1_negative,
+        'keyword2_positive':keyword2_positive,
+        'keyword2_negative':keyword2_negative,
+        
         'positve_bar' : positve_bar,
         'negative_bar' : negative_bar,
+        
+        'keyword1_serise' : keyword1_serise,
+        'keyword2_serise' : keyword2_serise,
+        'serise_xaxis' : serise_xaxis,
+        
+        'keyword1_wordcloud_13_json':keyword1_wordcloud_13_json,
+        'keyword2_wordcloud_13_json':keyword2_wordcloud_13_json,
+        'keyword1_wordcloud_45_json':keyword1_wordcloud_45_json,
+        'keyword2_wordcloud_45_json':keyword2_wordcloud_45_json,
+        
+        'keyword1_pie' : keyword1_pie,
+        'keyword2_pie' : keyword2_pie,
         
     }
 

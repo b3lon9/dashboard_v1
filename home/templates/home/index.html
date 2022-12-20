@@ -10,19 +10,17 @@
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
-<script src="/static/assets/js/plugins/apexcharts.min.js"></script>
-<script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+
 <script src="//cdn.amcharts.com/lib/4/core.js"></script>
 <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
 <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
 <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/static/assets/js/pages/ksw_charts.js"></script>
+<script src="/static/assets/js/pages/ksw_charts.js"></script>
     <script>
         var positve_bar = {{ positve_bar|safe }};
         var negative_bar = {{ negative_bar|safe }};
-        console.log(tmp)
     </script>
 
     <!-- [ Main Content ] start -->
@@ -100,7 +98,7 @@
                                         <div class="hidden-scroll yscroll-overlay">
                                             <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list" id="originalDocsUl" data-id="original-data-list-compare-reputation" style="opacity: 1; ">
                                                 
-                                                {% for item in keword1_positive %}
+                                                {% for item in keyword1_positive %}
                                                     <li class="original-data-item" style="cursor:pointer;" id = {{item.cate}} onclick="window.open('{{item.link}}')">
                                                         {%if item.cate == 'blog'%}
                                                         <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
@@ -126,7 +124,7 @@
                                         <div class="hidden-scroll yscroll-overlay">
                                             <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list" id="originalDocsUl" data-id="original-data-list-compare-reputation" style="opacity: 1;">
                                                 
-                                                {% for item in keword1_negative %}
+                                                {% for item in keyword1_negative %}
                                                 <li class="original-data-item" style="cursor:pointer;" id = {{item.cate}} onclick="window.open('{{item.link}}')">
                                                     {%if item.cate == 'blog'%}
                                                     <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
@@ -174,7 +172,7 @@
                                         <div class="hidden-scroll yscroll-overlay">
                                             <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list" id="originalDocsUl" data-id="original-data-list-compare-reputation" style="opacity: 1;">
                                                 
-                                                {% for item in keword2_positive %}
+                                                {% for item in keyword2_positive %}
                                                 <li class="original-data-item" style="cursor:pointer;" id = {{item.cate}} onclick="window.open('{{item.link}}')">
                                                     {%if item.cate == 'blog'%}
                                                     <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
@@ -201,7 +199,7 @@
                                         <div class="hidden-scroll yscroll-overlay">
                                             <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list" id="originalDocsUl" data-id="original-data-list-compare-reputation" style="opacity: 1;">
                                                 
-                                                {% for item in keword2_negative %}
+                                                {% for item in keyword2_negative %}
                                                 <li class="original-data-item" style="cursor:pointer;" id = {{item.cate}} onclick="window.open('{{item.link}}')">
                                                     {%if item.cate == 'blog'%}
                                                     <span class="icon-channel"><img src="https://some.co.kr/renewal_resources/images/icon_sns_blog.svg" alt=""></span>
@@ -347,15 +345,30 @@
 <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script type="text/javascript">
-    var dict = {{ city_json|safe }};
-    var wordcloud = {{ wordcloud_json|safe }};
-    var count_value={{count_value|safe}};
-</script>
 
+    var keyword1_pie = {{ keyword1_pie|safe }};
+    var keyword2_pie = {{ keyword1_pie|safe }};
+
+    var keyword1_wordcloud_13 = {{ keyword1_wordcloud_13_json|safe }};
+    var keyword2_wordcloud_13 = {{ keyword2_wordcloud_13_json|safe }};
+    var keyword1_wordcloud_45 = {{ keyword1_wordcloud_45_json|safe }};
+    var keyword2_wordcloud_45 = {{ keyword2_wordcloud_45_json|safe }};
+
+    var keyword1_serise = {{keyword1_serise|safe}}
+    var keyword2_serise = {{keyword2_serise|safe}}
+    var serise_xaxis = {{serise_xaxis|safe}}
+
+    
+
+    //var count_value={{count_value|safe}};
+</script>
+    <!-- Apex Chart -->
+    <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
 
     <!-- custom-chart js -->
-    <script src="/static/assets/js/pages/dashboard-main.js"></script>
+    
     <script src="/static/assets/js/pages/chart-apex.js"></script>
+    <script src="/static/assets/js/pages/dashboard-main.js"></script>
 
 
 {% endblock javascripts %}
