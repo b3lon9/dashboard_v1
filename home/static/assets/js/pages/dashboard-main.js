@@ -360,8 +360,12 @@ function floatchart() {
     (function () {
         var options = {
             chart: {
-                height: 230,
+                height: 420,
+                width: 460,
                 type: 'line',
+                zoom: {
+                    enabled: false
+                },
                 toolbar: {
                     show: false,
                 },
