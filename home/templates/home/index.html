@@ -7,9 +7,14 @@
 
 
 {% block content %}
+
+
+{% if is_show %}
+
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script src="//cdn.amcharts.com/lib/4/core.js"></script>
 <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
@@ -18,10 +23,58 @@
 
 <script src="//cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/static/assets/js/pages/ksw_charts.js"></script>
-    <script>
-        var positve_bar = {{ positve_bar|safe }};
-        var negative_bar = {{ negative_bar|safe }};
-    </script>
+
+
+
+<script>
+    // 로딩창 키는 함수
+    function openLoading() {
+        //화면 높이와 너비를 구합니다.
+        let maskHeight = $(document).height();
+        let maskWidth = window.document.body.clientWidth;
+        //출력할 마스크를 설정해준다.
+
+        let mask ="<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
+        // 로딩 이미지 주소 및 옵션
+        let loadingImg ='';
+
+        //loadingImg += "<div id='loadingImg' style='position:absolute; top: calc(50% - (600px / 2)); width:100%; z-index:99999999;'>";
+        //loadingImg += " <img src='https://loadingapng.com/animation.php?image=4&fore_color=000000&back_color=FFFFFF&size=128x128&transparency=1&image_type=0&uncacher=75.5975991029623' style='position: relative; display: block; margin: 0px auto;'/>";
+        //loadingImg += "</div>"; 
+
+        loadingImg += "<div class='spinner-border text-light' id='loadingImg' role='status' style='position:absolute; top: calc(46% - (600px / 2)); left: calc(46%); z-index:99999999;'>";
+        loadingImg += " <span class='sr-only'>Loading...</span>";
+        loadingImg += "</div>"; 
+        //레이어 추가
+        
+        $('body')
+            .append(mask)
+            .append(loadingImg)
+        //마스크의 높이와 너비로 전체 화면을 채운다.
+        $('#mask').css({
+                'width' : maskWidth,
+                'height': maskHeight,
+                'opacity' :'0.3'
+        });
+        //마스크 표시
+        $('#mask').show();  
+        //로딩 이미지 표시
+        $('#loadingImg').show();
+    }
+
+    // 로딩창 끄는 함수
+    function closeLoading() {
+        $('#mask, #loadingImg').hide();
+        $('#mask, #loadingImg').empty(); 
+    }
+
+    var positve_bar = {{ positve_bar|safe }};
+    var negative_bar = {{ negative_bar|safe }};
+
+    openLoading();
+
+</script>
+
 
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
@@ -34,6 +87,7 @@
                 <div class="col-md-12 col-xl-8">
 
                     <div class="card text-center">
+                        
                         <div class=" p-3 ">                            
 
                             <div class='top-search-bar top-search-option-box mt-3' style='justify-content: center'>
@@ -336,39 +390,66 @@
         </div>
     </div>
     <!-- [ Main Content ] end -->
+    {% else%}
+    <div class="layout-contents">
+		<div role="main">
+			<h2 class="blind">본문</h2>
+
+			<section class="layout-section section-incoming">
+				<h3 class="blind">초기 인입시 안내</h3>
+				<div class="incoming-info">
+					<div class="incoming-info-img">
+						<img src="/static/assets/images/myicon/free-sticker-marketing-4522540.png" alt="">
+					</div>
+					<div class="incoming-info-txt">
+						<div class="incoming-greeting">
+
+                            <p class="incoming-greeting-title">상품을 비교해 볼까요?</p>
+                            <p class="incoming-greeting-desc">두 상품을 비교하여 더 합리적인 소비를 해보세요!</p>
+
+						</div>
+						
+					</div>
+				</div>
+			</section>
+
+		</div>
+	</div>
+    {% endif %}
     
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script type="text/javascript">
+    {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> {% endcomment %}
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
 
-    var keyword1_pie = {{ keyword1_pie|safe }};
-    var keyword2_pie = {{ keyword1_pie|safe }};
+        var keyword1_pie = {{ keyword1_pie|safe }};
+        var keyword2_pie = {{ keyword1_pie|safe }};
 
-    var keyword1_wordcloud_13 = {{ keyword1_wordcloud_13_json|safe }};
-    var keyword2_wordcloud_13 = {{ keyword2_wordcloud_13_json|safe }};
-    var keyword1_wordcloud_45 = {{ keyword1_wordcloud_45_json|safe }};
-    var keyword2_wordcloud_45 = {{ keyword2_wordcloud_45_json|safe }};
+        var keyword1_wordcloud_13 = {{ keyword1_wordcloud_13_json|safe }};
+        var keyword2_wordcloud_13 = {{ keyword2_wordcloud_13_json|safe }};
+        var keyword1_wordcloud_45 = {{ keyword1_wordcloud_45_json|safe }};
+        var keyword2_wordcloud_45 = {{ keyword2_wordcloud_45_json|safe }};
 
-    var keyword1_serise = {{keyword1_serise|safe}}
-    var keyword2_serise = {{keyword2_serise|safe}}
-    var serise_xaxis = {{serise_xaxis|safe}}
+        var keyword1_serise = {{keyword1_serise|safe}}
+        var keyword2_serise = {{keyword2_serise|safe}}
+        var serise_xaxis = {{serise_xaxis|safe}}
 
-    
+        
 
-    //var count_value={{count_value|safe}};
-</script>
+        //var count_value={{count_value|safe}};
+    </script>
     <!-- Apex Chart -->
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
 
-    <!-- custom-chart js -->
-    
+    <!-- custom-chart js --> 
     <script src="/static/assets/js/pages/chart-apex.js"></script>
     <script src="/static/assets/js/pages/dashboard-main.js"></script>
-
+    <script type="text/javascript">
+        closeLoading()
+    </script>
 
 {% endblock javascripts %}
