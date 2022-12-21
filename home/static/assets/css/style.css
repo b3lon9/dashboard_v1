@@ -5210,7 +5210,9 @@ textarea.form-control-lg {
 }
 
 .card-header {
-    padding: 25px 25px;
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
     margin-bottom: 0;
     background-color: transparent;
     border-bottom: 0 solid rgba(0, 0, 0, 0.125);
@@ -19771,7 +19773,7 @@ textarea.form-control-lg {
 
 .card {
     box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -19891,7 +19893,7 @@ textarea.form-control-lg {
 
 .card .card-block,
   .card .card-body {
-    padding: 20px 25px;
+    padding: 3px 25px;
 }
 
 .card.card-load {
@@ -24091,6 +24093,7 @@ pre[class*=language-]:before {
     position: relative;
     display: block;
     padding: 25px;
+    height:100vh;
 }
 
 .pcoded-main-container {

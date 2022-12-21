@@ -1,5 +1,6 @@
 $(function () {   //create color
   const color = [];
+  var card_width = 285;
   while (color.length < 20) {
     do {
       var arrs = Math.floor((Math.random() * 1000000) + 1);
@@ -14,7 +15,7 @@ $(function () {   //create color
   var options_donut_1 = {
     series: keyword1_pie,
     chart: {
-      width: 318,
+      width: card_width,
       type: 'donut',
     },
     labels: dataCate,
@@ -47,7 +48,7 @@ $(function () {   //create color
   var options_donut_2 = {
     series: keyword1_pie,
     chart: {
-      width: 318,
+      width: card_width,
       type: 'donut',
     },
     labels: dataCate,
@@ -79,10 +80,10 @@ $(function () {   //create color
   // d3 word cloud 1번 4-5점
   var fill = d3.scaleOrdinal(d3.schemeCategory20);
   var layout = d3.layout.cloud()
-    .size([320, 320])
+    .size([230, 150])
     .words(keyword1_wordcloud_45)
-    .padding(0) //space between words
-    .font('Helvetica-22  2    2')
+    .padding(2) //space between words
+    .font('Helvetica')
     .fontWeight("bold")
     .rotate(0)//word cloud 형태
     .on("end", draw);
@@ -107,9 +108,9 @@ $(function () {   //create color
 
   // d3 word cloud 1번 1-3점
   var layout = d3.layout.cloud()
-    .size([320, 320])
+    .size([230, 150])
     .words(keyword1_wordcloud_13)
-    .padding(0) //space between words
+    .padding(2) //space between words
     .font('Helvetica')
     .fontWeight("bold")
     .rotate(0)//word cloud 형태
@@ -135,9 +136,9 @@ $(function () {   //create color
 
   // d3 word cloud 2번 4-5점
   var layout = d3.layout.cloud()
-    .size([320, 320])
+    .size([230, 150])
     .words(keyword2_wordcloud_45)
-    .padding(0) //space between words
+    .padding(2) //space between words
     .font('Helvetica')
     .fontWeight("bold")
     .rotate(0)//word cloud 형태
@@ -163,9 +164,9 @@ $(function () {   //create color
 
   // d3 word cloud 2번 1-3점
   var layout = d3.layout.cloud()
-    .size([320, 320])
+    .size([230, 150])
     .words(keyword2_wordcloud_13)
-    .padding(0) //space between words
+    .padding(2) //space between words
     .font('Helvetica')
     .fontWeight("bold")
     .rotate(0)//word cloud 형태
