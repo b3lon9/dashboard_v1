@@ -39,6 +39,7 @@
 
                             {% endif %}
                         </div>
+                        {% if not request.user.is_authenticated %}
                         <form action="#" method="post">
                             <div class="container-sign">
                                 <span class="label-sign">ID :</span> <input class="input-box" type="text" name="login_id"
@@ -54,6 +55,7 @@
                                     href="#" class="txt-font-m">sign up</a>
                             </div>
                         </form>
+                        {% endif %}
 
                         <ul class="pro-flex-body">
                             {% if request.user.is_authenticated %}
