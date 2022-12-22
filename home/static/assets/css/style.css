@@ -20525,6 +20525,7 @@ strong {
 }
 
 .img-radius {
+    border-color: gray;
     border-radius: 50%;
 }
 

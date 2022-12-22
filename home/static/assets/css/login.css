@@ -30,6 +30,10 @@ div > input.input-box {
     margin-top : 16px;
 }
 
+.login-api {
+    margin-bottom: 10px;
+}
+
 .btn-nowrap {
     border: none;
     outline: none;
@@ -45,4 +49,9 @@ div > input.input-box {
     outline: none;
     background: transparent;
     color: gray;
+}
+
+
+.margin-right-10 {
+    margin-right: 10%;
 }
