@@ -63,6 +63,6 @@ function changeEmailDomain(){
 function cancelUserRegister(){
     var result = confirm("회원가입을 취소하겠습니까?");
     if(result){
-        $(location).attr('href','/home/login');
+        $(location).attr('href','/home/');
     }
 }
