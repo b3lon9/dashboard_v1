@@ -42,33 +42,37 @@
                         {% if not request.user.is_authenticated %}
                         <form action="#" method="post">
                             <div class="container-sign">
-                                <span class="label-sign">ID :</span> <input class="input-box" type="text" name="login_id"
-                                    required maxlength="12" /><br>
+                                <span class="label-sign">ID :</span> <input class="input-box" type="text"
+                                    name="login_id" required maxlength="12" /><br>
                             </div>
                             <div class="container-sign">
-                                <span class="label-sign">PW :</span> <input class="input-box" type="password" name="login_pw"
-                                    required maxlength="">
+                                <span class="label-sign">PW :</span> <input class="input-box" type="password"
+                                    name="login_pw" required maxlength="">
                             </div>
 
                             <div class="login-container">
-                                <input class="btn-nowrap txt-font-m" type="submit" value="login"> &nbsp;&nbsp;&nbsp; / &nbsp;&nbsp;&nbsp; <a
-                                    href="{% url 'home:register' %}" class="txt-font-m">sign up</a>
+                                <input class="btn-nowrap txt-font-m" type="submit" value="login"> &nbsp;&nbsp;&nbsp; /
+                                &nbsp;&nbsp;&nbsp; <a href="{% url 'home:register' %}" class="txt-font-m">sign up</a>
                             </div>
                         </form>
                         {% endif %}
 
-                            <div class="login-container login-api">
+                        <div class="login-container login-api">
                             {% if request.user.is_authenticated %}
-                            
-                                <a href="{% url 'account_logout' %}" class="txt-font-m">
-                                   logout</a>
-                            
+
+                            <a href="{% url 'account_logout' %}" class="txt-font-m">
+                                logout</a>
+
                             {% else %}
-                            <a href="{% provider_login_url 'naver'%}" class="btn-nowrap margin-right-10"><img src="{% static 'assets/images/login_icon/icon_naver.png' %}" alt=""
-                                        class="img-radius wid-40 hei-40"></a>
-                            <a href="{% provider_login_url 'google'%}" class="btn-nowrap"><img
-                                        src="{% static 'assets/images/login_icon/icon_google.png' %}" alt=""
-                                        class="img-radius wid-40 hei-40"></a>
+                            <a href="{% provider_login_url 'naver'%}" class="login-api-btn margin-right-10">
+                                <img src="{% static 'assets/images/login_icon/icon_naver.png' %}" alt=""
+                                class="wid-45 hei-45 login-api-icon">
+                            </a>
+
+                            <a href="{% provider_login_url 'google'%}" class="login-api-btn">
+                                <img src="{% static 'assets/images/login_icon/icon_google.png' %}" alt=""
+                                class="wid-25 hei-25 login-api-icon">
+                            </a>
                             {% endif %}
                         </div>
 
