@@ -57,21 +57,20 @@
                         </form>
                         {% endif %}
 
-                        <ul class="pro-flex-body">
+                            <div class="login-container login-api">
                             {% if request.user.is_authenticated %}
-                            <li>
-                                <a href="{% url 'account_logout' %}" class="dropdown-item">
-                                    <i class="feather"></i>logout</a>
-                            </li>
+                            
+                                <a href="{% url 'account_logout' %}" class="txt-font-m">
+                                   logout</a>
+                            
                             {% else %}
-                            <li><a href="{% provider_login_url 'naver'%}"><img
-                                        src="{% static 'assets/images/login_icon/icon_naver.png' %}" alt=""
-                                        class="img-radius wid-40 hei-40"></a></li>
-                            <li><a href="{% provider_login_url 'google'%}"><img
+                            <a href="{% provider_login_url 'naver'%}" class="btn-nowrap margin-right-10"><img src="{% static 'assets/images/login_icon/icon_naver.png' %}" alt=""
+                                        class="img-radius wid-40 hei-40"></a>
+                            <a href="{% provider_login_url 'google'%}" class="btn-nowrap"><img
                                         src="{% static 'assets/images/login_icon/icon_google.png' %}" alt=""
-                                        class="img-radius wid-40 hei-40"></a></li>
+                                        class="img-radius wid-40 hei-40"></a>
                             {% endif %}
-                        </ul>
+                        </div>
 
                         {% comment %} <ul class="pro-body">
                             <li>
