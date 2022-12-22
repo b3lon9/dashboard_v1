@@ -28,7 +28,6 @@ function category(cat) {
 
     var li = document.getElementsByClassName("original-data-item");
     const checkbox = document.getElementById('btn-check-' + cat);
-    console.log(cat)
 
     if (!checkbox.checked){
         for (var i = 0; i < li.length; i++){
@@ -64,16 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
     var min_neg = Math.min(...negative_bar)
     var max_pos = Math.max(...positve_bar)
 
-    console.log(min_neg)
-    console.log(max_pos)
-
     max_pos = max_pos / 0.8
     min_neg = min_neg / 0.8
 
     var val = Math.max(max_pos,Math.abs(min_neg))
-
-    console.log(negative_bar)
-    console.log(positve_bar)
 
     const labels = ['갤럭시','아이폰'];
     const data = {

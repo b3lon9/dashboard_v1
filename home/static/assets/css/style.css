@@ -5210,7 +5210,9 @@ textarea.form-control-lg {
 }
 
 .card-header {
-    padding: 25px 25px;
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
     margin-bottom: 0;
     background-color: transparent;
     border-bottom: 0 solid rgba(0, 0, 0, 0.125);
@@ -7056,8 +7058,8 @@ textarea.form-control-lg {
 
 .spinner-border {
     display: inline-block;
-    width: 2rem;
-    height: 2rem;
+    width: 9rem;
+    height: 9rem;
     vertical-align: -0.125em;
     border: 0.25em solid currentColor;
     border-right-color: transparent;
@@ -19771,7 +19773,7 @@ textarea.form-control-lg {
 
 .card {
     box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -19891,7 +19893,7 @@ textarea.form-control-lg {
 
 .card .card-block,
   .card .card-body {
-    padding: 20px 25px;
+    padding: 3px 25px;
 }
 
 .card.card-load {
@@ -22923,7 +22925,7 @@ pre[class*=language-]:before {
 
 .pcoded-header .dropdown .dropdown-menu {
     position: absolute;
-    min-width: 250px;
+    min-width: 225px;
 }
 
 .pcoded-header .dropdown .dropdown-menu li {
@@ -24091,6 +24093,7 @@ pre[class*=language-]:before {
     position: relative;
     display: block;
     padding: 25px;
+    height:100vh;
 }
 
 .pcoded-main-container {
@@ -29495,3 +29498,113 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
     width: 100%;
     text-align: left;
 }
+
+.incoming-info {
+    align-items: center;
+    display: flex;
+}
+
+#loading {
+    display: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top:0;
+      left:0;
+  }
+  @keyframes spinner {
+    from {transform: rotate(0deg); }
+    to {transform: rotate(360deg);}
+  }
+   
+#loading .spinner {
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    margin-top: -32px;
+    margin-left: -32px;
+    border-radius: 50%;
+    border: 8px solid transparent;
+    border-top-color: #f19022;
+    border-bottom-color: #f19022;
+    animation: spinner .8s ease infinite;
+
+  }
+
+  .pop-layer .pop-container {
+    padding: 20px 25px;
+    
+  }
+  
+  .pop-layer p.ctxt {
+    color: #666;
+    line-height: 25px;
+  }
+  
+  .pop-layer .btn-r {
+    width: 100%;
+    margin: 10px 0 20px;
+    padding-top: 10px;
+    border-top: 1px solid #DDD;
+    text-align: right;
+  }
+  
+  .pop-layer {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1060px;
+    height: 690px;
+    background-color: #fff;
+    border: 5px solid #3571B5;
+    z-index: 10;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  
+  .dim-layer {
+    display: none;
+    position: fixed;
+    _position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+  }
+  
+  .dim-layer .dimBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: .5;
+    filter: alpha(opacity=50);
+  }
+  
+  .dim-layer .pop-layer {
+    display: block;
+  }
+  
+  a.btn-layerClose {
+    display: inline-block;
+    height: 25px;
+    padding: 0 14px 0;
+    border: 1px solid #304a8a;
+    background-color: #3f5a9d;
+    font-size: 13px;
+    color: #fff;
+    line-height: 25px;
+  }
+  
+  a.btn-layerClose:hover {
+    border: 1px solid #091940;
+    background-color: #1f326a;
+    color: #fff;
+  }

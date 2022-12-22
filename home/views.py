@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -116,7 +117,6 @@ def vote(request):
         return HttpResponseRedirect('/home')
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
-        print("-------------------------------")
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
         return render(request, '', {
@@ -143,9 +143,8 @@ def user_register_idcheck(request):
         username = request.POST['username']
     else:
         username = ''
-    idObject = User.object.filter(username__exact=username)
+    idObject = User.objects.filter(username=username)
     idCount = idObject.count()
-
     if idCount > 0:
         msg = "<font color='red'> 이미 존재하는 ID입니다.</font><input type='hidden' name='IDcheckResult' id='IDCheckResult' value=0/>"
     else:
@@ -161,13 +160,11 @@ def user_register_result(request):
         last_name = request.POST['last_name']
         phone = request.POST['phone']
         email = request.POST['email']
-        birth_year = int(request.POST['birth_year'])
-        birth_month = int(request.POST['birth_month'])
-        birth_day = int(request.POST['birth_day'])
     try:
-        if username and User.objects.filter(username_exact=username).count() == 0:
-            date_of_birth = datetime(birth_year, birth_month, birth_day)
-            user = User.objects.create_user(username, password, last_name, email, phone, birth_year,birth_month,birth_day)
+        if User.objects.filter(username=username).count() == 0:
+            print("----------------check point 1------------------------------")
+            User.objects.create(username=username, password=password, last_name=last_name
+                                , email=email, phone=phone)
             redirection_page = '/home/user_register_completed/'
         else:
             redirection_page = '/home'

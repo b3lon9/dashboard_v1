@@ -1,7 +1,3 @@
-{% block title %}
-회원가입 완료
-{% endblock %}
-
 {% block content%}
 <div style='height:70px;'></div>
 <div class="row block-center">
@@ -16,7 +12,7 @@
         </div>
         <div class="row">
             <div class="col-12 center">
-                <input type="button" value="메인화면" onClick="location.href{% url 'home'%}"/>
+                <input type="button" value="메인화면" onClick="location.href={% url 'home:index'%}"/>
             </div>
         </div>
     </div>

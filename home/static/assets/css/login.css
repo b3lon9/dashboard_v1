@@ -1,0 +1,48 @@
+.container-sign {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-left:10px;
+    margin: 8px 0 !important;
+}
+
+div>span.label-sign {
+    display: flex;
+    width: 35px;
+    margin-right:5px;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+div > input.input-box {
+    width: 63%;
+    height: 28px;
+    padding-left: 3px;
+}
+
+.login-container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top : 16px;
+}
+
+.btn-nowrap {
+    border: none;
+    outline: none;
+    background: transparent !important;
+}
+
+.txt-font-m {
+    font-size: medium;
+}
+
+.btn-nowrap:hover {
+    border:none;
+    outline: none;
+    background: transparent;
+    color: gray;
+}

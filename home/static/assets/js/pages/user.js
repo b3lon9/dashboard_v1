@@ -29,10 +29,10 @@ function userRegister(){
         alert("E-mail 주소를 올바르게 입력할 주시기 바랍니다.");
         return;
     }
-    if(!$('#birth_year').val()||!$('#birth_month').val()||!$('#birth_day').val()){
-        alert("생년월일을 올바르게 입력할 주시기 바랍니다.");
-        return;
-    }
+    // if(!$('#birth_year').val()||!$('#birth_month').val()||!$('#birth_day').val()){
+    //     alert("생년월일을 올바르게 입력할 주시기 바랍니다.");
+    //     return;
+    // }
     $('#phone').val($('#phone1').val()+"-"+$('#phone2').val()+"-"+$('#phone3').val());
     $('#email').val($('#email_id').val()+"@"+$('#email_domain').val());
     $('#register_form').submit();

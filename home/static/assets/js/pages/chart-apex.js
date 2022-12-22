@@ -1,5 +1,6 @@
 $(function () {   //create color
   const color = [];
+  var card_width = 285;
   while (color.length < 20) {
     do {
       var arrs = Math.floor((Math.random() * 1000000) + 1);
@@ -7,78 +8,14 @@ $(function () {   //create color
     color.push("#" + ("000000" + arrs.toString(16)).slice(-6));
   }
   //end create color
-  //call database data
-  const city_json = dict
-  const wc_json = wordcloud
-  var wc = []
-  var dataYear = []
-  var dataPop = []
-  var dataCate = []
-  //create input data
-  for (var i = 0; i < wc_json.length; i++) {
-    wc.push({
-      text: String(wc_json[i].text),
-      value: wc_json[i].value,
-    });
-  }
-  for (var i = 0; i < city_json.length; i++) {
-    dataCate.push(
-      String(city_json[i].name),
-    );
-  }
-  for (var i = 0; i < city_json.length; i++) {
-    dataYear.push(
-      String(city_json[i].year)
-    );
-  }
-  for (var i = 0; i < city_json.length; i++) {
-    dataPop.push(
-      city_json[i].population);
-  }
-  //end create data
 
-  //bar chart start
-  var options_bar = {
-    series: [{
-      name: "Desktops",
-      data: dataPop
-    }],
-    chart: {
-      height: 350,
-      type: 'line',
-      zoom: {
-        enabled: false
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'straight'
-    },
-    title: {
-      text: 'Product Trends by Month',
-      align: 'left'
-    },
-    grid: {
-      row: {
-        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-        opacity: 0.5
-      },
-    },
-    xaxis: {
-      categories: dataYear,
-    }
-  };
-  var chart_bar = new ApexCharts(document.querySelector("#line-chart-1"), options_bar);
-  chart_bar.render();
-  //bar chart end
+  var dataCate = ['1점','2점','3점','4점','5점']
 
   //pie chart_1 start
   var options_donut_1 = {
-    series: dataPop,
+    series: keyword1_pie,
     chart: {
-      width: 318,
+      width: card_width,
       type: 'donut',
     },
     labels: dataCate,
@@ -109,9 +46,9 @@ $(function () {   //create color
 
   //pie chart_2 start
   var options_donut_2 = {
-    series: dataPop,
+    series: keyword1_pie,
     chart: {
-      width: 318,
+      width: card_width,
       type: 'donut',
     },
     labels: dataCate,
@@ -143,9 +80,9 @@ $(function () {   //create color
   // d3 word cloud 1번 4-5점
   var fill = d3.scaleOrdinal(d3.schemeCategory20);
   var layout = d3.layout.cloud()
-    .size([320, 320])
-    .words(wordcloud)
-    .padding(0) //space between words
+    .size([230, 150])
+    .words(keyword1_wordcloud_45)
+    .padding(2) //space between words
     .font('Helvetica')
     .fontWeight("bold")
     .rotate(0)//word cloud 형태
@@ -171,9 +108,9 @@ $(function () {   //create color
 
   // d3 word cloud 1번 1-3점
   var layout = d3.layout.cloud()
-    .size([320, 320])
-    .words(wordcloud)
-    .padding(0) //space between words
+    .size([230, 150])
+    .words(keyword1_wordcloud_13)
+    .padding(2) //space between words
     .font('Helvetica')
     .fontWeight("bold")
     .rotate(0)//word cloud 형태
@@ -199,9 +136,9 @@ $(function () {   //create color
 
   // d3 word cloud 2번 4-5점
   var layout = d3.layout.cloud()
-    .size([320, 320])
-    .words(wordcloud)
-    .padding(0) //space between words
+    .size([230, 150])
+    .words(keyword2_wordcloud_45)
+    .padding(2) //space between words
     .font('Helvetica')
     .fontWeight("bold")
     .rotate(0)//word cloud 형태
@@ -227,9 +164,9 @@ $(function () {   //create color
 
   // d3 word cloud 2번 1-3점
   var layout = d3.layout.cloud()
-    .size([320, 320])
-    .words(wordcloud)
-    .padding(0) //space between words
+    .size([230, 150])
+    .words(keyword2_wordcloud_13)
+    .padding(2) //space between words
     .font('Helvetica')
     .fontWeight("bold")
     .rotate(0)//word cloud 형태
