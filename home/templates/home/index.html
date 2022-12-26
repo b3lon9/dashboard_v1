@@ -22,15 +22,23 @@
 <script src="//cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="/static/assets/js/pages/ksw_charts.js"></script>
-<script src="/static/assets/js/pages/ksw_func.js"></script>
+
 <script>
     var positve_bar = {{ positve_bar|safe }};
     var negative_bar = {{ negative_bar|safe }};
 
+    var keyword1_vote = {{vote.0|safe}}
+    var keyword2_vote = {{vote.1|safe}}
+
+    var keyword1 = {{keyword1|safe}}
+    var keyword2 = {{keyword2|safe}}
+
     openLoading();
 
 </script>
+
+<script src="/static/assets/js/pages/ksw_charts.js"></script>
+<script src="/static/assets/js/pages/ksw_func.js"></script>
 
 
 <!-- [ Main Content ] start -->
@@ -91,7 +99,7 @@
                         <div class="col-xl-6 pe-1">
                             <div class="mycard w-95 ms-auto">
 
-                                <h5>갤럭시</h5><br>
+                                <h5>{{keyword1}}</h5><br>
 
                                 <div class="justify-content-center">
 
@@ -186,7 +194,7 @@
                         <div class="col-xl-6 ps-1">
                             <div class="mycard w-95">
 
-                                <h5>아이폰</h5><br>
+                                <h5>{{keyword2}}</h5><br>
 
                                 <div class="align-items-center">
 
@@ -359,33 +367,30 @@
             <!--right container-->
             <div class="col-md-12 col-xl-4 right-column-rate">
                 
-                    
+                <div class="card text-center">
 
-                        <div class="card text-center display-mod">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="mycard">
-                                            <h5>투표수</h5><br>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="mycard">                                    
+                                    <h5>투표수</h5><br>
 
-                                            <div id="chartdiv" style='height : 200px'></div>
-
-                                        </div>
-                                    </div>
+                                    <div id="chartdiv" style='height : 200px'></div>                         
                                 </div>
-
                             </div>
                         </div>
-
-                        <div class="card p-4 card-50">
-                            <canvas id="myChart"></canvas>
-                        </div>
-
-                        <div class="card card-50">
-                            <div class="card-body ps-0 pb-0">
-                                <div id="unique-visitor-chart"></div>
-                            </div>
                     </div>
+
+                    <div class="card p-4 card-50">
+                        <canvas id="myChart"></canvas>
+                    </div>
+
+                    <div class="card card-50">
+                        <div class="card-body ps-0 pb-0">
+                            <div id="unique-visitor-chart"></div>
+                    </div>
+
+                </div>
                 
             </div>
             <!-- [ Main Content ] end -->

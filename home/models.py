@@ -42,3 +42,11 @@ class User(models.Model):
     last_name=models.CharField(max_length=150)
     phone = models.CharField(max_length=150)
     email=models.CharField(max_length=254,null=True)
+    
+    
+class Community(models.Model):
+    uid = models.CharField(max_length=150)
+    key1 = models.CharField(max_length=128)
+    key2 = models.CharField(max_length=128)
+    cur_key = models.CharField(max_length=128)
+    text = models.CharField(max_length=1024)

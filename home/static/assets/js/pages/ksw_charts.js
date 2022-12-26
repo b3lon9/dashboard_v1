@@ -53,6 +53,65 @@ function category(cat) {
 
     return;
 }
+
+(function() {
+
+  //am4core.useTheme(am4themes_animated);
+
+  // Create chart
+  var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+
+  // Create series
+  var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
+  chart.legend = new am4charts.Legend();
+  // Set data
+  series.data = [{
+      "name": keyword1,
+      "value": keyword1_vote,
+      "link": [keyword2],
+      "fixed": true,
+      "x": am4core.percent(25),
+      "y": am4core.percent(50), 
+    }, {
+      "name": keyword2,
+      "value": keyword2_vote
+      ,"link": [keyword1],
+      "fixed": true,
+      "x": am4core.percent(75),
+      "y": am4core.percent(50), 
+    }, ];
+
+    series.colors.list = [
+      am4core.color("#F42B03"),
+      am4core.color("#D84A05"),
+      am4core.color("#EC7505"),
+      am4core.color("#E89005")
+      ];
+    
+
+
+  series.links.template.strokeOpacity = 0;
+  series.dataFields.fixed = "fixed";
+  series.nodes.template.propertyFields.x = "x";
+  series.nodes.template.propertyFields.y = "y";
+  
+  
+  // Set up data fields
+  series.dataFields.value = "value";
+  series.dataFields.name = "name";
+
+  series.dataFields.id = "name";
+  series.dataFields.linkWith = "link";
+  
+  series.nodes.template.label.text = "{value}";
+  series.fontSize = 20;
+  series.minRadius = 15;
+  series.maxRadius = 60;
+  series.centerStrength = 0.5;
+
+})();
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const ctx = document.getElementById('myChart').getContext('2d');
@@ -155,3 +214,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var chart = new Chart(ctx, config);
 })();
+
