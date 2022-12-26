@@ -241,7 +241,7 @@ def vote(request):
 
 
 def user_register_page(request):
-    return render(request, 'home/user_register.html')
+    return render(request, 'home/register.html')
 
 
 def user_register_idcheck(request):

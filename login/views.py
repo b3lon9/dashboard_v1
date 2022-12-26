@@ -28,7 +28,7 @@ def login_view(request):
         else:
             msg = 'Error validating the form'
 
-    return render(request, "accounts/login.html", {"form": form, "msg": msg})
+    return render(request, "login.html", {"form": form, "msg": msg})
 
 
 def register_user(request):
@@ -37,20 +37,12 @@ def register_user(request):
 
     if request.method == "POST":
         form = SignUpForm(request.POST,request.FILES)
-        print("------------------------------------")
-        print(form.is_valid())
-        print("----------------------------------")
-        print(form.cleaned_data.get("username"))
-        print("-----------------------------------")
-        print(form.cleaned_data.get("password1"))
-        print("-----------------------------------")
-        print(form.cleaned_data.get("img"))
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get("username")
             raw_password = form.cleaned_data.get("password1")
             raw_img = form.cleaned_data.get("img")
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(username=username, password=raw_password,imgfile=raw_img)
 
             msg = 'User created successfully.'
             success = True
@@ -58,8 +50,8 @@ def register_user(request):
             # return redirect("/login/")
 
         else:
-            msg = 'Form is not valid'
+            msg = form.errors
     else:
         form = SignUpForm()
 
-    return render(request, "accounts/register.html", {"form": form, "msg": msg, "success": success})
+    return render(request, "register.html", {"form": form, "msg": msg, "success": success})

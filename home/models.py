@@ -45,4 +45,13 @@ class User(models.Model):
     phone = models.CharField(max_length=150)
     email=models.CharField(max_length=254,null=True)
     imgfile = models.ImageField(null=True,upload_to="",blank=True)
+    
+
+class User(AbstractBaseUser):
+    password = models.CharField(max_length=128)
+    username = models.CharField(unique=True, max_length=150)
+    last_name=models.CharField(max_length=150)
+    phone = models.CharField(max_length=150)
+    email=models.CharField(max_length=254,null=True)
+    imgfile = models.ImageField(null=True,upload_to="",blank=True)
 
