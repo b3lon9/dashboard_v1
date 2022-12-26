@@ -23614,7 +23614,7 @@ pre[class*=language-]:before {
 }
 
 .pcoded-navbar.navbar-collapsed:hover {
-    /* width: 235px !important; */
+    width: 235px !important;
 }
 
 .pcoded-navbar.navbar-collapsed:hover .header-logo {
