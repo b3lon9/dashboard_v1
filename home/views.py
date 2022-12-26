@@ -284,3 +284,20 @@ def user_register_completed(request):
 
 def error_page(request):
     return render(request,'home/page-404.html')
+
+def login(request):
+    # db_password =  
+    if request.method == "POST":
+        username = request.POST['login_id']
+        password = request.POST['login_pw']
+
+        try:
+            users = User.objects.get(username=username)
+            user_pw = users.password
+            if PasswordHasher().verify(user_pw,password):
+                redirection_page = '/home/'
+            else:
+                redirection_page = '/home/error'
+        except:
+            redirection_page = '/home/error'
+    return HttpResponseRedirect(redirection_page)

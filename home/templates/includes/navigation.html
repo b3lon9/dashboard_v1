@@ -40,13 +40,14 @@
                             {% endif %}
                         </div>
                         {% if not request.user.is_authenticated %}
-                        <form action="#" method="post">
+                        <form action="{% url 'home:login' %}" method="post">
+                            {% csrf_token %}
                             <div class="container-sign">
-                                <span class="label-sign">ID :</span> <input class="input-box" type="text" name="login_id"
+                                <span class="label-sign">ID :</span> <input class="input-box" type="text" name="login_id" class="login_id"
                                     required maxlength="12" /><br>
                             </div>
                             <div class="container-sign">
-                                <span class="label-sign">PW :</span> <input class="input-box" type="password" name="login_pw"
+                                <span class="label-sign">PW :</span> <input class="input-box" type="password" name="login_pw" class="login_pw"
                                     required maxlength="">
                             </div>
 
