@@ -36,7 +36,7 @@ def register_user(request):
     success = False
 
     if request.method == "POST":
-        form = SignUpForm(request.POST)
+        form = SignUpForm(request.POST,request.FILES)
         print("------------------------------------")
         print(form.is_valid())
         print("----------------------------------")
