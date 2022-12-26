@@ -13,6 +13,7 @@ from home.models import City, Wordcloud, Question, Choice, Vote, User
 from django.contrib import messages
 from allauth.socialaccount.models import SocialAccount
 from argon2 import PasswordHasher
+from login.forms import LoginForm, SignUpForm
 
 # Create your views here.
 
@@ -240,8 +241,30 @@ def vote(request):
         return HttpResponseRedirect('/home')
 
 
-def user_register_page(request):
-    return render(request, 'home/register.html')
+def register_user(request):
+    msg = None
+    success = False
+
+    if request.method == "POST":
+        form = SignUpForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get("username")
+            raw_password = form.cleaned_data.get("password1")
+            raw_img = form.cleaned_data.get("img")
+            user = authenticate(username=username, password=raw_password,imgfile=raw_img)
+
+            msg = 'User created successfully.'
+            success = True
+
+            # return redirect("/login/")
+
+        else:
+            msg = form.errors
+    else:
+        form = SignUpForm()
+
+    return render(request, "register.html", {"form": form, "msg": msg, "success": success})
 
 
 def user_register_idcheck(request):
