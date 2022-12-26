@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, AbstractBaseUser,BaseUserManager
 from allauth.socialaccount.models import SocialAccount
 from django.utils import timezone
 
+
 # Create your models here.
 class City(models.Model):
     name = models.CharField(max_length=30)

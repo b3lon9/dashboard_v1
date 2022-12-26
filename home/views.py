@@ -12,6 +12,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from home.models import City, Wordcloud, Question, Choice, Vote, User
 from django.contrib import messages
 from allauth.socialaccount.models import SocialAccount
+from argon2 import PasswordHasher
 
 # Create your views here.
 
@@ -261,7 +262,7 @@ def user_register_idcheck(request):
 def user_register_result(request):
     if request.method == "POST":
         username = request.POST['username']
-        password = request.POST['password']
+        password = PasswordHasher().hash(request.POST['password'])
         last_name = request.POST['last_name']
         phone = request.POST['phone']
         email = request.POST['email']
@@ -271,12 +272,32 @@ def user_register_result(request):
                                 , email=email, phone=phone)
             redirection_page = '/home/user_register_completed/'
         else:
-            redirection_page = '/home'
+            redirection_page = '/home/error'
     except:
-        redirection_page = '/home'
+        redirection_page = '/home/error'
 
     return HttpResponseRedirect(redirection_page)
 
 
 def user_register_completed(request):
     return render(request, 'home/user_register_completed_page.html')
+
+def error_page(request):
+    return render(request,'home/page-404.html')
+
+def login(request):
+    # db_password =  
+    if request.method == "POST":
+        username = request.POST['login_id']
+        password = request.POST['login_pw']
+
+        try:
+            users = User.objects.get(username=username)
+            user_pw = users.password
+            if PasswordHasher().verify(user_pw,password):
+                redirection_page = '/home/'
+            else:
+                redirection_page = '/home/error'
+        except:
+            redirection_page = '/home/error'
+    return HttpResponseRedirect(redirection_page)
