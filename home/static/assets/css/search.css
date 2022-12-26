@@ -59,6 +59,7 @@ input.button-add {
 
 #btn-search:hover {
     background-image: url("../images/btn-press.png"); /* 16px x 16px */
+    cursor: pointer;
 }
 
 
