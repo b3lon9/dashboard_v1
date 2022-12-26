@@ -1,83 +1,88 @@
-{% load static %}
-{% block javascripts %}
-<script src = "/static/assets/js/pages/user.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-{% endblock javascripts %}
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Sign UP {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-<div class="row block-center">
-    <div class="card-box col-6">
-        <form id="register_form" action="{% url 'home:registerres' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="phone" id="phone" value=""/>
-            <input type="hidden" name="email" id="email" value=""/>
-                <div class="row">
-                    <div class="col-12"><h2>회원가입</h2></div>
-                </div>
-                <div class="row">
-                    <div class="ml-1 col-11">ID:
-                        <span class="margin-left-10">
-                            <input type="text" name="username" id="username" value="123" size="8"/>
-                            <input type="button" value="중복확인" onclick="idCheck()" />
-                            <span id="idcheck-result"></span>
-                        </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="ml-1 col-11">Password:
-                        <span class="margin-left-10">
-                            <input type="password" name="password" id="password" value="12345678" size="8"/>
-                        </span>
-                        <br/>
-                        <span style="font-size:0.7em">
-                            *비밀 번호는 최소 8글자 이상 입력해 주셔야 합니다.
-                        </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="ml-1 col-11">Passwrod 확인:
-                        <span class="margin-left-10">
-                            <input type="password" id="password_check" value="12345678" size="8"/>
-                        </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="ml-1 col-11">이름:
-                        <span class="margin-left-10">
-                            <input type="text" name="last_name" id="last_name" value="응디" size="8"/>
-                        </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="ml-1 coll-11">E-mail:
-                        <span class="margin-left-10">
-                            <input type="text" id="email_id" value="1234" size="8"/>
-                            @<input tpye="text" id="email_domain" value="" size="8"/>
-                            <select id="email_selection" onChange="changeEmailDomain()">
-                                <option value="" selected="selected">--선택하세요--</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="gamil.com">gmail.com</option>
-                            </select>
-                        </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="ml-1 col-11"> 전화번호:
-                        <span class="margin-left-10">
-                            <input type="text" id="phone1" value="010" size="3"/>-
-                            <input type="text" id="phone2" value="1234" size="4"/>-
-                            <input type="text" id="phone3" value="5678" size="4"/>
-                        </span>
-                    </div>
-                </div>
-            <div class="row">
-                <div class="col-12 center">
-                    <input type="button" value="회원가입" onClick="userRegister()"/>
-                    <input type="button" value="취소" onClick="cancelUserRegister()"/>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-{% endblock%}
+
+	<!-- [ auth-signup ] start -->
+	<div class="auth-wrapper">
+		<div class="auth-content">
+			<div class="card">
+				<div class="row align-items-center text-center">
+					<div class="col-md-12">
+						<div class="card-body">
+							<img src="/static/assets/images/logo-dark.png" alt="" class="img-fluid mb-4">
+
+							<h4 class="mb-3 f-w-400">Sign UP</h4>
+
+							<span class="mb-0 text-muted">
+								{% if msg %}
+									<span class="text-danger">
+										{{ msg | safe }}
+									</span>
+								{% else %}
+									Add your credentials
+								{% endif %} 
+							</span>
+							
+							<br /><br />
+
+							{% if success %}
+								<p class="mb-2">
+									<a class="btn btn-primary btn-block mt-2 mb-4" href="{% url 'login' %}" class="f-w-400">Sign IN</a>
+								</p>
+							{% else %}
+
+								<form role="form" method="post" action="">
+
+									{% csrf_token %}
+
+									<div class="input-group mb-3">
+										<span class="input-group-text"><i class="feather icon-user"></i></span>
+										{{ form.username }}
+									</div>
+
+									<div class="input-group mb-3">
+										<span class="input-group-text"><i class="feather icon-mail"></i></span>
+										{{ form.email }}
+									</div>
+
+									<div class="input-group mb-4">
+										<span class="input-group-text"><i class="feather icon-lock"></i></span>
+										{{ form.password1 }}
+									</div>
+									<span class="text-error">{{ form.password1.errors }}</span>
+
+									<div class="input-group mb-4">
+										<span class="input-group-text"><i class="feather icon-lock"></i></span>
+										{{ form.password2 }}
+									</div>
+                  <div class="input-group mb-4">
+										<span class="input-group-text"><i class="feather icon-lock"></i></span>
+										{{ form.FileInput }}
+									</div>							
+
+									<button type="submit" name="register" class="btn btn-primary btn-block mt-2 mb-4">Sign UP</button>
+									<p class="mb-2">
+										Already have an account? <a href="#" class="f-w-400">Sign IN</a>
+									</p>
+								
+								</form>
+
+							{% endif %}	
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- [ auth-signup ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

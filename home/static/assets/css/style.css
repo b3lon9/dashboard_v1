@@ -5185,6 +5185,7 @@ textarea.form-control-lg {
     padding: 25px 25px;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 

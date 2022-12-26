@@ -1,0 +1,86 @@
+.nav-order {
+    display:flex;
+    justify-items: center;
+}
+
+.input-keyword {
+    background-color: #fff;
+    border-radius: 20px;
+    /* max-width: 350px; */
+    width: 250px;
+    height:40px;
+    border: none;
+    margin-left: 1.2rem !important;
+    font-size: large;
+    color: green;
+    text-align: center;
+}
+
+.input-keyword.first-btn {
+    margin-left:15px;
+    margin-right:18px;
+}
+
+.input-keyword::placeholder{
+    color : cadetblue;
+}
+
+#btn-search {
+    background-image: url('../images/btn-default.png');
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 0px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 16px;           /* make this the size of your image */
+    /*padding-left: 16px;      make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+    width:32px;
+    height:32px;
+}
+
+input.button-add {
+    background-image: url("../images/btn-default.png"); /* 16px x 16px */
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 0px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 16px;           /* make this the size of your image */
+    padding-left: 16px;     /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+}
+
+#btn-search {
+    margin-left:5px;
+    margin-bottom:5px;
+}
+
+
+#btn-search:hover {
+    background-image: url("../images/btn-press.png"); /* 16px x 16px */
+    cursor: pointer;
+}
+
+
+#btn-search:active {
+    /* background-image: url("../images/btn-focus.png");  16px x 16px */
+    background-image: url("../images/btn-active.png"); /* 16px x 16px */
+}
+
+.navbar .login {
+    position:absolute;
+    right:0;
+}
+
+.navbar-justify {
+    justify-content: space-between;
+}
+
+.drp-user {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-top: 8px;
+    padding-right: 8px;
+}
