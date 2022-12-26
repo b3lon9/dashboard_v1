@@ -266,10 +266,11 @@ def user_register_result(request):
         last_name = request.POST['last_name']
         phone = request.POST['phone']
         email = request.POST['email']
+        img = request.POST['img']
     try:
         if User.objects.filter(username=username).count() == 0:
             User.objects.create(username=username, password=password, last_name=last_name
-                                , email=email, phone=phone)
+                                , email=email, phone=phone,imgfile=img)
             redirection_page = '/home/user_register_completed/'
         else:
             redirection_page = '/home/error'

@@ -1,4 +1,6 @@
 from django.db import models
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, AbstractBaseUser,BaseUserManager
 from allauth.socialaccount.models import SocialAccount
 from django.utils import timezone
@@ -42,3 +44,5 @@ class User(models.Model):
     last_name=models.CharField(max_length=150)
     phone = models.CharField(max_length=150)
     email=models.CharField(max_length=254,null=True)
+    imgfile = models.ImageField(null=True,upload_to="",blank=True)
+

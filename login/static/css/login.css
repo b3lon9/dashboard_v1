@@ -1,189 +1,78 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body {
-    font-family: 'Noto Sans KR';
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: url("../images/lama.jpg") no-repeat center;
-    background-size: cover;     /* tight_layout() */
-}
-
-body::before {
-    content:"";
-    position:absolute;
-    z-index: index 1;
-    top:0;
-    right:0;
-    bottom:0;
-    left:0;
-    background-color: rgba(0, 0, 0, .7);
-}
-
-.login-form {
-    position: relative;
-    z-index:2;
-    display: block;
-}
-
-.login-form h1 {
-    font-size: 32px;
-    color: #fff;
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.int-area {
-    width: 400px;
-    position:relative;
-    margin-top: 20px;
-}
-
-.int-area :first-child {
-    margin-top:0;
-}
-.int-area input {
-    width : 100%;
-    padding:20px 10px 10px;
-    background-color: transparent;
-    border: none;
-    border-bottom:1px solid #999;
-    font-size: 18px;
-    color: #fff;
-    outline: none;
-}
-
-.int-area label {
-    position: absolute;
-    left: 10px;
-    top: 15px;
-    font-size: 18px;
-    color: #999;
-    transition: top .5s ease;
-}
-
-.int-area label.warning {
-    color: red !important;
-    animation: warning.3s ease;
-    animation-iteration-count: 3;
-}
-
-@keyframes warning {
-    0% {transform: translateX(-8px);}
-    25% {transform: translateX(8px);}
-    50% {transform: translateX(-8px);}
-    75% {transform: translateX(8px);}
-}
-.int-area input:focus + label,
-.int-area input:valid + label {
-    top:-2px;
-    font-size: 13px;
-    color: #166cea;
-}
-
-.btn-area {
-    margin-top:30px;
-}
-
-.btn-area button {
-    width:100%;
-    height:50px;
-    background: #166cea;
-    color:#fff;
-    font-size:20px;
-    border:none;
-    border-radius: 25px;
-    cursor: pointer;
-}
-
-.caption {
-    margin-top:20px;
-    text-align: center;
-}
-
-.caption a {
-    font-size:15px;
-    color: #999;
-    text-decoration: none;
-}
-
-.img-btn-container {
+.container-sign {
     display:flex;
-    width: 300px;
-    height: 80px;
-    min-height: auto;
-    border:none;
-    background-color: white;
-    border-radius: 1rem;
-    justify-content:center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-left:10px;
+    margin: 8px 0 !important;
+}
+
+div>span.label-sign {
+    display: flex;
+    width: 35px;
+    margin-right:5px;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+div > input.input-box {
+    width: 63%;
+    height: 28px;
+    padding-left: 3px;
+}
+
+.login-container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top : 16px;
+}
+
+.login-api-btn {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border: 0.5px solid #EFF5F5;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    overflow:hidden;
+}
+
+.login-api {
+    margin-bottom: 10px;
+}
+
+.login-api-icon {
+    object-fit: cover;
+    /* width: 100%;
+    height: 100%; */
+}
+
+.btn-nowrap {
+    display: flex;
+    border: none;
+    outline: none;
+    background: transparent !important;
+    justify-content: center;
     align-items: center;
 }
 
-.margin-bottom {
-    margin-bottom:15px;
+.txt-font-m {
+    font-size: medium;
 }
 
-.img-test {
-    width: 100%;
-    height: 100%;
-    background:url("../images/google_default.png");
-    background-repeat: no-repeat;
-    object-fit: cover;
-}
-
-#naver-img {
-    /* background: url("../images/naver_default.png"); */
-    width: 100%;
-}
-
-#naver-img:hover {
-    src: "../images/naver_focus.jpg";
-}
-
-#naver-img:active {
-
-}
-
-#google-img {
-    width: 100%;
-    /* background: url("/login/static/images/google_default.png"); */
-}
-
-#google-img:hover {
-
-}
-
-#google-img:active {
-    
-}
-
-.link {
-    text-decoration-line: none;
-    vertical-align: middle;
-}
-
-.text {
-   
-    display: flex;
-    justify-content: center;
-    align-items:center;
+.btn-nowrap:hover {
     border:none;
-    font-size: 40px;
-    color: rgba(0, 0, 0, .7);
-    font-family: Arial;
-  }
+    outline: none;
+    background: transparent;
+    color: gray;
+}
 
-.img-btn-container img {
-    width: 100%;
-    height: 100%;
-    border-radius: 1rem;
-    box-shadow: none;
-    border:none;
+
+.margin-right-10 {
+    margin-right: 10%;
 }
