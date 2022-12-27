@@ -10,7 +10,7 @@ from django.http import JsonResponse, HttpResponse
 from datetime import datetime
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-from home.models import City, Wordcloud, Question, Choice, Vote, User, Community
+from home.models import Wordcloud, Community
 from django.contrib import messages
 from allauth.socialaccount.models import SocialAccount
 from argon2 import PasswordHasher
@@ -270,34 +270,6 @@ def index(request):
         return render(request, 'home/index.html',context)
     else :
         return render(request, 'home/index.html')
-    #else:
-    #    print('post')
-    #    return render(request, 'home/index.html',context)
-
-def vote(request):
-    # print(request.POST['choice'])
-    choice = get_object_or_404(Choice, pk=1)
-    question = get_object_or_404(Question, pk=1)
-    if Vote.objects.filter(choice=choice, voter=request.user).exists():
-        messages.error(request, "Already Voted on this choice")
-        return HttpResponseRedirect('/home')
-    try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
-        return render(request, '', {
-            'question': question,
-            'error_message': "You didn't select a choice.",
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        Vote.objects.create(voter=request.user, choice=choice)
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-        # return render(request, 'home/index.html')
-        return HttpResponseRedirect('/home')
 
 
 def register_user(request):
@@ -325,45 +297,6 @@ def register_user(request):
 
     return render(request, "register.html", {"form": form, "msg": msg, "success": success})
 
-
-def user_register_idcheck(request):
-    if request.method == "POST":
-        username = request.POST['username']
-    else:
-        username = ''
-    idObject = User.objects.filter(username=username)
-    idCount = idObject.count()
-    if idCount > 0:
-        msg = "<font color='red'> 이미 존재하는 ID입니다.</font><input type='hidden' name='IDcheckResult' id='IDCheckResult' value=0/>"
-    else:
-        msg = "<font color='blue'> 사용가능한 ID입니다.</font><input type='hidden' name='IDcheckResult' id='IDCheckResult' value=1/>"
-
-    return HttpResponse(msg)
-
-
-def user_register_result(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = PasswordHasher().hash(request.POST['password'])
-        last_name = request.POST['last_name']
-        phone = request.POST['phone']
-        email = request.POST['email']
-        img = request.POST['img']
-    try:
-        if User.objects.filter(username=username).count() == 0:
-            User.objects.create(username=username, password=password, last_name=last_name
-                                , email=email, phone=phone,imgfile=img)
-            redirection_page = '/home/user_register_completed/'
-        else:
-            redirection_page = '/home/error'
-    except:
-        redirection_page = '/home/error'
-
-    return HttpResponseRedirect(redirection_page)
-
-
-def user_register_completed(request):
-    return render(request, 'home/user_register_completed_page.html')
 
 def error_page(request):
     return render(request,'home/page-404.html')

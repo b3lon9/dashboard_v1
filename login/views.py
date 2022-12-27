@@ -29,29 +29,3 @@ def login_view(request):
             msg = 'Error validating the form'
 
     return render(request, "login.html", {"form": form, "msg": msg})
-
-
-def register_user(request):
-    msg = None
-    success = False
-
-    if request.method == "POST":
-        form = SignUpForm(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get("username")
-            raw_password = form.cleaned_data.get("password1")
-            raw_img = form.cleaned_data.get("img")
-            user = authenticate(username=username, password=raw_password,imgfile=raw_img)
-
-            msg = 'User created successfully.'
-            success = True
-
-            # return redirect("/login/")
-
-        else:
-            msg = form.errors
-    else:
-        form = SignUpForm()
-
-    return render(request, "register.html", {"form": form, "msg": msg, "success": success})
