@@ -27,11 +27,11 @@
     var positve_bar = {{ positve_bar|safe }};
     var negative_bar = {{ negative_bar|safe }};
 
-    var keyword1_vote = {{vote.0|safe}}
-    var keyword2_vote = {{vote.1|safe}}
+    var keyword1_vote = {{vote.0|safe}};
+    var keyword2_vote = {{vote.1|safe}};
 
-    var keyword1 = {{keyword1|safe}}
-    var keyword2 = {{keyword2|safe}}
+    var keyword1 = "{{keyword1|safe}}";
+    var keyword2 = "{{keyword2|safe}}";
 
     openLoading();
 
@@ -122,7 +122,7 @@
                                     <div class="hidden-scroll yscroll-overlay">
                                         <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list"
                                             id="originalDocsUl" data-id="original-data-list-compare-reputation"
-                                            style="opacity: 1; ">
+                                            style="opacity: 1; height: 275px;">
 
                                             {% for item in keyword1_positive %}
                                             <li class="original-data-item" style="cursor:pointer;" id={{item.cate}}
@@ -157,7 +157,7 @@
                                     <div class="hidden-scroll yscroll-overlay">
                                         <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list"
                                             id="originalDocsUl" data-id="original-data-list-compare-reputation"
-                                            style="opacity: 1;">
+                                            style="opacity: 1; height: 275px;">
 
                                             {% for item in keyword1_negative %}
                                             <li class="original-data-item" style="cursor:pointer;" id={{item.cate}}
@@ -217,10 +217,10 @@
                                     <div class="hidden-scroll yscroll-overlay">
                                         <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list"
                                             id="originalDocsUl" data-id="original-data-list-compare-reputation"
-                                            style="opacity: 1;">
+                                            style="opacity: 1; height: 275px;">
 
                                             {% for item in keyword2_positive %}
-                                            <li class="original-data-item" style="cursor:pointer;" id={{item.cate}}
+                                            <li class="original-data-item" style="cursor:pointer; " id={{item.cate}}
                                                 onclick="window.open('{{item.link}}')">
                                                 {%if item.cate == 'blog'%}
                                                 <span class="icon-channel"><img
@@ -253,7 +253,7 @@
                                     <div class="hidden-scroll yscroll-overlay">
                                         <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list"
                                             id="originalDocsUl" data-id="original-data-list-compare-reputation"
-                                            style="opacity: 1;">
+                                            style="opacity: 1; height: 275px;">
 
                                             {% for item in keyword2_negative %}
                                             <li class="original-data-item" style="cursor:pointer;" id={{item.cate}}

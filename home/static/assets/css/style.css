@@ -23615,9 +23615,9 @@ pre[class*=language-]:before {
     transition: all 0.15s ease-in-out;
 }
 
-.pcoded-navbar.navbar-collapsed:hover {
+/* .pcoded-navbar.navbar-collapsed:hover {
     width: 235px !important;
-}
+} */
 
 .pcoded-navbar.navbar-collapsed:hover .header-logo {
     width: 235px;
@@ -24096,7 +24096,7 @@ pre[class*=language-]:before {
     position: relative;
     display: block;
     padding: 25px;
-    height:100vh;
+    height:92vh;
 }
 
 .pcoded-main-container {
