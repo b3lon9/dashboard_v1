@@ -70,14 +70,14 @@ function category(cat) {
       "value": keyword1_vote,
       "link": [keyword2],
       "fixed": true,
-      "x": am4core.percent(25),
+      "x": am4core.percent(35),
       "y": am4core.percent(50), 
     }, {
       "name": keyword2,
       "value": keyword2_vote
       ,"link": [keyword1],
       "fixed": true,
-      "x": am4core.percent(75),
+      "x": am4core.percent(65),
       "y": am4core.percent(50), 
     }, ];
 
