@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django import template
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
@@ -309,16 +310,21 @@ def user_register_completed(request):
 def error_page(request):
     return render(request,'home/page-404.html')
 
-def login(request):
-    # db_password =  
+def login_view(request):
     if request.method == "POST":
         username = request.POST['login_id']
         password = request.POST['login_pw']
-
+        
         try:
-            users = User.objects.get(username=username)
-            user_pw = users.password
-            if PasswordHasher().verify(user_pw,password):
+            # users = User.objects.get(username=username)
+            # user_pw = users.password
+            # if PasswordHasher().verify(user_pw,password):
+            #     redirection_page = '/home/'
+            # else:
+            #     redirection_page = '/home/error'
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
                 redirection_page = '/home/'
             else:
                 redirection_page = '/home/error'
