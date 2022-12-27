@@ -316,11 +316,12 @@ body {
 }
 
 hr {
-    margin: 1rem 0;
     color: inherit;
     background-color: currentColor;
     border: 0;
     opacity: 0.25;
+    margin-bottom: 1rem;
+    margin-top: 0px;
 }
 
 hr:not([size]) {

@@ -35,7 +35,7 @@ function floatchart() {
     (function () {
         var options = {
             chart: {
-                height: 420,
+                height: 220,
                 width: 460,
                 type: 'line',
                 zoom: {
