@@ -48,7 +48,7 @@ $(function () {   //create color
 
   //pie chart_2 start
   var options_donut_2 = {
-    series: keyword1_pie,
+    series: keyword2_pie,
     chart: {
       width: card_width,
       type: 'donut',
