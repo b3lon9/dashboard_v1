@@ -1,6 +1,8 @@
 $(function () {   //create color
   const color = [];
   var card_width = 285;
+  var chart_width = $('.wordcloud-size').width();
+
   while (color.length < 20) {
     do {
       var arrs = Math.floor((Math.random() * 1000000) + 1);
@@ -80,7 +82,7 @@ $(function () {   //create color
   // d3 word cloud 1번 4-5점
   var fill = d3.scaleOrdinal(d3.schemeCategory20);
   var layout = d3.layout.cloud()
-    .size([230, 150])
+    .size([chart_width, 150])
     .words(keyword1_wordcloud_45)
     .padding(2) //space between words
     .font('Helvetica')
@@ -108,7 +110,7 @@ $(function () {   //create color
 
   // d3 word cloud 1번 1-3점
   var layout = d3.layout.cloud()
-    .size([230, 150])
+    .size([chart_width, 150])
     .words(keyword1_wordcloud_13)
     .padding(2) //space between words
     .font('Helvetica')
@@ -136,7 +138,7 @@ $(function () {   //create color
 
   // d3 word cloud 2번 4-5점
   var layout = d3.layout.cloud()
-    .size([230, 150])
+    .size([chart_width, 150])
     .words(keyword2_wordcloud_45)
     .padding(2) //space between words
     .font('Helvetica')
@@ -164,7 +166,7 @@ $(function () {   //create color
 
   // d3 word cloud 2번 1-3점
   var layout = d3.layout.cloud()
-    .size([230, 150])
+    .size([chart_width, 150])
     .words(keyword2_wordcloud_13)
     .padding(2) //space between words
     .font('Helvetica')
