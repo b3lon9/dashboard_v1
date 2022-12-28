@@ -16,3 +16,11 @@ class Community(models.Model):
     key2 = models.CharField(max_length=128)
     cur_key = models.CharField(max_length=128)
     text = models.CharField(max_length=1024)
+    
+class UserEtc(models.Model):
+    user_id = models.CharField(max_length=150)
+    user_img = models.ImageField(upload_to='images/')
+    user_rd = models.DateTimeField(null=True)
+    
+    def __str__(self):
+        return self.user_id

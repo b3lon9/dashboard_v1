@@ -34,22 +34,39 @@
             <li>
                 <div class="dropdown drp-user">
                     <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                        {% if request.user.is_authenticated %}
+                            {% if profile_img %}
+                            <img src="media/{{profile_img}}" class="img-radius profile-size" alt="User-Profile-Image">
+                            {% else %}
+                                <img src="/static/assets/images/user/purple.png" class="img-radius wid-40 hei-40"
+                                alt="User-Profile-Image">
+                            {% endif %}
+                        {% else %}
                         <img src="/static/assets/images/user/purple.png" class="img-radius wid-40 hei-40"
                             alt="User-Profile-Image">
+                        {% endif %}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end profile-notification">
                         <div class="pro-head">
                             {% if request.user.is_authenticated %}
-                            <img src="/static/assets/images/user/purple.png" class="img-radius"
+                            {% if profile_img %}
+                                <img src="media/{{profile_img}}" class="img-radius profile-size" alt="User-Profile-Image">
+                            {% else %}
+                                <img src="/static/assets/images/user/purple.png" class="img-radius wid-40 hei-40"
                                 alt="User-Profile-Image">
+                            {% endif %}
                             <span>
-                                {{ request.user.last_name}}
-                                {{request.user.first_name }}
+                                {% if request.user %}
+                                    {{request.user.last_name}}
+                                    {{request.user.first_name }}
+                                {% else %}
+                                    {{profile_id}}
+                                {% endif %}
                                 <!-- todo, get user profile image / nickname -->
                                 <!-- {{ request.user.id }} -->
                             </span>
                             {% else %}
-
+                            
                             {% endif %}
                         </div>
                         {% if not request.user.is_authenticated %}
