@@ -140,25 +140,12 @@ def crawling_rating_data(keyword:str):
 
 ### 메인함수 시작 ###
 ### 메인함수 시작 ###
-def starRating_classisification(search_keyword):
+def starRating_classisification(keyword1:str, keyword2:str):
 
   # 크롤링으로 받아오는 데이터 => {'리뷰', '별점'}
-  
-  # 검색어에 대한 크롤링 진행 후 데이터프레임(df_A) 생성
-  df_A = crawling_rating_data(search_keyword)
-
-  # 검색어와 같은 카테고리의 상품도 크롤링 후 데이터프레임(df_B) 생성
-  if search_keyword=='s22' or search_keyword=='S22':
-    df_B = crawling_rating_data('아이폰14')
-
-  elif search_keyword=='아이폰14' or search_keyword=='iphone14':
-    df_B = crawling_rating_data('s22')
-
-  elif search_keyword=='RTX2060' or search_keyword=='rtx2060':
-    df_B = crawling_rating_data('rtx3060')
-
-  elif search_keyword=='RTX3060' or search_keyword=='rtx3060':
-    df_B = crawling_rating_data('rtx2060')
+  # 검색어에 대한 크롤링 진행 후 데이터프레임(df_A, df_B) 생성
+  df_A = crawling_rating_data(keyword1)
+  df_B = crawling_rating_data(keyword2)
 
   # 별점데이터 1~5 점으로 변경
   df_A.replace({'20점':1,"40점":2,"60점":3,"80점":4,"100점":5}, inplace=True)
