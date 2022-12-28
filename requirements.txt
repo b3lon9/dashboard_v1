@@ -13,6 +13,5 @@ opencv-python==4.6.0.66
 Pillow==9.2.0
 tensorflow-cpu==2.10.0
 
-# 암호화 모듈
 argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
