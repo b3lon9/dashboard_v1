@@ -60,17 +60,17 @@
                                     {{request.user.last_name}}
                                     {{request.user.first_name }}
                                 {% else %}
-                                    {{profile_id}}
+                                    {{request.user.username}}
                                 {% endif %}
                                 <!-- todo, get user profile image / nickname -->
-                                <!-- {{ request.user.id }} -->
+                                {{request.user.username}}
                             </span>
                             {% else %}
                             
                             {% endif %}
                         </div>
                         {% if not request.user.is_authenticated %}
-                        <form action="{% url 'home:login' %}" method="post">
+                        <form action="{% url 'home:login' %}" method="post"  autocomplete="off">
                             {% csrf_token %}
                             <div class="container-sign">
                                 <span class="label-sign">ID :</span> <input class="input-box" type="text"
