@@ -166,6 +166,7 @@ def index(request):
         '''
 
         # 키워드를 어디서 받는건지 몰라서 일단은 'S22'
+        # S22만 키워드로 주면 아이폰14를 같이 크롤링해서 데이터를 반환합니다
         keyword1_wordcloud_13_, keyword1_wordcloud_45_, keyword2_wordcloud_13_, keyword2_wordcloud_45_, keyword1_pie_, keyword2_pie_ = starRating_classisification('S22')
 
         keyword1_wordcloud_13 = keyword1_wordcloud_13_
