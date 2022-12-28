@@ -10,7 +10,7 @@ from django.http import JsonResponse, HttpResponse
 from datetime import datetime
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-from home.models import Wordcloud, Community
+from home.models import Wordcloud, Community, UserEtc
 from django.contrib import messages
 from allauth.socialaccount.models import SocialAccount
 from argon2 import PasswordHasher
@@ -65,8 +65,16 @@ def index(request):
             
         comm.save()
                 
-        
-        
+    # profile img path
+    try:
+        user = UserEtc.objects.get(user_id=request.user.username)
+        user_img = user.user_img    
+        user_id = user.user_id
+    except:
+        user_img = ''
+        user_id = request.user.username
+        print('not exist user ', request.user.username)
+    
     if len(request.GET) > 0:
         # <----권석원 context
         '''
@@ -214,8 +222,12 @@ def index(request):
         vote = [len(comm_qry_key1), len(comm_qry_key2)]
         
         # ---->커뮤니티/투표 context
-
+        
+        
+        
         context={
+            'profile_img':user_img,
+            'profile_id':user_id,
             # 'currnet_questions':currnet_questions,
             # 'question':question,
             # 'count_value':count_value_json,
@@ -251,7 +263,7 @@ def index(request):
 
         return render(request, 'home/index.html',context)
     else :
-        return render(request, 'home/index.html')
+        return render(request, 'home/index.html', {'profile_img':user_img, 'profile_id':user_id,})
 
 
 def register_user(request):
@@ -267,6 +279,14 @@ def register_user(request):
             raw_img = form.cleaned_data.get("img")
             user = authenticate(username=username, password=raw_password,imgfile=raw_img)
 
+            # user_id API / 일반 로그인 ID구분 필요
+            obj = UserEtc.objects.create(
+                user_id = username,
+                user_img = request.FILES['img'],
+                user_rd = timezone.datetime.now()
+            )
+            obj.save()
+            
             msg = 'User created successfully.'
             success = True
 

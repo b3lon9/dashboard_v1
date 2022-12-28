@@ -76,3 +76,8 @@ div > input.input-box {
 .margin-right-10 {
     margin-right: 10%;
 }
+
+.profile-size {
+    width:40px;
+    height:40px;
+}
