@@ -20,15 +20,21 @@ from login.forms import LoginForm, SignUpForm
 
 
 def index(request):
-    # currnet_questions = Question.objects.order_by('-pub_date')[:5]
-    # question = Question.objects.get(pk=1)
-    # count_value = Choice.objects.values()
-    # count_value_json=json.dumps(list(count_value),cls=DjangoJSONEncoder)
-
-    #print(list(wordcloud))
-    
-    #if request.method == 'GET':
-    if request.POST : # 게시글 입력
+    # profile img path
+    try:
+        user = UserEtc.objects.get(user_id=request.user.username)
+        user_img = user.user_img    
+        user_id = user.user_id
+    except:
+        user_img = ''
+        user_id = request.user.username
+        print('not exist user ', request.user.username)
+        
+        
+    context = {}
+    if request.POST: # 게시글 입력
+        
+        context = eval(request.POST['context'])
         keyword = ''
         text = ''
         
@@ -37,10 +43,7 @@ def index(request):
                 continue
             else :          
                 if 'chk_info' in key:
-                    if key[-1:] == '1':
-                        keyword = request.GET['keyword1']
-                    else:
-                        keyword = request.GET['keyword2']
+                    keyword = request.POST['chk_info_key']
                 elif 'text' == key:
                     text = request.POST['text'].strip()
         
@@ -62,16 +65,28 @@ def index(request):
             )
             
         comm.save()
+        
+        # <----커뮤니티/투표 context
+        
+        comm_qry_key1 = Community.objects.filter(cur_key=request.GET['keyword1']) & \
+        Community.objects.filter(key1=request.GET['keyword1']) & \
+        Community.objects.filter(key2=request.GET['keyword2'])
+        
+        comm_qry_key2 = Community.objects.filter(cur_key=request.GET['keyword2']) & \
+        Community.objects.filter(key1=request.GET['keyword1']) & \
+        Community.objects.filter(key2=request.GET['keyword2'])
+        
+        vote = [len(comm_qry_key1), len(comm_qry_key2)]
+        
+        # ---->커뮤니티/투표 context
+        
+        context['vote'] = vote
+        context['comm_qry_key1'] = comm_qry_key1
+        context['comm_qry_key2'] = comm_qry_key2
+        
+        return render(request, 'home/index.html',context)
                 
-    # profile img path
-    try:
-        user = UserEtc.objects.get(user_id=request.user.username)
-        user_img = user.user_img    
-        user_id = user.user_id
-    except:
-        user_img = ''
-        user_id = request.user.username
-        print('not exist user ', request.user.username)
+
     
     if len(request.GET) > 0:
         # <----권석원 context
@@ -144,14 +159,18 @@ def index(request):
         
         '''
         
-        keyword1_serise = {'name' : '갤럭시',
-                        'data' : [20, 50, 30, 60, 30, 50]}
+        # keyword1_serise = {'name' : '갤럭시',
+        #                 'data' : [20, 50, 30, 60, 30, 50]}
         
-        keyword2_serise = {'name' : '아이폰',
-                        'data' : [60, 30, 65, 45, 67, 35]}
+        # keyword2_serise = {'name' : '아이폰',
+        #                 'data' : [60, 30, 65, 45, 67, 35]}
         
-        serise_xaxis = ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000']
-                        
+        # serise_xaxis = ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000']
+        
+        keyword1_serise = {'name': 's22', 'data': [779860, 793990, 792300, 782370, 746440, 776630, 776190, 742990, 754800, 777490, 767440, 763790]}     
+        keyword2_serise = {'name': '아이폰14', 'data': [1649000, 1632000, 1632000, 1632000, 1621890, 1621900, 1698400, 1700000, 1683000, 1700000, 1700000, 1649000]}
+        serise_xaxis = ['11/10/2022', '18/10/2022', '25/10/2022', '01/11/2022', '08/11/2022', '15/11/2022', '22/11/2022', '29/11/2022', '06/12/2022', '13/12/2022', '20/12/2022', '27/12/2022']
+                
         
         # ---->권석원 context
         
@@ -265,10 +284,10 @@ def index(request):
             'keyword2_serise' : keyword2_serise,
             'serise_xaxis' : serise_xaxis,
             
-            'keyword1_wordcloud_13_json' : keyword1_wordcloud_13_json,
-            'keyword2_wordcloud_13_json' : keyword2_wordcloud_13_json,
-            'keyword1_wordcloud_45_json' : keyword1_wordcloud_45_json,
-            'keyword2_wordcloud_45_json' : keyword2_wordcloud_45_json,
+            'keyword1_wordcloud_13_json' : keyword1_wordcloud_13,
+            'keyword2_wordcloud_13_json' : keyword2_wordcloud_13,
+            'keyword1_wordcloud_45_json' : keyword1_wordcloud_45,
+            'keyword2_wordcloud_45_json' : keyword2_wordcloud_45,
             
             'keyword1_pie' : keyword1_pie,
             'keyword2_pie' : keyword2_pie,
@@ -278,6 +297,11 @@ def index(request):
             'comm_qry_key2' : comm_qry_key2,
             
         }
+        
+        
+        tmp_context = {key:value for key,value in context.items() if 'comm_qry_key' not in key}
+        
+        context['context'] = tmp_context
 
         return render(request, 'home/index.html',context)
     else :

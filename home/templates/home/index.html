@@ -865,10 +865,19 @@
         var keyword1_wordcloud_45 = {{ keyword1_wordcloud_45_json|safe }};
         var keyword2_wordcloud_45 = {{ keyword2_wordcloud_45_json|safe }};
 
-        var keyword1_serise = {{keyword1_serise|safe}}
-        var keyword2_serise = {{keyword2_serise|safe}}
-        var serise_xaxis = {{serise_xaxis|safe}}
+        var keyword1_serise = {{keyword1_serise|safe}};
+        var keyword2_serise = {{keyword2_serise|safe}};
+        var serise_xaxis = {{serise_xaxis|safe}};
 
+        var data_arr = [...keyword1_serise.data 
+                    , ...keyword2_serise.data];
+
+        var data_min = Math.min(...data_arr)
+        var data_max = Math.max(...data_arr)
+
+        data_min = data_min - (data_min * 0.3)
+        data_max = data_max + (data_max * 0.3)
+        
         
 
         //var count_value={{count_value|safe}};
@@ -884,3 +893,4 @@
     </script>
 
 {% endblock javascripts %}
+

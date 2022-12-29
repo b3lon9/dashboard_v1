@@ -64,7 +64,6 @@ function floatchart() {
                 position: 'top',
             },
             xaxis: {
-                type: 'datetime',
                 categories: serise_xaxis,//['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000'],
                 axisBorder: {
                     show: false,
@@ -77,11 +76,16 @@ function floatchart() {
             },
             yaxis: {
                 show: true,
-                min: 10,
-                max: 70,
+                min: data_min,
+                max: data_max,
+                tickAmount: 3,
                 labels: {
                     style: {
                         color: '#ccc'
+                    },
+                    formatter: function(val, index) {
+                        const cn1 = parseInt(val).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                        return cn1;
                     }
                 }
             },

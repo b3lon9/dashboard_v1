@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var val = Math.max(max_pos,Math.abs(min_neg))
 
-    const labels = ['갤럭시','아이폰'];
+    const labels = [keyword1,keyword2];
     const data = {
     labels: labels,
     datasets: [
