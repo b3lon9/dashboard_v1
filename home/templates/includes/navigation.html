@@ -56,14 +56,13 @@
                                 alt="User-Profile-Image">
                             {% endif %}
                             <span>
-                                {% if request.user %}
-                                    {{request.user.last_name}}
-                                    {{request.user.first_name }}
+                                {% if request.user.email %}
+                                {{request.user.username}}
                                 {% else %}
-                                    {{profile_id}}
+                                {{request.user.last_name}}
+                                {{request.user.first_name }}
                                 {% endif %}
                                 <!-- todo, get user profile image / nickname -->
-                                {{request.user.username}}
                             </span>
                             {% else %}
                             
