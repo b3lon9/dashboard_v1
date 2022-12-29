@@ -1,3 +1,13 @@
+const bar_pos = "--barchart-positive-color";
+const bar_neg = "--barchart-negative-color";
+
+const root = document.documentElement;
+const rootStyle = getComputedStyle(root);
+const color_pos = rootStyle.getPropertyValue(bar_pos);
+const color_neg = rootStyle.getPropertyValue(bar_neg);
+
+
+
 function changeClassName(s_num) {
     s_num = String(s_num)
     var cl1 = document.getElementById(s_num+'_pos').className;
@@ -7,6 +17,9 @@ function changeClassName(s_num) {
         document.getElementById(s_num+'_pos').className = '';
         document.getElementById(s_num+'_neg').className = 'on';
 
+        document.getElementById('theme-' + s_num + '-pos-btn').className = '';
+        document.getElementById('theme-' + s_num + '-neg-btn').className = 'theme-negative-btn';
+
         document.getElementById(s_num+'_pos_post').style.display = 'none';
         document.getElementById(s_num+'_neg_post').style.display = 'block';
 
@@ -15,6 +28,9 @@ function changeClassName(s_num) {
         
         document.getElementById(s_num+'_neg').className = '';
         document.getElementById(s_num+'_pos').className = 'on';
+
+        document.getElementById('theme-' + s_num + '-pos-btn').className = 'theme-positive-btn';
+        document.getElementById('theme-' + s_num + '-neg-btn').className = '';
 
         document.getElementById(s_num+'_neg_post').style.display = 'none';
         document.getElementById(s_num+'_pos_post').style.display = 'block';
@@ -134,8 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
         {
         label: '긍정',
         data: positve_bar,
-        borderColor: '#4dc9f6',            
-        backgroundColor: '#4dc9f6',//Utils.transparentize('#4dc9f6', 0.5),
+        borderColor: color_pos,            
+        backgroundColor: color_pos,//Utils.transparentize('#4dc9f6', 0.5),
         pointStyle: 'circle',
         borderRadius: 10,
         
@@ -143,8 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
         {
         label: '부정',
         data: negative_bar,
-        borderColor: '#f67019',
-        backgroundColor: '#f67019',//Utils.transparentize('#f67019',, 0.5),
+        borderColor: color_neg,
+        backgroundColor: color_neg,//Utils.transparentize('#f67019',, 0.5),
         pointStyle: 'circle',
         borderRadius: 10,
         
