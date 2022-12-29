@@ -38,7 +38,7 @@
                             {% if profile_img %}
                             <img src="media/{{profile_img}}" class="img-radius profile-size" alt="User-Profile-Image">
                             {% else %}
-                                <img src="/static/assets/images/user/purple.png" class="img-radius wid-40 hei-40"
+                                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="img-radius wid-40 hei-40"
                                 alt="User-Profile-Image">
                             {% endif %}
                         {% else %}
@@ -52,7 +52,7 @@
                             {% if profile_img %}
                                 <img src="media/{{profile_img}}" class="img-radius profile-size" alt="User-Profile-Image">
                             {% else %}
-                                <img src="/static/assets/images/user/purple.png" class="img-radius wid-40 hei-40"
+                                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="img-radius wid-40 hei-40"
                                 alt="User-Profile-Image">
                             {% endif %}
                             <span>
@@ -106,16 +106,6 @@
                             </a>
                             {% endif %}
                         </div>
-
-                        {% comment %} <ul class="pro-body">
-                            <li>
-                                <a href="/login/" class="dropdown-item"><i class="feather icon-lock"></i> Login</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'account_logout' %}" class="dropdown-item"><i
-                                        class="feather icon-lock"></i>Logout</a>
-                            </li>
-                        </ul> {% endcomment %}
                     </div>
                 </div>
             </li>
