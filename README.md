@@ -1,7 +1,10 @@
 # dashboard_v1
 team project
 
-> pip install -r requirements.txt
+> ▒▒▒ 아래의 명령어를 커맨드창에서 실행해주세요^^ ▒▒▒<br>
+`pip install -r requirements.txt`<br>
+`python manage.py makemigrations home`<br>
+`python manage.py migrate`
 
 <br/>
 
