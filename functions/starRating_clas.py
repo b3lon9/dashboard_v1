@@ -3,6 +3,8 @@ from collections import Counter
 from bs4 import BeautifulSoup
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+import datetime
+import json
 import requests
 import re
 
@@ -99,31 +101,23 @@ def text_preprocessing(text:str):
 def crawling_rating_data(keyword:str):
   rating_df = pd.DataFrame(columns=['리뷰','별점'])
   review_list, star_list = [],[]
-
-  # 키워드에 맞는 url과 header로 설정 후 데이터 크롤링
+  
+  url = 'https://search.danawa.com/dsearch.php?query=' + keyword
+  headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'}
+  res = requests.get(url, headers=headers)
+  
+  soup = BeautifulSoup(res.text, 'lxml')
+  prod_list = soup.find_all('a', 'click_log_product_standard_title_')
+  prod_link = prod_list[0]['href']
+  pcode_index = prod_link.find('pcode')
+  pcode = prod_link[pcode_index+6:pcode_index+14]
+  
   for page in range(1,20):
-    if keyword=='s22' or keyword=='S22':
-      url = 'https://prod.danawa.com/info/dpg/ajax/companyProductReview.ajax.php?t=0.4744672016115148&prodCode=16291739&cate1Code=224&page={}&limit=10&score=0&sortType=&onlyPhotoReview=&usefullScore=Y&innerKeyword=&subjectWord=0&subjectWordString=&subjectSimilarWordString=&_=1670861282969'.format(page)
-      headers = {'referer':'https://prod.danawa.com/info/?pcode=16291739&keyword=%EA%B0%A4%EB%9F%AD%EC%8B%9C+s22&cate=12215709&bookmark=cm_opinion',
-                  'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'}
-
-    elif keyword=='iphone14' or keyword=='아이폰14':
-      url = 'https://prod.danawa.com/info/dpg/ajax/companyProductReview.ajax.php?t=0.611197153034098&prodCode=17814257&cate1Code=224&page={}&limit=10&score=0&sortType=&onlyPhotoReview=&usefullScore=Y&innerKeyword=&subjectWord=0&subjectWordString=&subjectSimilarWordString=&_=1670732932262'.format(page)
-      headers = {'referer':'https://prod.danawa.com/info/?pcode=17814257&keyword=%EC%95%84%EC%9D%B4%ED%8F%B0+14&cate=12215709',
+    url = 'https://prod.danawa.com/info/dpg/ajax/companyProductReview.ajax.php?prodCode=' + pcode + '&page={}&limit=10&score=0&sortType=&onlyPhotoReview=&usefullScore=Y&innerKeyword=&subjectWord=0&subjectWordString=&subjectSimilarWordString='.format(page)
+    headers = {'referer':'https://prod.danawa.com/info/?pcode=' + pcode,
                 'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'}
-
-    elif keyword=='rtx2060' or keyword=='RTX2060':
-      url = 'https://prod.danawa.com/info/dpg/ajax/companyProductReview.ajax.php?t=0.8494986942432399&prodCode=7038919&cate1Code=861&page={}&limit=10&score=0&sortType=&onlyPhotoReview=&usefullScore=Y&innerKeyword=&subjectWord=0&subjectWordString=&subjectSimilarWordString=&_=1670788452370'.format(page)
-      headers = {'referer':'https://prod.danawa.com/info/?pcode=7038919&keyword=rtx+2060&cate=112753',
-                'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'}
-
-    elif keyword=='rtx3060' or keyword=='RTX3060':
-      url = 'https://prod.danawa.com/info/dpg/ajax/companyProductReview.ajax.php?t=0.419199607611199&prodCode=13463144&cate1Code=861&page={}&limit=10&score=0&sortType=&onlyPhotoReview=&usefullScore=Y&innerKeyword=&subjectWord=0&subjectWordString=&subjectSimilarWordString=&_=1670785319559'.format(page)
-      headers = {'referer':'https://prod.danawa.com/info/?pcode=13463144&keyword=rtx+3060&cate=112753',
-                'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'}
-
     res = requests.get(url, headers=headers)
-
+    
     # soup 객체 만들기
     soup = BeautifulSoup(res.text, "lxml")
     reviews = soup.find_all('div', 'atc')
@@ -136,6 +130,7 @@ def crawling_rating_data(keyword:str):
   # df 생성 및 반환
   rating_df = pd.DataFrame({'리뷰':review_list, '별점':star_list})
   return rating_df
+
 
 
 ### 메인함수 시작 ###
@@ -272,12 +267,3 @@ def starRating_classisification(keyword1:str, keyword2:str):
 
   # 메인함수 리턴
   return keyword1_wordcloud_13, keyword1_wordcloud_45, keyword2_wordcloud_13, keyword2_wordcloud_45, keyword1_pie, keyword2_pie
-
-# 코드의 메인함수 실행 예시
-keyword1_wordcloud_13, keyword1_wordcloud_45, keyword2_wordcloud_13, keyword2_wordcloud_45, keyword1_pie, keyword2_pie = starRating_classisification('s22')
-# print(keyword1_wordcloud_13)
-# print(keyword1_wordcloud_45)
-# print(keyword2_wordcloud_13)
-# print(keyword2_wordcloud_45)
-# print(keyword1_pie)
-# print(keyword2_pie)
