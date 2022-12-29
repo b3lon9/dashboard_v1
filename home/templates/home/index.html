@@ -63,7 +63,7 @@
                                         <span class="switch-text">카페</span>
                                         <input type="checkbox" class="sourceCheckbox" id="btn-check-cafe"
                                             onclick='category("cafe")' checked>
-                                        <span class="slider"></span>
+                                        <span class="slider theme-toggle-btn"></span>
                                     </label>
                                 </li>
 
@@ -73,7 +73,7 @@
                                         <span class="switch-text">블로그</span>
                                         <input type="checkbox" class="sourceCheckbox" id="btn-check-blog"
                                             onclick='category("blog")' checked>
-                                        <span class="slider"></span>
+                                        <span class="slider theme-toggle-btn"></span>
                                     </label>
                                 </li>
 
@@ -82,7 +82,7 @@
                                         <span class="switch-text">뉴스</span>
                                         <input type="checkbox" class="sourceCheckbox" id="btn-check-news"
                                             onclick='category("news")' checked>
-                                        <span class="slider"></span>
+                                        <span class="slider theme-toggle-btn"></span>
                                     </label>
                                 </li>
 
@@ -106,12 +106,12 @@
                                     <ul class="tab-type5 tab comepare-origin-tabs w-75" id="originalDocsKeywordUl"
                                         style='display: table;margin-left: auto;margin-right: auto;'>
                                         <li class="on" id='1_pos'>
-                                            <a href="javascript:void(0)" class="" style="" onclick='changeClassName(1)'>
+                                            <a href="javascript:void(0)" id="theme-1-pos-btn" class="theme-positive-btn" style="" onclick='changeClassName(1)'>
                                                 <em class="tab-name">긍정</em>
                                             </a>
                                         </li>
                                         <li class="" id='1_neg'>
-                                            <a href="javascript:void(0)" class="" style="" onclick='changeClassName(1)'>
+                                            <a href="javascript:void(0)" id="theme-1-neg-btn" class="" style="" onclick='changeClassName(1)'>
                                                 <em class="tab-name">부정</em>
                                             </a>
                                         </li>
@@ -201,12 +201,12 @@
                                     <ul class="tab-type5 tab comepare-origin-tabs w-75" id="originalDocsKeywordUl"
                                         style='display: table;margin-left: auto;margin-right: auto;'>
                                         <li class="on " id='2_pos'>
-                                            <a href="javascript:void(0)" class="" style="" onclick='changeClassName(2)'>
+                                            <a href="javascript:void(0)" id="theme-2-pos-btn" class="theme-positive-btn" style="" onclick='changeClassName(2)'>
                                                 <em class="tab-name">긍정</em>
                                             </a>
                                         </li>
                                         <li class=" " id='2_neg'>
-                                            <a href="javascript:void(0)" class="" style="" onclick='changeClassName(2)'>
+                                            <a href="javascript:void(0)" id="theme-2-neg-btn" class="" style="" onclick='changeClassName(2)'>
                                                 <em class="tab-name">부정</em>
                                             </a>
                                         </li>
@@ -428,7 +428,7 @@
                     <ul class="top-menu-list clearfix">
     
                         <li class="ftTop-menu point-menu">
-                        <a href="#layer2" class="btn-example" onclick='layer_popup("#layer2")'>개인정보처리방침</a> </li>
+                        <a href="#layer2" class="btn-example theme-indi-rule" onclick='layer_popup("#layer2")'>개인정보처리방침</a> </li>
                         <div class="dim-layer">
                             <div class="dimBg"></div>
                             <div id="layer2" class="pop-layer">

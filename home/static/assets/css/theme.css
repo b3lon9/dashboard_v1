@@ -1,0 +1,145 @@
+/* 경기천년폰트 */
+@font-face {
+    font-family: 'GyeonggiTitleM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*=============================================
+화면의 위에서부터 아래의 순서로 보면 되어요:)
+책 읽는 순서(좌 → 우)
+===============================================*/
+
+/* 상단바 색상 */
+.theme-top {
+    background: linear-gradient(to right, var(--top-bar-start-color), var(--top-bar-end-color)) !important;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 검색 키워드 색상 */
+.theme-search-keyword {
+    color: var(--top-search-input-text-color) !important;
+}
+
+.theme-search-keyword::placeholder {
+    color: var(--top-search-keyword-color) !important;
+}
+
+/* 프로필 색상 */
+.theme-top-profile {
+    background: var(--top-bar-start-color) !important;
+}
+
+/* 토글 버튼 */
+:checked+.theme-toggle-btn {
+    background-color: var(--btn-toggle-color) !important;
+}
+
+/* 긍ㆍ부정 버튼 */
+.theme-positive-btn {
+    background-color: var(--btn-positive-color) !important;
+    border: 1px solid var(--btn-positive-color) !important;
+}
+
+.theme-positive-btn:active {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid var(--downgrade-positive-color);
+}
+
+.theme-positive-btn:hover {
+    background-color: var(--downgrade-positive-color) !important;
+    border: 1px solid var(--downgrade-positive-color);
+}
+
+#theme-1-pos-btn:hover {
+    background-color: var(--downgrade-positive-color);
+    color: var(--text-color);
+    border: 1px solid var(--downgrade-positive-color);
+}
+
+.tab-type5 li:hover a#theme-1-pos-btn {
+    background-color: var(--downgrade-positive-color) !important;
+}
+
+.tab-type5 li:hover a#theme-2-pos-btn {
+    background-color: var(--downgrade-positive-color) !important;
+}
+
+.tab-type5 li a#theme-1-pos-btn {
+    border: 1px solid var(--downgrade-positive-color);
+}
+
+.tab-type5 li a#theme-2-pos-btn {
+    border: 1px solid var(--downgrade-positive-color);
+}
+
+.theme-negative-btn {
+    background-color: var(--btn-negative-color) !important;
+    border: 1px solid var(--btn-negative-color) !important;
+}
+
+.theme-negative-btn:active {
+    background-color: white;
+}
+
+.theme-negative-btn:hover {
+    background-color: var(--downgrade-negative-color) !important;
+}
+
+#theme-1-neg-btn:hover {
+    background-color: var(--downgrade-negative-color);
+}
+
+.tab-type5 li a#theme-1-neg-btn {
+    border: 1px solid var(--downgrade-negative-color);
+}
+
+.tab-type5 li a#theme-2-neg-btn {
+    border: 1px solid var(--downgrade-negative-color);
+    color: var(--text-color);
+}
+
+.tab-type5 li:hover a#theme-1-neg-btn {
+    background-color: var(--downgrade-negative-color) !important;
+}
+
+.tab-type5 li:hover a#theme-2-neg-btn {
+    background-color: var(--downgrade-negative-color) !important;
+}
+
+.tab-type5 li .tab-name {
+    color: var(--text-color);
+}
+
+.theme-indi-rule {
+    color: var(--indi-text-color) !important;
+}
+
+/**/
+:root {
+    --top-bar-start-color: #4099ff;
+    --top-bar-end-color: #73b4ff;
+    --top-search-keyword-color: darkblue;
+    --top-search-input-text-color: darkblue;
+
+    --barchart-positive-color: #009EFF;
+    --downgrade-positive-color: #99CCFF;
+    --barchart-negative-color: #ff5370;
+    --downgrade-negative-color: #FF9999;
+
+    --btn-toggle-color: var(--barchart-positive-color);
+    --btn-positive-color: var(--barchart-positive-color);
+    --btn-negative-color: var(--barchart-negative-color);
+    
+    --dis-text-color: #898898;
+    --text-color: darkblue;
+    --indi-text-color: #2099ff;
+
+    --piechart-5-color: #0408fc;
+    --piechart-4-color: #0162ff;
+    --piechart-3-color: #009dff;
+    --piechart-2-color: #01cad5;
+    --piechart-1-color: #01d5ff;
+}

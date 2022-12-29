@@ -1,4 +1,15 @@
 $(function () {   //create color
+  const root = document.documentElement;
+  const rootStyle = getComputedStyle(root);
+
+  const color_pos = rootStyle.getPropertyValue("--barchart-positive-color");
+  const color_neg = rootStyle.getPropertyValue("--barchart-negative-color");
+  const color_pie1 = rootStyle.getPropertyValue("--piechart-1-color");
+  const color_pie2 = rootStyle.getPropertyValue("--piechart-2-color");
+  const color_pie3 = rootStyle.getPropertyValue("--piechart-3-color");
+  const color_pie4 = rootStyle.getPropertyValue("--piechart-4-color");
+  const color_pie5 = rootStyle.getPropertyValue("--piechart-5-color");
+
   const color = [];
   var card_width = 285;
   var chart_width = $('.wordcloud-size').width();
@@ -11,7 +22,13 @@ $(function () {   //create color
   }
   //end create color
 
-  var dataCate = ['1점','2점','3점','4점','5점']
+  // color.push(color_pie1);
+  // color.push(color_pie2);
+  // color.push(color_pie3);
+  // color.push(color_pie4);
+  // color.push(color_pie5);
+
+  var dataCate = ['1점','2점','3점','4점','5점'];
 
   //pie chart_1 start
   var options_donut_1 = {

@@ -13,7 +13,7 @@
         
     }
 </script>
-<header class="navbar pcoded-header navbar-expand-lg navbar-light headerpos-fixed header-green">
+<header class="navbar pcoded-header navbar-expand-lg navbar-light headerpos-fixed header-blue theme-top">
 
     <div class="m-header">
         {% if keyword1 and keyword2%}
@@ -25,8 +25,8 @@
     <div class="collapse navbar-collapse navbar-justify">
         <ul class="navbar-nav me-auto nav-order">
             <form name='frm' action="#" method="get" onSubmit="return Checkform()">
-                <input type="text" placeholder="keyword1" name="keyword1" class="input-keyword first-btn" value="{{keyword1}}">
-                <input type="text" placeholder="keyword2" name="keyword2" class="input-keyword" value="{{keyword2}}">
+                <input type="text" placeholder="keyword1" name="keyword1" class="input-keyword first-btn theme-search-keyword" value="{{keyword1}}">
+                <input type="text" placeholder="keyword2" name="keyword2" class="input-keyword theme-search-keyword" value="{{keyword2}}">
                 <input type="submit" id="btn-search" src="/home/static/assets/images/btn-default.png" value="">
             </form>
         </ul>
@@ -47,7 +47,7 @@
                         {% endif %}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end profile-notification">
-                        <div class="pro-head">
+                        <div class="pro-head theme-top-profile">
                             {% if request.user.is_authenticated %}
                             {% if profile_img %}
                                 <img src="media/{{profile_img}}" class="img-radius profile-size" alt="User-Profile-Image">
