@@ -5156,8 +5156,10 @@ textarea.form-control-lg {
 }
 
 .card > hr {
-    margin-right: 0;
-    margin-left: 0;
+    margin-right: 70px;
+    margin-left: 70px;
+    margin-top: 4px;
+    margin-bottom: 13px;
 }
 
 .card > .list-group {

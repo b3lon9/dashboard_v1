@@ -98,10 +98,9 @@ function category(cat) {
     }, ];
 
     series.colors.list = [
-      am4core.color("#F42B03"),
-      am4core.color("#D84A05"),
-      am4core.color("#EC7505"),
-      am4core.color("#E89005")
+      am4core.color("#009EFF"),
+      am4core.color("#3EE8C6"),
+
       ];
     
 
@@ -205,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 grid: {
                     color: function(context) {
                         if (context.tick.value == 0) {
-                          return '#000000';
+                          return '#939598';
                         } else {
                           return '#ffffff';
                         }

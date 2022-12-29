@@ -117,6 +117,10 @@ def index(request):
                             {'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
                             'text' : '갤럭시로 찍었는데 좋아요',
                             'link' : 'https://blog.naver.com/aeyongly/222953745910',
+                            'cate' : 'cafe'},
+                            {'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
+                            'text' : '갤럭시로 찍었는데 좋아요',
+                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
                             'cate' : 'cafe'},]
         
         keyword1_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
@@ -239,9 +243,9 @@ def index(request):
         
         '''
         
-        keyword1_pie = [300,100,10,400,600]
+        keyword1_pie = [300,100,150,400,600]
         
-        keyword2_pie = [300,100,10,400,600]
+        keyword2_pie = [300,100,150,400,600]
         
         # ---->장현광 context
         

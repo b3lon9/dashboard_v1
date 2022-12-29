@@ -54,7 +54,7 @@
 
                 <div class="card text-center">
 
-                    <div class=" p-3 ">
+                    <div class=" p-3 " style="margin-top: 5px;">
 
                         <div class='top-search-bar top-search-option-box' style='justify-content: center'>
                             <ul class="sns-switch-list" id="channelCheckBoxUl">
@@ -98,7 +98,7 @@
 
                     <div class="row">
                         <div class="col-xl-6 pe-1">
-                            <div class="mycard w-95 ms-auto">
+                            <div class="mycard w-95 ms-auto" style="margin-bottom: 25px;">
 
                                 <h5>{{keyword1}}</h5><br>
 
@@ -108,12 +108,12 @@
                                         style='display: table;margin-left: auto;margin-right: auto;'>
                                         <li class="on" id='1_pos'>
                                             <a href="javascript:void(0)" id="theme-1-pos-btn" class="theme-positive-btn" style="" onclick='changeClassName(1)'>
-                                                <em class="tab-name">긍정</em>
+                                                <em class="tab-name pos">긍정</em>
                                             </a>
                                         </li>
                                         <li class="" id='1_neg'>
                                             <a href="javascript:void(0)" id="theme-1-neg-btn" class="" style="" onclick='changeClassName(1)'>
-                                                <em class="tab-name">부정</em>
+                                                <em class="tab-name neg">부정</em>
                                             </a>
                                         </li>
                                     </ul>
@@ -123,7 +123,7 @@
                                     <div class="hidden-scroll yscroll-overlay">
                                         <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list"
                                             id="originalDocsUl" data-id="original-data-list-compare-reputation"
-                                            style="opacity: 1; height: 275px;">
+                                            style="opacity: 1; height: 243px;">
 
                                             {% for item in keyword1_positive %}
                                             <li class="original-data-item" style="cursor:pointer;" id={{item.cate}}
@@ -158,7 +158,7 @@
                                     <div class="hidden-scroll yscroll-overlay">
                                         <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list"
                                             id="originalDocsUl" data-id="original-data-list-compare-reputation"
-                                            style="opacity: 1; height: 275px;">
+                                            style="opacity: 1; height: 243px;">
 
                                             {% for item in keyword1_negative %}
                                             <li class="original-data-item" style="cursor:pointer;" id={{item.cate}}
@@ -193,7 +193,7 @@
                         </div>
 
                         <div class="col-xl-6 ps-1">
-                            <div class="mycard w-95">
+                            <div class="mycard w-95" style="margin-bottom: 25px;">
 
                                 <h5>{{keyword2}}</h5><br>
 
@@ -203,7 +203,7 @@
                                         style='display: table;margin-left: auto;margin-right: auto;'>
                                         <li class="on " id='2_pos'>
                                             <a href="javascript:void(0)" id="theme-2-pos-btn" class="theme-positive-btn" style="" onclick='changeClassName(2)'>
-                                                <em class="tab-name">긍정</em>
+                                                <em class="tab-name">긍정</em> 
                                             </a>
                                         </li>
                                         <li class=" " id='2_neg'>
@@ -218,7 +218,7 @@
                                     <div class="hidden-scroll yscroll-overlay">
                                         <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list"
                                             id="originalDocsUl" data-id="original-data-list-compare-reputation"
-                                            style="opacity: 1; height: 275px;">
+                                            style="opacity: 1; height: 243px;">
 
                                             {% for item in keyword2_positive %}
                                             <li class="original-data-item" style="cursor:pointer; " id={{item.cate}}
@@ -254,7 +254,7 @@
                                     <div class="hidden-scroll yscroll-overlay">
                                         <ul class="hidden-scroll-content yscroll-overlay-body original-data-list mention-original-list"
                                             id="originalDocsUl" data-id="original-data-list-compare-reputation"
-                                            style="opacity: 1; height: 275px;">
+                                            style="opacity: 1; height: 243px;">
 
                                             {% for item in keyword2_negative %}
                                             <li class="original-data-item" style="cursor:pointer;" id={{item.cate}}
@@ -370,9 +370,12 @@
                 
 
                 <div class="card text-center">
+                    <div class="card-header">
+                        <h4>투표수</h4>
+                    </div>
                     <div class="card-body">
         
-                        <h5>투표수</h5><br>
+                        
 
                         <div id="chartdiv" style='height : 200px'></div>                         
 

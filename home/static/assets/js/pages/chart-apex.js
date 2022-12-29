@@ -14,19 +14,19 @@ $(function () {   //create color
   var card_width = 285;
   var chart_width = $('.wordcloud-size').width();
 
-  while (color.length < 20) {
-    do {
-      var arrs = Math.floor((Math.random() * 1000000) + 1);
-    } while (color.indexOf(arrs) >= 0);
-    color.push("#" + ("000000" + arrs.toString(16)).slice(-6));
-  }
+  // while (color.length < 20) {
+  //   do {
+  //     var arrs = Math.floor((Math.random() * 1000000) + 1);
+  //   } while (color.indexOf(arrs) >= 0);
+  //   color.push("#" + ("000000" + arrs.toString(16)).slice(-6));
+  // }
   //end create color
 
-  // color.push(color_pie1);
-  // color.push(color_pie2);
-  // color.push(color_pie3);
-  // color.push(color_pie4);
-  // color.push(color_pie5);
+  color.push('#59E0C5');
+  color.push('#004295');
+  color.push('#005FB7');
+  color.push('#007EDB');
+  color.push('#009EFF');
 
   var dataCate = ['1점','2점','3점','4점','5점'];
 
@@ -37,19 +37,23 @@ $(function () {   //create color
       width: card_width,
       type: 'donut',
     },
+    dataLabels: {
+      enabled: false
+    },
     labels: dataCate,
     colors: color,
+    plotOptions: {
+      pie: {
+        expandOnClick: false,
+        donut: {
+          size: '50%'
+        }
+      }
+    },
     responsive: [{
       breakpoint: 480,
       options: {
-        plotOptions: {
-          pie: {
-            expandOnClick: false,
-            donut: {
-              size: 200
-            }
-          }
-        },
+        
         chart: {
           width: 200
         },
@@ -70,19 +74,23 @@ $(function () {   //create color
       width: card_width,
       type: 'donut',
     },
+    dataLabels: {
+      enabled: false
+    },
     labels: dataCate,
     colors: color,
+    plotOptions: {
+      pie: {
+        expandOnClick: false,
+        donut: {
+          size: '50%'
+        }
+      }
+    },
     responsive: [{
       breakpoint: 480,
       options: {
-        plotOptions: {
-          pie: {
-            expandOnClick: false,
-            donut: {
-              size: 200
-            }
-          }
-        },
+        
         chart: {
           width: 200
         },
