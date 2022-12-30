@@ -64,7 +64,7 @@ function floatchart() {
                 position: 'top',
             },
             xaxis: {
-                type: 'datetime',
+                //type: 'datetime',
                 categories: serise_xaxis,//['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000'],
                 axisBorder: {
                     show: false,
@@ -77,8 +77,8 @@ function floatchart() {
             },
             yaxis: {
                 show: true,
-                min: 10,
-                max: 70,
+                min: 770000,
+                max: 1800000,
                 labels: {
                     style: {
                         color: '#ccc'

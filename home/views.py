@@ -15,7 +15,9 @@ from django.contrib import messages
 from allauth.socialaccount.models import SocialAccount
 from argon2 import PasswordHasher
 from login.forms import LoginForm, SignUpForm
-
+# from functions.AD_filtering_with_easyocr import AD_filtering
+from functions.starRating_clas import starRating_classisification
+from functions.low_price_crawling import low_price
 # Create your views here.
 
 
@@ -144,14 +146,25 @@ def index(request):
         
         '''
         
-        keyword1_serise = {'name' : '갤럭시',
-                        'data' : [20, 50, 30, 60, 30, 50]}
+        keyword1_series_, series_xaxis_ = low_price(request.GET['keyword1'])
+        keyword2_series_, _ = low_price(request.GET['keyword2'])
         
-        keyword2_serise = {'name' : '아이폰',
-                        'data' : [60, 30, 65, 45, 67, 35]}
+        keyword1_serise = keyword1_series_
+        keyword2_serise = keyword2_series_
+        serise_xaxis = series_xaxis_
+
+        # print(keyword1_serise)
+        # print(keyword2_serise)
+        # print(serise_xaxis)
+
+        # keyword1_serise = {'name' : '갤럭시',
+        #                 'data' : [20, 50, 30, 60, 30, 50]}
         
-        serise_xaxis = ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000']
-                        
+        # keyword2_serise = {'name' : '아이폰',
+        #                 'data' : [60, 30, 65, 45, 67, 35]}
+        
+        # serise_xaxis = ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000']
+      
         
         # ---->권석원 context
         
@@ -170,45 +183,21 @@ def index(request):
         minmax scaling 후에 1000 을 곱하면 될 것 같아요
         
         '''
-        
-        keyword1_wordcloud_13 = [{'text': '언리쉬드', 'value': 300}, 
-                    {'text': '건담', 'value': 500}, 
-                    {'text': 'Z건담', 'value': 200}, 
-                    {'text': 'FAZZ', 'value': 700}, 
-                    {'text': '머신러닝', 'value': 200}, 
-                    {'text': '딥러닝', 'value': 400}, 
-                    {'text': '랜덤포레스트', 'value': 240},]
-        
+
+        # 키워드를 어디서 받는건지 몰라서 일단은 'S22'
+        # S22만 키워드로 주면 아이폰14를 같이 크롤링해서 데이터를 반환합니다
+        keyword1_wordcloud_13_, keyword1_wordcloud_45_, keyword2_wordcloud_13_, keyword2_wordcloud_45_, keyword1_pie_, keyword2_pie_ = starRating_classisification(request.GET['keyword1'],request.GET['keyword2'])
+
+        keyword1_wordcloud_13 = keyword1_wordcloud_13_
         keyword1_wordcloud_13_json=json.dumps(keyword1_wordcloud_13,cls=DjangoJSONEncoder)
         
-        keyword2_wordcloud_13 = [{'text': '언리쉬드', 'value': 300}, 
-                    {'text': '건담', 'value': 500}, 
-                    {'text': 'Z건담', 'value': 200}, 
-                    {'text': 'FAZZ', 'value': 700}, 
-                    {'text': '머신러닝', 'value': 200}, 
-                    {'text': '딥러닝', 'value': 400}, 
-                    {'text': '랜덤포레스트', 'value': 240},]
-        
+        keyword2_wordcloud_13 = keyword2_wordcloud_13_
         keyword2_wordcloud_13_json=json.dumps(keyword2_wordcloud_13,cls=DjangoJSONEncoder)
         
-        keyword1_wordcloud_45 = [{'text': '언리쉬드', 'value': 300}, 
-                    {'text': '건담', 'value': 500}, 
-                    {'text': 'Z건담', 'value': 200}, 
-                    {'text': 'FAZZ', 'value': 700}, 
-                    {'text': '머신러닝', 'value': 200}, 
-                    {'text': '딥러닝', 'value': 400}, 
-                    {'text': '랜덤포레스트', 'value': 240},]
-        
+        keyword1_wordcloud_45 = keyword1_wordcloud_45_
         keyword1_wordcloud_45_json=json.dumps(keyword1_wordcloud_45,cls=DjangoJSONEncoder)
         
-        keyword2_wordcloud_45 = [{'text': '언리쉬드', 'value': 300}, 
-                    {'text': '건담', 'value': 500}, 
-                    {'text': 'Z건담', 'value': 200}, 
-                    {'text': 'FAZZ', 'value': 1000}, 
-                    {'text': '머신러닝', 'value': 200}, 
-                    {'text': '딥러닝', 'value': 400}, 
-                    {'text': '랜덤포레스트', 'value': 240},]
-        
+        keyword2_wordcloud_45 = keyword2_wordcloud_45_
         keyword2_wordcloud_45_json=json.dumps(keyword2_wordcloud_45,cls=DjangoJSONEncoder)
         
         '''
@@ -220,9 +209,9 @@ def index(request):
         
         '''
         
-        keyword1_pie = [300,100,10,400,600]
+        keyword1_pie = keyword1_pie_
         
-        keyword2_pie = [300,100,10,400,600]
+        keyword2_pie = keyword2_pie_
         
         # ---->장현광 context
         
