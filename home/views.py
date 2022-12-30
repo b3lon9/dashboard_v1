@@ -18,6 +18,7 @@ from login.forms import LoginForm, SignUpForm
 # from functions.AD_filtering_with_easyocr import AD_filtering
 from functions.starRating_clas import starRating_classisification
 from functions.low_price_crawling import low_price
+from functions.pos_neg_all import *
 # Create your views here.
 
 
@@ -93,33 +94,15 @@ def index(request):
         ex2) keword1_positive[0].title : 키워드1에 대한 긍정 분류 결과 0번째 글의 제목
         
         '''
-        keyword1_positive = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '갤럭시로 찍었는데 좋아요',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'blog'},
-                            {'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '갤럭시로 찍었는데 좋아요',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'news'},
-                            {'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '갤럭시로 찍었는데 좋아요',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'cafe'},]
         
-        keyword1_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '갤럭시로 찍었는데 좋아요',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'news'}]
-        
-        keyword2_positive = [{'title' : '[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬',
-                            'text' : '아이폰내용',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'cafe'}]
-        
-        keyword2_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '아이폰내용',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'blog'}]
+        n1, n2, n3, n4 = predict_pos_neg(crawling_news(request.GET['keyword1'], 1, 2), crawling_news(request.GET['keyword2'], 1, 2))
+        key1_b, key1_c = AD_filtering(request.GET['keyword1'])
+        key2_b, key2_c = AD_filtering(request.GET['keyword2'])
+
+        c1, c2, c3, c4 = predict_pos_neg(key1_c, key2_c)
+        b1, b2, b3, b4 = predict_pos_neg(key1_b, key2_b)
+
+        keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+c1+b1, n2+c2+b2, n3+c3+b3, n4+c4+b4
         
         
         '''
@@ -132,8 +115,8 @@ def index(request):
         
         '''
         
-        positve_bar = [8,2]
-        negative_bar = [-3,-7]
+        positve_bar = [len(keyword1_positive), len(keyword2_positive)]
+        negative_bar = [-len(keyword1_negative), -len(keyword2_negative)]
         
         '''
         #### 라인 차트 #### 

@@ -106,7 +106,7 @@ def crawling_rating_data(keyword:str):
   headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'}
   res = requests.get(url, headers=headers)
   
-  soup = BeautifulSoup(res.text, 'lxml')
+  soup = BeautifulSoup(res.text, 'html.parser')
   prod_list = soup.find_all('a', 'click_log_product_standard_title_')
   prod_link = prod_list[0]['href']
   pcode_index = prod_link.find('pcode')
@@ -119,7 +119,7 @@ def crawling_rating_data(keyword:str):
     res = requests.get(url, headers=headers)
     
     # soup 객체 만들기
-    soup = BeautifulSoup(res.text, "lxml")
+    soup = BeautifulSoup(res.text, "html.parser")
     reviews = soup.find_all('div', 'atc')
     stars = soup.find_all('span', 'star_mask')
 
