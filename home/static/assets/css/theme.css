@@ -68,10 +68,12 @@
 }
 
 .tab-type5 li a#theme-1-pos-btn {
+    background-color: var(--downgrade-positive-color);
     border: 1px solid var(--downgrade-positive-color);
 }
 
 .tab-type5 li a#theme-2-pos-btn {
+    background-color: var(--downgrade-positive-color);
     border: 1px solid var(--downgrade-positive-color);
 }
 
@@ -93,12 +95,13 @@
 }
 
 .tab-type5 li a#theme-1-neg-btn {
+    background-color: var(--downgrade-negative-color);
     border: 1px solid var(--downgrade-negative-color);
 }
 
 .tab-type5 li a#theme-2-neg-btn {
+    background-color: var(--downgrade-negative-color);
     border: 1px solid var(--downgrade-negative-color);
-    color: var(--text-color);
 }
 
 .tab-type5 li:hover a#theme-1-neg-btn {
@@ -110,11 +113,22 @@
 }
 
 .tab-type5 li .tab-name {
-    color: var(--text-color);
+    color: var(--btn-text-color);
 }
 
 .theme-indi-rule {
     color: var(--indi-text-color) !important;
+}
+
+/* 
+=======
+회원가입
+======= 
+*/
+
+/* 배경 */
+.theme-signup-bg {
+    background: linear-gradient(45deg, var(--top-bar-start-color), var(--top-bar-end-color));
 }
 
 /**/
@@ -129,10 +143,11 @@
     --barchart-negative-color: #ff5370;
     --downgrade-negative-color: #FF9999;
 
-    --btn-toggle-color: var(--barchart-positive-color);
+    --btn-toggle-color: #00b774;
     --btn-positive-color: var(--barchart-positive-color);
     --btn-negative-color: var(--barchart-negative-color);
     
+    --btn-text-color: white;
     --dis-text-color: #898898;
     --text-color: darkblue;
     --indi-text-color: #2099ff;
