@@ -1,1 +1,5 @@
+# cache
 *.pyc
+
+# clean db
+db.sqlite3
