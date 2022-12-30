@@ -1,5 +1,6 @@
 # cache
 *.pyc
+*/migrations/*
 
 # clean db
 db.sqlite3
