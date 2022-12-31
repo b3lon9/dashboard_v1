@@ -118,11 +118,8 @@ def index(request):
         c1, c2, c3, c4 = predict_pos_neg(key1_c, key2_c)
         b1, b2, b3, b4 = predict_pos_neg(key1_b, key2_b)
 
-        if c1 == 0 and c3 == 0 :
-            keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+c1+b1, n2+c2+b2, n3+c3+b3, n4+c4+b4
-        else : 
-            keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+b1, n2+b2, n3+b3, n4+b4
-        
+        keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+c1+b1, n2+c2+b2, n3+c3+b3, n4+c4+b4
+
         
         '''
         #### 바 차트 #### 

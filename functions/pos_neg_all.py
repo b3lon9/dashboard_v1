@@ -471,7 +471,6 @@ def convert_data(df):
     return 0
 
 def predict_pos_neg(key1, key2) :
-    
     cd_key1 = convert_data(key1)
     cd_key2 = convert_data(key2)
     
@@ -488,8 +487,8 @@ def predict_pos_neg(key1, key2) :
         keyword1_negative = key1_df_neg.to_dict('records')
     
     else :
-        keyword1_positive = 0
-        keyword1_negative = 0
+        keyword1_positive = {}
+        keyword1_negative = {}
 
     if cd_key2 != 0 :
         
@@ -504,8 +503,8 @@ def predict_pos_neg(key1, key2) :
         keyword2_negative = key2_df_neg.to_dict('records')
         
     else :
-        keyword2_positive = 0
-        keyword2_negative = 0
+        keyword2_positive = {}
+        keyword2_negative = {}
     
     return keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative
 
@@ -513,6 +512,8 @@ def predict_pos_neg(key1, key2) :
 
 # key1_b, key1_c = AD_filtering('아이폰14프로맥스')
 # key2_b, key2_c = AD_filtering('아이폰se')
+key_tmp = pd.DataFrame({'text' : ['아무노래나 일단 틀어']})
+predict_pos_neg(key_tmp, key_tmp)
 
 # c1, c2, c3, c4 = predict_pos_neg(key1_c, key2_c)
 # b1, b2, b3, b4 = predict_pos_neg(key1_b, key2_b)
