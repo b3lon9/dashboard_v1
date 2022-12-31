@@ -26,7 +26,7 @@
 }
 
 #btn-search {
-    background-image: url('../images/btn-default.png');
+    background-image: url('../images/search/star_default.png');
     background-color: transparent; /* make the button transparent */
     background-repeat: no-repeat;  /* make the background image appear only once */
     background-position: 0px 0px;  /* equivalent to 'top left' */
@@ -39,33 +39,22 @@
     height:32px;
 }
 
-input.button-add {
-    background-image: url("../images/btn-default.png"); /* 16px x 16px */
-    background-color: transparent; /* make the button transparent */
-    background-repeat: no-repeat;  /* make the background image appear only once */
-    background-position: 0px 0px;  /* equivalent to 'top left' */
-    border: none;           /* assuming we don't want any borders */
-    cursor: pointer;        /* make the cursor like hovering over an <a> element */
-    height: 16px;           /* make this the size of your image */
-    padding-left: 16px;     /* make text start to the right of the image */
-    vertical-align: middle; /* align the text vertically centered */
-}
-
 #btn-search {
     margin-left:5px;
     margin-bottom:5px;
+    background-size: cover;
 }
 
 
 #btn-search:hover {
-    background-image: url("../images/btn-press.png"); /* 16px x 16px */
+    background-image: url("../images/search/star_focus.png"); /* 16px x 16px */
     cursor: pointer;
 }
 
 
 #btn-search:active {
     /* background-image: url("../images/btn-focus.png");  16px x 16px */
-    background-image: url("../images/btn-active.png"); /* 16px x 16px */
+    background-image: url("../images/search/star_focus.png"); /* 16px x 16px */
 }
 
 .navbar .login {

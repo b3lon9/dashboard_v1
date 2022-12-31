@@ -37,85 +37,123 @@
 }
 
 /* 긍ㆍ부정 버튼 */
-.theme-positive-btn {
+/* ▒▒▒긍정▒▒▒ */
+li.on .theme-positive-btn {
     background-color: var(--btn-positive-color) !important;
     border: 1px solid var(--btn-positive-color) !important;
 }
 
-.theme-positive-btn:active {
+li.on .theme-positive-btn em.pos {
+    color: var(--btn-text-color) !important;
+}
+
+li.on .theme-positive-btn:active {
     background-color: white !important;
     color: black !important;
     border: 1px solid var(--downgrade-positive-color);
 }
 
-.theme-positive-btn:hover {
+li.on .theme-positive-btn:hover {
     background-color: var(--downgrade-positive-color) !important;
     border: 1px solid var(--downgrade-positive-color);
-}
-
-#theme-1-pos-btn:hover {
-    background-color: var(--downgrade-positive-color);
-    color: var(--text-color);
-    border: 1px solid var(--downgrade-positive-color);
-}
-
-.tab-type5 li:hover a#theme-1-pos-btn {
-    background-color: var(--downgrade-positive-color) !important;
-}
-
-.tab-type5 li:hover a#theme-2-pos-btn {
-    background-color: var(--downgrade-positive-color) !important;
 }
 
 .tab-type5 li a#theme-1-pos-btn {
-    background-color: var(--downgrade-positive-color);
+    background-color: transparent;
     border: 1px solid var(--downgrade-positive-color);
 }
 
 .tab-type5 li a#theme-2-pos-btn {
-    background-color: var(--downgrade-positive-color);
+    background-color: transparent;
     border: 1px solid var(--downgrade-positive-color);
 }
 
-.theme-negative-btn {
+.tab-type5 li a#theme-1-pos-btn em.pos {
+    color: var(--downgrade-positive-color);
+}
+
+.tab-type5 li a#theme-2-pos-btn em.pos {
+    color: var(--downgrade-positive-color);
+}
+
+.tab-type5 li:hover a#theme-1-pos-btn {
+    background-color: var(--downgrade-positive-color);
+    border: 1px solid var(--downgrade-positive-color) !important;
+}
+
+.tab-type5 li:hover a#theme-2-pos-btn {
+    background-color: var(--downgrade-positive-color);
+    border: 1px solid var(--downgrade-positive-color) !important;
+}
+
+.tab-type5 li:hover a#theme-1-pos-btn em.pos {
+    color: var(--btn-text-color);
+}
+
+.tab-type5 li:hover a#theme-2-pos-btn em.pos {
+    color: var(--btn-text-color);
+}
+
+
+/* ▒▒▒부정▒▒▒ */
+li.on .theme-negative-btn {
     background-color: var(--btn-negative-color) !important;
     border: 1px solid var(--btn-negative-color) !important;
 }
 
-.theme-negative-btn:active {
-    background-color: white;
+li.on .theme-negative-btn em.neg {
+    color: var(--btn-text-color) !important;
 }
 
-.theme-negative-btn:hover {
+li.on .theme-negative-btn:active {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid var(--downgrade-negative-color);
+}
+
+li.on .theme-negative-btn:hover {
     background-color: var(--downgrade-negative-color) !important;
-}
-
-#theme-1-neg-btn:hover {
-    background-color: var(--downgrade-negative-color);
+    border: 1px solid var(--downgrade-negative-color);
 }
 
 .tab-type5 li a#theme-1-neg-btn {
-    background-color: var(--downgrade-negative-color);
+    background-color: transparent;
     border: 1px solid var(--downgrade-negative-color);
 }
 
 .tab-type5 li a#theme-2-neg-btn {
-    background-color: var(--downgrade-negative-color);
+    background-color: transparent;
     border: 1px solid var(--downgrade-negative-color);
 }
 
+.tab-type5 li a#theme-1-neg-btn em.neg {
+    color: var(--downgrade-negative-color);
+}
+
+.tab-type5 li a#theme-2-neg-btn em.neg {
+    color: var(--downgrade-negative-color);
+}
+
 .tab-type5 li:hover a#theme-1-neg-btn {
-    background-color: var(--downgrade-negative-color) !important;
+    background-color: var(--downgrade-negative-color);
+    border: 1px solid var(--downgrade-negative-color) !important;
 }
 
 .tab-type5 li:hover a#theme-2-neg-btn {
-    background-color: var(--downgrade-negative-color) !important;
+    background-color: var(--downgrade-negative-color);
+    border: 1px solid var(--downgrade-negative-color) !important;
 }
 
-.tab-type5 li .tab-name {
+.tab-type5 li:hover a#theme-1-neg-btn em.neg {
     color: var(--btn-text-color);
 }
 
+.tab-type5 li:hover a#theme-2-neg-btn em.neg {
+    color: var(--btn-text-color);
+}
+
+
+/* 개인정보처리방침 */
 .theme-indi-rule {
     color: var(--indi-text-color) !important;
 }
