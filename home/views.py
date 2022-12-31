@@ -87,6 +87,10 @@ def index(request):
         context['comm_qry_key1'] = comm_qry_key1
         context['comm_qry_key2'] = comm_qry_key2
         
+        tmp_context = {key:value for key,value in context.items() if 'comm_qry_key' not in key}
+        
+        context['context'] = tmp_context
+        
         return render(request, 'home/index.html',context)
                 
 
