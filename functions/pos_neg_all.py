@@ -14,6 +14,81 @@ import tensorflow as tf
 from transformers import BertTokenizer, TFBertForSequenceClassification
 from .crawling_func import *
 
+def crawling_news_ksw(keyword:str):
+    #정보입력 
+    client_id = 'wGaXs74pWvcYaDuk7Och' # 발급받은 id 입력
+    client_secret = 'jeFcJ451Ww' # 발급받은 secret 입력 
+    encText = urllib.parse.quote(keyword) 
+    display_num = "20" # 최대 100
+    url = "https://openapi.naver.com/v1/search/news.json?query=" + encText + "&display=" + display_num # json 결과
+
+    request = urllib.request.Request(url)
+    request.add_header("X-Naver-Client-Id",client_id)
+    request.add_header("X-Naver-Client-Secret",client_secret)
+    response = urllib.request.urlopen(request)
+    rescode = response.getcode()
+
+    if(rescode==200): # 잘 응답하면..
+        res_body = response.read() # 읽고 받아와서
+        res_body_json = json.loads(res_body) # res_body_json에 저장함
+        # print(type(res_body_json)) # ..확인용..
+    else:
+        print("Error Code:" + rescode) # 응답안하면 에러코드 출력
+        return pd.DataFrame({'title':[], 'text':[], 'link':[], 'cate':[]})
+
+    print("<<-- 뉴스 크롤링 시작 -->>")
+    items = res_body_json['items'] # json파일 내부에 item를 뽑아서 items변수에 저장
+
+    links = []
+    titles = []
+    texts = []
+        
+    headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"}
+    cnt = 0
+    for item in items:
+         
+        url = item['link']   
+        
+        if 'naver' in url:
+
+            res = requests.get(url, headers=headers)
+            if(res.status_code != 200):
+                continue
+        
+            soup = bs(res.text, "html.parser") 
+            news_html = soup.find_all('div','go_trans _article_content')
+            
+            text = ''
+            for tag in news_html: # 카페 게시글
+                text += tag.text + ' '
+        
+            
+            if checking_ADword(text) == False:
+                
+                title = item['title']
+                for i in range(len(item['title'])):
+                    title = title.replace('<b>','')
+                    title = title.replace('</b>','')
+                    title = title.replace('&apos;',"'")
+                    title = title.replace('&apos;',"'")
+                
+                titles.append(title)
+                texts.append(text)
+                links.append(item['link'])
+        
+                cnt += 1
+        
+        if cnt == 5:
+            break
+
+
+    print("<<-- 뉴스 크롤링 종료 -->>")
+    
+    cate = 'news'
+    cafe_df = pd.DataFrame({'title':titles, 'text':text, 'link':links, 'cate':cate})
+    
+    return cafe_df
+
 def crawling_news(keyword:str, begin:int,cnt:int) :
 
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/98.0.4758.102"}
@@ -26,12 +101,6 @@ def crawling_news(keyword:str, begin:int,cnt:int) :
 
     for url in urls:
         news_url.append(articles_crawler(url,headers))
-
-    def makeList(newlist, content):
-        for i in content:
-            for j in i:
-                newlist.append(j)
-        return newlist
 
     news_url_1 = []
 
@@ -64,8 +133,9 @@ def crawling_news(keyword:str, begin:int,cnt:int) :
         pattern2 = """[\n\n\n\n\n// flash 오류를 우회하기 위한 함수 추가\nfunction _flash_removeCallback() {}"""
         content = content.replace(pattern2, '')
 
-        news_titles.append(title)
-        news_contents.append(content)
+        if checking_ADword(content) == False:
+            news_titles.append(title)
+            news_contents.append(content)
         
     cate = 'news'
     news_df = pd.DataFrame({'title':news_titles,'link':final_urls,'text':news_contents, 'cate':cate})
@@ -145,10 +215,11 @@ def crawling_cafe(keyword:str):
 
             for p in p_tags: # 카페 게시글
                 post += p.text + ' '
-
-            text.append(post)
-            links.append(url)
-            titles.append(title)
+                
+            if checking_ADword(post) == False:
+                text.append(post)
+                links.append(url)
+                titles.append(title)
         else:
             articles_json_object = json.loads(articles_response.text)
             print(articles_json_object['result']['reason'])
@@ -200,31 +271,43 @@ def crawling_blog(keyword:str):
 
     # 조립된 블로그 링크들을 담는 리스트
     blog_links = []
-
-    for j in range(len(links)):
-        blog_links.append(delete_iframe(links[j]))
-        
+    
     # 각 블로그들의 본문들을 담는 리스트
     contents = []
     
     # 블로그의 이미지 문장을 담는 리스트
     images = []
     
-    for o in range(len(blog_links)):
-        contents.append(text_scraping(blog_links[o]))
-        images.append(image_scraping(blog_links[o]))
-        # print(contents[o])
+    titles_for_df = []
+
+    for j in range(len(links)):
+        url = delete_iframe(links[j])
+        text = text_scraping(url)
         
+        if checking_ADword(text) == True:
+            continue
+        
+        img_txt = image_scraping(url)
+        
+        if ad_words_filtering(img_txt) == True:
+            continue
+        
+        blog_links.append(url)
+        contents.append(text)
+        images.append(img_txt)
+        titles_for_df.append(titles[j])
+            
+        # print(contents[o])
+
     print("<<-- 블로그 크롤링 끝 -->>") 
 
     cate = 'blog'
 
-    blog_df = pd.DataFrame({'title':titles, 'text':contents, 'link':blog_links, 'img':images, 'cate':cate})
-    
+    blog_df = pd.DataFrame({'title':titles_for_df, 'text':contents, 'link':blog_links, 'img':images, 'cate':cate})
     return blog_df
 
 ### 광고단어 체크함수 시작 ###
-def checking_ADword(data, x):
+def checking_ADword(data):
 
     ad_word_detected = False
 
@@ -245,11 +328,11 @@ def checking_ADword(data, x):
             ad_word_detected = True
             break
 
-    if ad_word_detected==True:
-        return x
+    
+    return ad_word_detected
 
 # 이미지 속 광고 단어 체크 함수
-def ad_words_filtering(stc, x):
+def ad_words_filtering(stc):
     
     ad_word_detected = False
     
@@ -261,8 +344,8 @@ def ad_words_filtering(stc, x):
             ad_word_detected = True
             break
 
-    if ad_word_detected==True:
-        return x
+
+    return ad_word_detected
 
 
 
@@ -299,51 +382,47 @@ def AD_filtering(keyword):
     # blog_text_lst = blog_df['text'].to_list()
     # cafe_text_lst = cafe_df['text'].to_list()
        
-    # filtering ad - blog
-    blog_rmv_target = []
-    for x in range(len(blog_df)):
-        blog_rmv_target.append(checking_ADword(blog_text_lst[x], x))
+    # # filtering ad - blog
+    # blog_rmv_target = []
+    # for x in range(len(blog_df)):
+    #     blog_rmv_target.append(checking_ADword(blog_text_lst[x], x))
 
-    # filtering ad - cafe
-    cafe_rmv_target = []
-    if len(cafe_df) != 0 :
-        for x in range(len(cafe_df)):
-            cafe_rmv_target.append(checking_ADword(cafe_text_lst[x], x))
+    # # filtering ad - cafe
+    # cafe_rmv_target = []
+    # if len(cafe_df) != 0 :
+    #     for x in range(len(cafe_df)):
+    #         cafe_rmv_target.append(checking_ADword(cafe_text_lst[x], x))
  
-    # None값 제거
-    blog_rmv_target = [i for i in blog_rmv_target if i is not None]
-    if len(cafe_rmv_target) != 0 :
-        cafe_rmv_target = [i for i in cafe_rmv_target if i is not None]
+    # # None값 제거
+    # blog_rmv_target = [i for i in blog_rmv_target if i is not None]
+    # if len(cafe_rmv_target) != 0 :
+    #     cafe_rmv_target = [i for i in cafe_rmv_target if i is not None]
 
-    # 인덱스값으로 광고글 제거
-    for i in range(len(blog_rmv_target)):
-        blog_df.drop(blog_rmv_target[i], axis=0, inplace=True)
+    # # 인덱스값으로 광고글 제거
+    # for i in range(len(blog_rmv_target)):
+    #     blog_df.drop(blog_rmv_target[i], axis=0, inplace=True)
         
-    print('blog 광고 : ', len(blog_rmv_target))
+    # if len(cafe_rmv_target) != 0 :
+    #     for i in range(len(cafe_rmv_target)):
+    #         cafe_df.drop(cafe_rmv_target[i], axis=0, inplace=True)
         
-    if len(cafe_rmv_target) != 0 :
-        for i in range(len(cafe_rmv_target)):
-            cafe_df.drop(cafe_rmv_target[i], axis=0, inplace=True)
-            
-    print('cafe 광고 : ', len(cafe_rmv_target))
-        
-    # 블로그 df에서 'img'만 뽑아서 리스트화
-    blog_img_lst = blog_df['img'].to_list()
+    # # 블로그 df에서 'img'만 뽑아서 리스트화
+    # blog_img_lst = blog_df['img'].to_list()
     
-    # image ad filtering
-    blog_rmv_target_img = []
-    for x in range(len(blog_df)):
-        blog_rmv_target_img.append(ad_words_filtering(blog_img_lst[x], x))
+    # # image ad filtering
+    # blog_rmv_target_img = []
+    # for x in range(len(blog_df)):
+    #     blog_rmv_target_img.append(ad_words_filtering(blog_img_lst[x], x))
         
-    blog_rmv_target_img = [i for i in blog_rmv_target_img if i is not None]
-    print('img로 rmv할 갯수 : ', len(blog_rmv_target_img))
+    # blog_rmv_target_img = [i for i in blog_rmv_target_img if i is not None]
+    # print('img로 rmv할 갯수 : ', len(blog_rmv_target_img))
     
-    for i in range(len(blog_rmv_target_img)):
-        blog_df.drop(blog_rmv_target_img[i], axis=0, inplace=True)
+    # for i in range(len(blog_rmv_target_img)):
+    #     blog_df.drop(blog_rmv_target_img[i], axis=0, inplace=True)
 
     # 인덱스 초기화로 정리
-    blog_df.reset_index(drop=True, inplace=True)
-    cafe_df.reset_index(drop=True, inplace=True)
+    # blog_df.reset_index(drop=True, inplace=True)
+    # cafe_df.reset_index(drop=True, inplace=True)
 
     return blog_df, cafe_df
 
@@ -421,12 +500,14 @@ def predict_pos_neg(key1, key2) :
     
     return keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative
 
+# crawling_blog('갤럭시')
+
 # n1, n2, n3, n4 = predict_pos_neg(crawling_news('아이폰14프로맥스', 1, 2), crawling_news('아이폰se', 1, 2))
 
 # key1_b, key1_c = AD_filtering('아이폰14프로맥스')
 # key2_b, key2_c = AD_filtering('아이폰se')
 key_tmp = pd.DataFrame({'text' : ['아무노래나 일단 틀어']})
-predict_pos_neg(key_tmp, key_tmp)
+
 
 # c1, c2, c3, c4 = predict_pos_neg(key1_c, key2_c)
 # b1, b2, b3, b4 = predict_pos_neg(key1_b, key2_b)

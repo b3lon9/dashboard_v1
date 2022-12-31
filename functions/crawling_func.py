@@ -5,6 +5,8 @@ import pytesseract
 from PIL import Image
 from io import BytesIO
 
+pytesseract.pytesseract.tesseract_cmd = 'C:/Users/USER/AppData/Local/Tesseract-OCR/tesseract.exe'
+
 def makePgNum(num):
         if num == 1:
             return num
@@ -25,6 +27,12 @@ def makeUrl(search, start_pg, end_pg):
             url = "https://search.naver.com/search.naver?where=news&query=" + search + "&start=" + str(page)
             urls.append(url)
         return urls    
+    
+def makeList(newlist, content):
+    for i in content:
+        for j in i:
+            newlist.append(j)
+    return newlist
 
 def news_attrs_crawler(articles,attrs):
     attrs_content=[]
@@ -73,34 +81,28 @@ def text_scraping(url):
     
 # 블로그 링크로 마지막 이미지의 문장을 탐지한 결과를 불러오는 함수
 def image_scraping(url):
-    print(url)
     headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"}
     res = requests.get(url, headers=headers)
-    print(res)
     soup = bs(res.text, "html.parser") 
     
     img = soup.find_all('img', {'class' : ['se-sticker-image', 'se-image-resource']})
 
     try:
-        print('try')
         res = request.urlopen(img[-1]["data-lazy-src"]).read()
         result_l = pytesseract.image_to_string(Image.open(BytesIO(res)), lang='kor+eng')
-        print('try ed')
         return result_l
     except KeyError:
-        print('KeyError')
         res = request.urlopen(img[-1]["src"]).read()
         result_l = pytesseract.image_to_string(Image.open(BytesIO(res)), lang='kor+eng')
-        print('KeyError ed')
         return result_l
     except AttributeError:
-        print('AttributeError')
         return ""
     except IndexError:
-        print('IndexError')
         return ""
     except Exception as e:    # 모든 예외의 에러 메시지를 출력할 때는 Exception을 사용
         print('예외가 발생했습니다.', e)
         return ""
     
-image_scraping('https://blog.naver.com//PostView.naver?blogId=riberocjh&logNo=222955435979&redirect=Dlog&widgetTypeCall=true&directAccess=false')
+    
+
+# image_scraping('https://blog.naver.com//PostView.naver?blogId=riberocjh&logNo=222955435979&redirect=Dlog&widgetTypeCall=true&directAccess=false')

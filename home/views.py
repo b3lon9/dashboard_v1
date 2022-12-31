@@ -21,8 +21,10 @@ from functions.low_price_crawling import low_price
 from functions.pos_neg_all import *
 # Create your views here.
 
+import time
 
 def index(request):
+    
     # profile img path
     try:
         user = UserEtc.objects.get(user_id=request.user.username)
@@ -86,11 +88,11 @@ def index(request):
         context['vote'] = vote
         context['comm_qry_key1'] = comm_qry_key1
         context['comm_qry_key2'] = comm_qry_key2
-        
+         
         tmp_context = {key:value for key,value in context.items() if 'comm_qry_key' not in key}
         
         context['context'] = tmp_context
-        
+          
         return render(request, 'home/index.html',context)
                 
 
@@ -114,7 +116,8 @@ def index(request):
         
         '''
         
-        n1, n2, n3, n4 = predict_pos_neg(crawling_news(request.GET['keyword1'], 1, 2), crawling_news(request.GET['keyword2'], 1, 2))
+        #n1, n2, n3, n4 = predict_pos_neg(crawling_news(request.GET['keyword1'], 1, 2), crawling_news(request.GET['keyword2'], 1, 2))
+        n1, n2, n3, n4 = predict_pos_neg(crawling_news_ksw(request.GET['keyword1']), crawling_news_ksw(request.GET['keyword2']))
         
         key1_b, key1_c = AD_filtering(request.GET['keyword1'])
         key2_b, key2_c = AD_filtering(request.GET['keyword2'])
@@ -149,7 +152,7 @@ def index(request):
         
         '''
         
-        keyword1_series_, series_xaxis_ = low_price(request.GET['keyword1'])
+        keyword1_series_, series_xaxis_ = low_price(request.GET['keyword1'])        
         keyword2_series_, _ = low_price(request.GET['keyword2'])
         
         keyword1_serise = keyword1_series_
@@ -189,19 +192,20 @@ def index(request):
 
         # 키워드를 어디서 받는건지 몰라서 일단은 'S22'
         # S22만 키워드로 주면 아이폰14를 같이 크롤링해서 데이터를 반환합니다
-        keyword1_wordcloud_13_, keyword1_wordcloud_45_, keyword2_wordcloud_13_, keyword2_wordcloud_45_, keyword1_pie_, keyword2_pie_ = starRating_classisification(request.GET['keyword1'],request.GET['keyword2'])
 
+        keyword1_wordcloud_13_, keyword1_wordcloud_45_, keyword2_wordcloud_13_, keyword2_wordcloud_45_, keyword1_pie_, keyword2_pie_ = starRating_classisification(request.GET['keyword1'],request.GET['keyword2'])
+  
         keyword1_wordcloud_13 = keyword1_wordcloud_13_
-        keyword1_wordcloud_13_json=json.dumps(keyword1_wordcloud_13,cls=DjangoJSONEncoder)
+        #keyword1_wordcloud_13_json=json.dumps(keyword1_wordcloud_13,cls=DjangoJSONEncoder)
         
         keyword2_wordcloud_13 = keyword2_wordcloud_13_
-        keyword2_wordcloud_13_json=json.dumps(keyword2_wordcloud_13,cls=DjangoJSONEncoder)
+        #keyword2_wordcloud_13_json=json.dumps(keyword2_wordcloud_13,cls=DjangoJSONEncoder)
         
         keyword1_wordcloud_45 = keyword1_wordcloud_45_
-        keyword1_wordcloud_45_json=json.dumps(keyword1_wordcloud_45,cls=DjangoJSONEncoder)
+        #keyword1_wordcloud_45_json=json.dumps(keyword1_wordcloud_45,cls=DjangoJSONEncoder)
         
         keyword2_wordcloud_45 = keyword2_wordcloud_45_
-        keyword2_wordcloud_45_json=json.dumps(keyword2_wordcloud_45,cls=DjangoJSONEncoder)
+        #keyword2_wordcloud_45_json=json.dumps(keyword2_wordcloud_45,cls=DjangoJSONEncoder)
         
         '''
         #### 파이 차트 #### 
@@ -275,6 +279,8 @@ def index(request):
         tmp_context = {key:value for key,value in context.items() if 'comm_qry_key' not in key}
         
         context['context'] = tmp_context
+        
+
 
         return render(request, 'home/index.html',context)
     else :
