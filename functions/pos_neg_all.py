@@ -153,7 +153,9 @@ def crawling_cafe(keyword:str):
         title = title.replace('</b>','')
         
         res = requests.get(url, headers=headers)
-        res.raise_for_status() # 문제시 프로그램 종료
+        # res.raise_for_status() # 문제시 프로그램 종료
+        if(res.status_code != 200):
+            continue
         soup = bs(res.text, "html.parser") 
 
 
@@ -372,6 +374,8 @@ def AD_filtering(keyword):
     while(True):
         try:
             cafe_df = crawling_cafe(keyword)
+            if len(cafe_df) == 0 :
+                break
             cafe_text_lst = cafe_df['text'].to_list()
             break
         except:
@@ -393,19 +397,22 @@ def AD_filtering(keyword):
 
     # filtering ad - cafe
     cafe_rmv_target = []
-    for x in range(len(cafe_df)):
-        cafe_rmv_target.append(checking_ADword(cafe_text_lst[x], x))
+    if len(cafe_df) != 0 :
+        for x in range(len(cafe_df)):
+            cafe_rmv_target.append(checking_ADword(cafe_text_lst[x], x))
  
     # None값 제거
     blog_rmv_target = [i for i in blog_rmv_target if i is not None]
-    cafe_rmv_target = [i for i in cafe_rmv_target if i is not None]
+    if len(cafe_rmv_target) != 0 :
+        cafe_rmv_target = [i for i in cafe_rmv_target if i is not None]
 
     # 인덱스값으로 광고글 제거
     for i in range(len(blog_rmv_target)):
         blog_df.drop(blog_rmv_target[i], axis=0, inplace=True)
-
-    for i in range(len(cafe_rmv_target)):
-        cafe_df.drop(cafe_rmv_target[i], axis=0, inplace=True)
+        
+    if len(cafe_rmv_target) != 0 :
+        for i in range(len(cafe_rmv_target)):
+            cafe_df.drop(cafe_rmv_target[i], axis=0, inplace=True)
         
     # 블로그 df에서 'img'만 뽑아서 리스트화
     blog_img_lst = blog_df['img'].to_list()
@@ -438,62 +445,83 @@ def convert_data(df):
     # BERT 입력으로 들어가는 token, mask, segment, target 저장용 리스트
     tokens, masks, segments = [], [], []
     
-    for X in df['text']: # text로 바꿔야함! -> test용 데이터가 'data'이기 때문
-        # token: 입력 문장 토큰화
-        token = tokenizer.encode(X, truncation = True, padding = 'max_length', max_length = MAX_SEQ_LEN)
-        
-        # Mask: 토큰화한 문장 내 패딩이 아닌 경우 1, 패딩인 경우 0으로 초기화
-        num_zeros = token.count(0)
-        mask = [1] * (MAX_SEQ_LEN - num_zeros) + [0] * num_zeros
-        
-        # segment: 문장 전후관계 구분: 오직 한 문장이므로 모두 0으로 초기화
-        segment = [0]*MAX_SEQ_LEN
+    if len(df) != 0 :
+        for X in df['text']: # text로 바꿔야함! -> test용 데이터가 'data'이기 때문
+            # token: 입력 문장 토큰화
+            token = tokenizer.encode(X, truncation = True, padding = 'max_length', max_length = MAX_SEQ_LEN)
+            
+            # Mask: 토큰화한 문장 내 패딩이 아닌 경우 1, 패딩인 경우 0으로 초기화
+            num_zeros = token.count(0)
+            mask = [1] * (MAX_SEQ_LEN - num_zeros) + [0] * num_zeros
+            
+            # segment: 문장 전후관계 구분: 오직 한 문장이므로 모두 0으로 초기화
+            segment = [0]*MAX_SEQ_LEN
 
-        tokens.append(token)
-        masks.append(mask)
-        segments.append(segment)
+            tokens.append(token)
+            masks.append(mask)
+            segments.append(segment)
 
-    # numpy array로 저장
-    tokens = np.array(tokens)
-    masks = np.array(masks)
-    segments = np.array(segments)
+        # numpy array로 저장
+        tokens = np.array(tokens)
+        masks = np.array(masks)
+        segments = np.array(segments)
 
-    return [tokens, masks, segments]
+        return [tokens, masks, segments]
+    
+    return 0
 
 def predict_pos_neg(key1, key2) :
     
-    predicted_value = model.predict(convert_data(key1))
-    predicted_label = np.argmax(predicted_value, axis = 1)
-    key1['label'] = predicted_label
-
-    predicted_value = model.predict(convert_data(key2))
-    predicted_label = np.argmax(predicted_value, axis = 1)
-    key2['label'] = predicted_label
-
-    key1_df_pos = key1[key1['label'] == 0].drop(columns = 'label')
-    key1_df_neg = key1[key1['label'] == 1].drop(columns = 'label')
-
-    keyword1_positive = key1_df_pos.to_dict('records')
-    keyword1_negative = key1_df_neg.to_dict('records')
+    cd_key1 = convert_data(key1)
+    cd_key2 = convert_data(key2)
     
-    key2_df_pos = key2[key2['label'] == 0].drop(columns = 'label')
-    key2_df_neg = key2[key2['label'] == 1].drop(columns = 'label')
+    if cd_key1 != 0 : 
+        
+        predicted_value = model.predict(cd_key1)
+        predicted_label = np.argmax(predicted_value, axis = 1)
+        key1['label'] = predicted_label
+        
+        key1_df_pos = key1[key1['label'] == 0].drop(columns = 'label')
+        key1_df_neg = key1[key1['label'] == 1].drop(columns = 'label')
 
-    keyword2_positive = key2_df_pos.to_dict('records')
-    keyword2_negative = key2_df_neg.to_dict('records')
+        keyword1_positive = key1_df_pos.to_dict('records')
+        keyword1_negative = key1_df_neg.to_dict('records')
+    
+    else :
+        keyword1_positive = 0
+        keyword1_negative = 0
+
+    if cd_key2 != 0 :
+        
+        predicted_value = model.predict(cd_key2)
+        predicted_label = np.argmax(predicted_value, axis = 1)
+        key2['label'] = predicted_label
+        
+        key2_df_pos = key2[key2['label'] == 0].drop(columns = 'label')
+        key2_df_neg = key2[key2['label'] == 1].drop(columns = 'label')
+
+        keyword2_positive = key2_df_pos.to_dict('records')
+        keyword2_negative = key2_df_neg.to_dict('records')
+        
+    else :
+        keyword2_positive = 0
+        keyword2_negative = 0
     
     return keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative
 
 # n1, n2, n3, n4 = predict_pos_neg(crawling_news('아이폰14프로맥스', 1, 2), crawling_news('아이폰se', 1, 2))
 
 # key1_b, key1_c = AD_filtering('아이폰14프로맥스')
-key2_b, key2_c = AD_filtering('아이폰se')
+# key2_b, key2_c = AD_filtering('아이폰se')
 
 # c1, c2, c3, c4 = predict_pos_neg(key1_c, key2_c)
 # b1, b2, b3, b4 = predict_pos_neg(key1_b, key2_b)
 
-# keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+c1+b1, n2+c2+b2, n3+c3+b3, n4+c4+b4
-
+# if c1 == 0 and c3 == 0 :
+#     keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+c1+b1, n2+c2+b2, n3+c3+b3, n4+c4+b4
+# else : 
+#     keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+b1, n2+b2, n3+b3, n4+b4
+    
 # print(keyword1_positive)
 # print('------------------------------------------------------------------------')
 # print(keyword1_negative)
