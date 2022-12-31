@@ -15,7 +15,10 @@ from django.contrib import messages
 from allauth.socialaccount.models import SocialAccount
 from argon2 import PasswordHasher
 from login.forms import LoginForm, SignUpForm
-
+# from functions.AD_filtering_with_easyocr import AD_filtering
+from functions.starRating_clas import starRating_classisification
+from functions.low_price_crawling import low_price
+from functions.pos_neg_all import *
 # Create your views here.
 
 
@@ -106,37 +109,19 @@ def index(request):
         ex2) keword1_positive[0].title : 키워드1에 대한 긍정 분류 결과 0번째 글의 제목
         
         '''
-        keyword1_positive = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '갤럭시로 찍었는데 좋아요',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'blog'},
-                            {'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '갤럭시로 찍었는데 좋아요',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'news'},
-                            {'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '갤럭시로 찍었는데 좋아요',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'cafe'},
-                            {'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '갤럭시로 찍었는데 좋아요',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'cafe'},]
         
-        keyword1_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '갤럭시로 찍었는데 좋아요',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'news'}]
+        n1, n2, n3, n4 = predict_pos_neg(crawling_news(request.GET['keyword1'], 1, 2), crawling_news(request.GET['keyword2'], 1, 2))
         
-        keyword2_positive = [{'title' : '[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬',
-                            'text' : '아이폰내용',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'cafe'}]
-        
-        keyword2_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
-                            'text' : '아이폰내용',
-                            'link' : 'https://blog.naver.com/aeyongly/222953745910',
-                            'cate' : 'blog'}]
+        key1_b, key1_c = AD_filtering(request.GET['keyword1'])
+        key2_b, key2_c = AD_filtering(request.GET['keyword2'])
+
+        c1, c2, c3, c4 = predict_pos_neg(key1_c, key2_c)
+        b1, b2, b3, b4 = predict_pos_neg(key1_b, key2_b)
+
+        if c1 == 0 and c3 == 0 :
+            keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+c1+b1, n2+c2+b2, n3+c3+b3, n4+c4+b4
+        else : 
+            keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+b1, n2+b2, n3+b3, n4+b4
         
         
         '''
@@ -149,8 +134,8 @@ def index(request):
         
         '''
         
-        positve_bar = [8,2]
-        negative_bar = [-3,-7]
+        positve_bar = [len(keyword1_positive), len(keyword2_positive)]
+        negative_bar = [-len(keyword1_negative), -len(keyword2_negative)]
         
         '''
         #### 라인 차트 #### 
@@ -163,6 +148,17 @@ def index(request):
         
         '''
         
+        keyword1_series_, series_xaxis_ = low_price(request.GET['keyword1'])
+        keyword2_series_, _ = low_price(request.GET['keyword2'])
+        
+        keyword1_serise = keyword1_series_
+        keyword2_serise = keyword2_series_
+        serise_xaxis = series_xaxis_
+
+        # print(keyword1_serise)
+        # print(keyword2_serise)
+        # print(serise_xaxis)
+
         # keyword1_serise = {'name' : '갤럭시',
         #                 'data' : [20, 50, 30, 60, 30, 50]}
         
@@ -170,11 +166,7 @@ def index(request):
         #                 'data' : [60, 30, 65, 45, 67, 35]}
         
         # serise_xaxis = ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000']
-        
-        keyword1_serise = {'name': 's22', 'data': [779860, 793990, 792300, 782370, 746440, 776630, 776190, 742990, 754800, 777490, 767440, 763790]}     
-        keyword2_serise = {'name': '아이폰14', 'data': [1649000, 1632000, 1632000, 1632000, 1621890, 1621900, 1698400, 1700000, 1683000, 1700000, 1700000, 1649000]}
-        serise_xaxis = ['11/10/2022', '18/10/2022', '25/10/2022', '01/11/2022', '08/11/2022', '15/11/2022', '22/11/2022', '29/11/2022', '06/12/2022', '13/12/2022', '20/12/2022', '27/12/2022']
-                
+      
         
         # ---->권석원 context
         
@@ -193,45 +185,21 @@ def index(request):
         minmax scaling 후에 1000 을 곱하면 될 것 같아요
         
         '''
-        
-        keyword1_wordcloud_13 = [{'text': '언리쉬드', 'value': 300}, 
-                    {'text': '건담', 'value': 500}, 
-                    {'text': 'Z건담', 'value': 200}, 
-                    {'text': 'FAZZ', 'value': 700}, 
-                    {'text': '머신러닝', 'value': 200}, 
-                    {'text': '딥러닝', 'value': 400}, 
-                    {'text': '랜덤포레스트', 'value': 240},]
-        
+
+        # 키워드를 어디서 받는건지 몰라서 일단은 'S22'
+        # S22만 키워드로 주면 아이폰14를 같이 크롤링해서 데이터를 반환합니다
+        keyword1_wordcloud_13_, keyword1_wordcloud_45_, keyword2_wordcloud_13_, keyword2_wordcloud_45_, keyword1_pie_, keyword2_pie_ = starRating_classisification(request.GET['keyword1'],request.GET['keyword2'])
+
+        keyword1_wordcloud_13 = keyword1_wordcloud_13_
         keyword1_wordcloud_13_json=json.dumps(keyword1_wordcloud_13,cls=DjangoJSONEncoder)
         
-        keyword2_wordcloud_13 = [{'text': '언리쉬드', 'value': 300}, 
-                    {'text': '건담', 'value': 500}, 
-                    {'text': 'Z건담', 'value': 200}, 
-                    {'text': 'FAZZ', 'value': 700}, 
-                    {'text': '머신러닝', 'value': 200}, 
-                    {'text': '딥러닝', 'value': 400}, 
-                    {'text': '랜덤포레스트', 'value': 240},]
-        
+        keyword2_wordcloud_13 = keyword2_wordcloud_13_
         keyword2_wordcloud_13_json=json.dumps(keyword2_wordcloud_13,cls=DjangoJSONEncoder)
         
-        keyword1_wordcloud_45 = [{'text': '언리쉬드', 'value': 300}, 
-                    {'text': '건담', 'value': 500}, 
-                    {'text': 'Z건담', 'value': 200}, 
-                    {'text': 'FAZZ', 'value': 700}, 
-                    {'text': '머신러닝', 'value': 200}, 
-                    {'text': '딥러닝', 'value': 400}, 
-                    {'text': '랜덤포레스트', 'value': 240},]
-        
+        keyword1_wordcloud_45 = keyword1_wordcloud_45_
         keyword1_wordcloud_45_json=json.dumps(keyword1_wordcloud_45,cls=DjangoJSONEncoder)
         
-        keyword2_wordcloud_45 = [{'text': '언리쉬드', 'value': 300}, 
-                    {'text': '건담', 'value': 500}, 
-                    {'text': 'Z건담', 'value': 200}, 
-                    {'text': 'FAZZ', 'value': 1000}, 
-                    {'text': '머신러닝', 'value': 200}, 
-                    {'text': '딥러닝', 'value': 400}, 
-                    {'text': '랜덤포레스트', 'value': 240},]
-        
+        keyword2_wordcloud_45 = keyword2_wordcloud_45_
         keyword2_wordcloud_45_json=json.dumps(keyword2_wordcloud_45,cls=DjangoJSONEncoder)
         
         '''
@@ -243,9 +211,9 @@ def index(request):
         
         '''
         
-        keyword1_pie = [300,100,150,400,600]
+        keyword1_pie = keyword1_pie_
         
-        keyword2_pie = [300,100,150,400,600]
+        keyword2_pie = keyword2_pie_
         
         # ---->장현광 context
         
