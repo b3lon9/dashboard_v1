@@ -85,7 +85,7 @@ def crawling_news_ksw(keyword:str):
     print("<<-- 뉴스 크롤링 종료 -->>")
     
     cate = 'news'
-    cafe_df = pd.DataFrame({'title':titles, 'text':text, 'link':links, 'cate':cate})
+    cafe_df = pd.DataFrame({'title':titles, 'text':texts, 'link':links, 'cate':cate})
     
     return cafe_df
 
@@ -479,8 +479,8 @@ def predict_pos_neg(key1, key2) :
         keyword1_negative = key1_df_neg.to_dict('records')
     
     else :
-        keyword1_positive = {}
-        keyword1_negative = {}
+        keyword1_positive = []
+        keyword1_negative = []
 
     if cd_key2 != 0 :
         
@@ -495,8 +495,8 @@ def predict_pos_neg(key1, key2) :
         keyword2_negative = key2_df_neg.to_dict('records')
         
     else :
-        keyword2_positive = {}
-        keyword2_negative = {}
+        keyword2_positive = []
+        keyword2_negative = []
     
     return keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative
 
