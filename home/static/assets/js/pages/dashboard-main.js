@@ -32,17 +32,26 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function floatchart() {
+    /* 차트 높이 수정 2023.01.02. */
+    var fill_height = $('.row-direction .flex-box').height();
+    // console.log('fill_height height:', fill_height);
+    var box1_height = $('.right-column-rate.flex-box .text-center').height();
+    // console.log('box1_height height:', box1_height);
+    var box2_height = $('.right-column-rate.flex-box .p-4').height();
+    // console.log('box2_height height:', box2_height);
     var chart_width = $('.card.right-box').width();
-    var chart_height = $('.card.right-box').height();
+    var chart_height = fill_height - (box1_height + box2_height + 50 + 41.39);
 
-    console.log('right-box3 width:', chart_width);
-    console.log('right-box3 height:', chart_height);
+    // console.log('right-box3 width:', chart_width);
+    // console.log('right-box3 height:', chart_height);
 
+    // chart_height = 200;
+    // console.log('right-box3 height:', chart_height);
     (function () {
         var options = {
             chart: {
-                height: chart_height * 0.9,
-                width: chart_width * 0.9,
+                height: chart_height,
+                width: chart_width,
                 type: 'line',
                 zoom: {
                     enabled: false
