@@ -24103,7 +24103,7 @@ pre[class*=language-]:before {
     position: relative;
     display: block;
     padding: 25px;
-    height:92vh;
+    /* height:92vh; */
 }
 
 .pcoded-main-container {

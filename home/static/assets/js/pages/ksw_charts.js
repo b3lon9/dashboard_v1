@@ -145,6 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
     max_pos = max_pos / 0.8
     min_neg = min_neg / 0.8
 
+    var box_width = $('.card.p-4.right-box .card-body').width();
+    var box_height = $('.card.p-4.right-box .card-body').height();
+
+    console.log("right box2 width:", box_width);
+    console.log("right box2 height:", box_height);
+
     var val = Math.max(max_pos,Math.abs(min_neg))
 
     const labels = [keyword1,keyword2];
@@ -197,8 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 pointRadius: 5,
             },
             title: {
-              display: true,
-              text: '긍부정 리뷰수',
+              display: false,
+              // text: '긍부정 리뷰수',
               align:'center',
               font:{
                 size:22
@@ -227,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             y:{
                 display:true,
+                height:box_height,
                 grid: {
                     color: '#ffffff',
                     },
