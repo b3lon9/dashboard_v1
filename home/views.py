@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.http import JsonResponse, HttpResponse
 from datetime import datetime
 import json
+import random
 from django.core.serializers.json import DjangoJSONEncoder
 from home.models import Wordcloud, Community, UserEtc
 from django.contrib import messages
@@ -122,22 +123,26 @@ def index(request):
                             'text' : '갤럭시로 찍었는데 좋아요',
                             'link' : 'https://blog.naver.com/aeyongly/222953745910',
                             'cate' : 'cafe'},]
-        
+        keyword1_positive = list(keyword1_positive)
+        random.shuffle(keyword1_positive)
         keyword1_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
                             'text' : '갤럭시로 찍었는데 좋아요',
                             'link' : 'https://blog.naver.com/aeyongly/222953745910',
                             'cate' : 'news'}]
-        
+        keyword1_negative = list(keyword1_negative)
+        random.shuffle(keyword1_negative)
         keyword2_positive = [{'title' : '[2022 마이 블로그 리포트] 올해 활동 데이터로 알아보는 2022 나의 블로그 리듬',
                             'text' : '아이폰내용',
                             'link' : 'https://blog.naver.com/aeyongly/222953745910',
                             'cate' : 'cafe'}]
-        
+        keyword2_positive = list(keyword2_positive)
+        random.shuffle(keyword2_positive)
         keyword2_negative = [{'title' : 'NCT 127 플러스 콘서트 다녀왔습니다',
                             'text' : '아이폰내용',
                             'link' : 'https://blog.naver.com/aeyongly/222953745910',
                             'cate' : 'blog'}]
-        
+        keyword2_negative = list(keyword2_negative)
+        random.shuffle(keyword2_negative)       
         
         '''
         #### 바 차트 #### 

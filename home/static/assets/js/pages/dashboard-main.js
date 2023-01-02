@@ -52,6 +52,14 @@ function floatchart() {
                 width: 2,
                 curve: 'smooth'
             },
+            title:{
+                text:"최저가 비교",
+                align:'center',
+                style:{
+                    fontSize:'22px',
+                    fontWeight:'bold',
+                }
+            },
             series:[keyword1_serise,keyword2_serise],
             // series: [{
             //     name: 'Arts',

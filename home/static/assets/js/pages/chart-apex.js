@@ -1,7 +1,8 @@
 $(function () {   //create color
   const root = document.documentElement;
   const rootStyle = getComputedStyle(root);
-
+  const search1 = keyword1;
+  const search2 = keyword2;
   const color_pos = rootStyle.getPropertyValue("--barchart-positive-color");
   const color_neg = rootStyle.getPropertyValue("--barchart-negative-color");
   const color_pie1 = rootStyle.getPropertyValue("--piechart-1-color");
@@ -9,7 +10,7 @@ $(function () {   //create color
   const color_pie3 = rootStyle.getPropertyValue("--piechart-3-color");
   const color_pie4 = rootStyle.getPropertyValue("--piechart-4-color");
   const color_pie5 = rootStyle.getPropertyValue("--piechart-5-color");
-
+  
   const color = [];
   var card_width = 285;
   var chart_width = $('.wordcloud-size').width();
@@ -27,7 +28,6 @@ $(function () {   //create color
   color.push('#005FB7');
   color.push('#007EDB');
   color.push('#009EFF');
-
   var dataCate = ['1점','2점','3점','4점','5점'];
 
   //pie chart_1 start
@@ -38,7 +38,7 @@ $(function () {   //create color
       type: 'donut',
     },
     dataLabels: {
-      enabled: false
+      enabled: true
     },
     labels: dataCate,
     colors: color,
@@ -47,8 +47,11 @@ $(function () {   //create color
         expandOnClick: false,
         donut: {
           size: '50%'
-        }
+        },
       }
+    },
+    title:{
+      text:search1 + ' 별점별 비율', 
     },
     responsive: [{
       breakpoint: 480,
@@ -75,7 +78,7 @@ $(function () {   //create color
       type: 'donut',
     },
     dataLabels: {
-      enabled: false
+      enabled: true
     },
     labels: dataCate,
     colors: color,
@@ -86,6 +89,9 @@ $(function () {   //create color
           size: '50%'
         }
       }
+    },
+    title:{
+      text:search2 + ' 별점별 비율', 
     },
     responsive: [{
       breakpoint: 480,

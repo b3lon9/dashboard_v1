@@ -81,6 +81,11 @@ function category(cat) {
   var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
   chart.legend = new am4charts.Legend();
   // Set data
+  // let title = chart.titles.create();
+  // title.text = '커뮤니티 투표수';
+  // title.fontSize=22;
+  // title.fontWeight='blod';
+
   series.data = [{
       "name": keyword1,
       "value": keyword1_vote,
@@ -192,8 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 pointRadius: 5,
             },
             title: {
-              display: false,
-              //text: 'Chart.js Horizontal Bar Chart'
+              display: true,
+              text: '긍부정 리뷰수',
+              align:'center',
+              font:{
+                size:22
+              }
             }
           },
           scales: {
