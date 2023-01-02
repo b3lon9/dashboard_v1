@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.http import JsonResponse, HttpResponse
 from datetime import datetime
 import json
+import random
 from django.core.serializers.json import DjangoJSONEncoder
 from home.models import Wordcloud, Community, UserEtc
 from django.contrib import messages

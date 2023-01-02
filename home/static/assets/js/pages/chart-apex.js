@@ -1,7 +1,8 @@
 $(function () {   //create color
   const root = document.documentElement;
   const rootStyle = getComputedStyle(root);
-
+  const search1 = keyword1;
+  const search2 = keyword2;
   const color_pos = rootStyle.getPropertyValue("--barchart-positive-color");
   const color_neg = rootStyle.getPropertyValue("--barchart-negative-color");
   const color_pie1 = rootStyle.getPropertyValue("--piechart-1-color");
@@ -9,11 +10,12 @@ $(function () {   //create color
   const color_pie3 = rootStyle.getPropertyValue("--piechart-3-color");
   const color_pie4 = rootStyle.getPropertyValue("--piechart-4-color");
   const color_pie5 = rootStyle.getPropertyValue("--piechart-5-color");
-
+  
   const color = [];
   var card_width = 285;
   var chart_width = $('.wordcloud-size').width();
-
+  var chart_height = $('.wordcloud-size').height();
+  console.log("chart_height : ", chart_height);
   // while (color.length < 20) {
   //   do {
   //     var arrs = Math.floor((Math.random() * 1000000) + 1);
@@ -27,7 +29,6 @@ $(function () {   //create color
   color.push('#005FB7');
   color.push('#007EDB');
   color.push('#009EFF');
-
   var dataCate = ['1점','2점','3점','4점','5점'];
 
   //pie chart_1 start
@@ -38,7 +39,7 @@ $(function () {   //create color
       type: 'donut',
     },
     dataLabels: {
-      enabled: false
+      enabled: true
     },
     labels: dataCate,
     colors: color,
@@ -47,9 +48,12 @@ $(function () {   //create color
         expandOnClick: false,
         donut: {
           size: '50%'
-        }
+        },
       }
     },
+    // title:{
+    //   text:search1 + ' 별점별 비율', 
+    // },
     responsive: [{
       breakpoint: 480,
       options: {
@@ -75,7 +79,7 @@ $(function () {   //create color
       type: 'donut',
     },
     dataLabels: {
-      enabled: false
+      enabled: true
     },
     labels: dataCate,
     colors: color,
@@ -87,6 +91,9 @@ $(function () {   //create color
         }
       }
     },
+    // title:{
+    //   text:search2 + ' 별점별 비율', 
+    // },
     responsive: [{
       breakpoint: 480,
       options: {
@@ -107,7 +114,7 @@ $(function () {   //create color
   // d3 word cloud 1번 4-5점
   var fill = d3.scaleOrdinal(d3.schemeCategory20);
   var layout = d3.layout.cloud()
-    .size([chart_width, 150])
+    .size([chart_width, chart_height])
     .words(keyword1_wordcloud_45)
     .padding(2) //space between words
     .font('Helvetica')
@@ -136,7 +143,7 @@ $(function () {   //create color
 
   // d3 word cloud 1번 1-3점
   var layout = d3.layout.cloud()
-    .size([chart_width, 150])
+    .size([chart_width, chart_height])
     .words(keyword1_wordcloud_13)
     .padding(2) //space between words
     .font('Helvetica')
@@ -165,7 +172,7 @@ $(function () {   //create color
 
   // d3 word cloud 2번 4-5점
   var layout = d3.layout.cloud()
-    .size([chart_width, 150])
+    .size([chart_width, chart_height])
     .words(keyword2_wordcloud_45)
     .padding(2) //space between words
     .font('Helvetica')
@@ -194,7 +201,7 @@ $(function () {   //create color
 
   // d3 word cloud 2번 1-3점
   var layout = d3.layout.cloud()
-    .size([chart_width, 150])
+    .size([chart_width, chart_height])
     .words(keyword2_wordcloud_13)
     .padding(2) //space between words
     .font('Helvetica')

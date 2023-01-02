@@ -81,6 +81,11 @@ function category(cat) {
   var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
   chart.legend = new am4charts.Legend();
   // Set data
+  // let title = chart.titles.create();
+  // title.text = '커뮤니티 투표수';
+  // title.fontSize=22;
+  // title.fontWeight='blod';
+
   series.data = [{
       "name": keyword1,
       "value": keyword1_vote,
@@ -140,6 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
     max_pos = max_pos / 0.8
     min_neg = min_neg / 0.8
 
+    var box_width = $('.card.p-4.right-box .card-body').width();
+    var box_height = $('.card.p-4.right-box .card-body').height();
+
+    console.log("right box2 width:", box_width);
+    console.log("right box2 height:", box_height);
+
     var val = Math.max(max_pos,Math.abs(min_neg))
 
     const labels = [keyword1,keyword2];
@@ -193,7 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             title: {
               display: false,
-              //text: 'Chart.js Horizontal Bar Chart'
+              // text: '긍부정 리뷰수',
+              align:'center',
+              font:{
+                size:22
+              }
             }
           },
           scales: {
@@ -218,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             y:{
                 display:true,
+                height:box_height,
                 grid: {
                     color: '#ffffff',
                     },

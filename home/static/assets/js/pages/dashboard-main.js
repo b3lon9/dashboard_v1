@@ -32,11 +32,17 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function floatchart() {
+    var chart_width = $('.card.right-box').width();
+    var chart_height = $('.card.right-box').height();
+
+    console.log('right-box3 width:', chart_width);
+    console.log('right-box3 height:', chart_height);
+
     (function () {
         var options = {
             chart: {
-                height: 220,
-                width: 460,
+                height: chart_height * 0.9,
+                width: chart_width * 0.9,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -52,6 +58,14 @@ function floatchart() {
                 width: 2,
                 curve: 'smooth'
             },
+            // title:{
+            //     text:"최저가 비교",
+            //     align:'center',
+            //     style:{
+            //         fontSize:'22px',
+            //         fontWeight:'bold',
+            //     }
+            // },
             series:[keyword1_serise,keyword2_serise],
             // series: [{
             //     name: 'Arts',
