@@ -171,10 +171,10 @@ li.on .theme-negative-btn:hover {
 
 /**/
 :root {
-    --top-bar-start-color: #4099ff;
-    --top-bar-end-color: #73b4ff;
+    --top-bar-start-color: #30c6ff;
+    --top-bar-end-color: #c4eaf9;
     --top-search-keyword-color: darkblue;
-    --top-search-input-text-color: darkblue;
+    --top-search-input-text-color: #222222;
 
     --barchart-positive-color: #009EFF;
     --downgrade-positive-color: #99CCFF;

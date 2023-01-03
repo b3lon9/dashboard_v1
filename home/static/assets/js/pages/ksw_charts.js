@@ -80,6 +80,7 @@ function category(cat) {
   // Create series
   var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
   chart.legend = new am4charts.Legend();
+  console.log(chart.legend.position)
   // Set data
   // let title = chart.titles.create();
   // title.text = '커뮤니티 투표수';
@@ -128,6 +129,7 @@ function category(cat) {
   series.minRadius = 15;
   series.maxRadius = 60;
   series.centerStrength = 0.5;
+  
 
 })();
 
@@ -142,8 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var min_neg = Math.min(...negative_bar)
     var max_pos = Math.max(...positve_bar)
 
-    max_pos = max_pos / 0.8
-    min_neg = min_neg / 0.8
+    max_pos = parseInt(max_pos / 0.8);
+    min_neg = parseInt(min_neg / 0.8);
 
     var box_width = $('.card.p-4.right-box .card-body').width();
     var box_height = $('.card.p-4.right-box .card-body').height();

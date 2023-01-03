@@ -128,7 +128,10 @@ def index(request):
         
         keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+c1+b1, n2+c2+b2, n3+c3+b3, n4+c4+b4
 
-        
+        random.shuffle(keyword1_positive)
+        random.shuffle(keyword1_negative)
+        random.shuffle(keyword2_positive)
+        random.shuffle(keyword2_negative)
         '''
         #### 바 차트 #### 
         positve_bar : 키워드1,키워드2에 대한 각각 긍정 개수

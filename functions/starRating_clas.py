@@ -266,4 +266,4 @@ def starRating_classisification(keyword1:str, keyword2:str):
     keyword2_wordcloud_45.append({'text':keyword2_45_keys[i], 'value':keyword2_45_valsc[i]})
 
   # 메인함수 리턴
-  return keyword1_wordcloud_13, keyword1_wordcloud_45, keyword2_wordcloud_13, keyword2_wordcloud_45, keyword1_pie, keyword2_pie
+  return keyword1_wordcloud_13[:13], keyword1_wordcloud_45[:13], keyword2_wordcloud_13[:13], keyword2_wordcloud_45[:13], keyword1_pie, keyword2_pie

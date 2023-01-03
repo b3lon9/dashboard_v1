@@ -9,7 +9,7 @@
 					<form action="{{ request.build_absolute_uri }}" method="post">
 						{% csrf_token %}
 						<div class="card-head">
-							<span style='font-size:25px'>{{keyword1}} vs {{keyword2}}<span>
+							<span style='font-size:25px; color:#383838;'>{{keyword1}} vs {{keyword2}}<span>
 						</div>
 						
 						<div class="card-body">
@@ -62,7 +62,7 @@
 				</ul>
 				
 				<div class="card">
-					<span style='font-size:20px'>{{keyword1}} </span><hr>
+					<span style='font-size:20px; color:#383838;'>{{keyword1}} </span><hr>
 					
 					<div class="original-data ">
 						<div class="hidden-scroll yscroll-overlay">
@@ -129,7 +129,7 @@
 				</div>
 
 				<div class="card">
-					<span style='font-size:20px'>{{keyword2}} </span><hr>
+					<span style='font-size:20px; color:#383838;'>{{keyword2}} </span><hr>
 					
 					<div class="original-data ">
 						<div class="hidden-scroll yscroll-overlay">
