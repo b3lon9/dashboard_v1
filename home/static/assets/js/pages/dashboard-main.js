@@ -39,7 +39,7 @@ function floatchart() {
     // console.log('box1_height height:', box1_height);
     var box2_height = $('.right-column-rate.flex-box .p-4').height();
     // console.log('box2_height height:', box2_height);
-    var chart_width = $('.card.right-box').width();
+    var chart_width = $('.card.right-box').width() * 0.9;
     var chart_height = fill_height - (box1_height + box2_height + 50 + 41.39);
 
     // console.log('right-box3 width:', chart_width);

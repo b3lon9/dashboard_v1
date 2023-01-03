@@ -39,7 +39,7 @@ $(function () {   //create color
       type: 'donut',
     },
     dataLabels: {
-      enabled: true
+      enabled: false
     },
     labels: dataCate,
     colors: color,
@@ -79,7 +79,7 @@ $(function () {   //create color
       type: 'donut',
     },
     dataLabels: {
-      enabled: true
+      enabled: false
     },
     labels: dataCate,
     colors: color,
@@ -133,7 +133,8 @@ $(function () {   //create color
       .append("text")
       .text((d) => d.text)
       .style("font-size", (d) => Math.sqrt(d.value))
-      .style("fill", (d, i) => fill(i))
+      // .style("fill", (d, i) => fill(i))
+      .style("fill", "#009EFF")
       .style("font-family", (d) => d.font)
       .attr("text-anchor", "middle")
       .attr("transform", (d) => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")");
@@ -161,7 +162,8 @@ $(function () {   //create color
       .append("text")
       .text((d) => d.text)
       .style("font-size", (d) => Math.sqrt(d.value))
-      .style("fill", (d, i) => fill(i))
+      // .style("fill", (d, i) => fill(i))
+      .style("fill", "#FF5370")
       .style("font-family", (d) => d.font)
       .attr("text-anchor", "middle")
       .attr("transform", (d) => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")");
@@ -189,7 +191,8 @@ $(function () {   //create color
       .append("text")
       .text((d) => d.text)
       .style("font-size", (d) => Math.sqrt(d.value))
-      .style("fill", (d, i) => fill(i))
+      // .style("fill", (d, i) => fill(i))
+      .style("fill", "#009EFF")
       .style("font-family", (d) => d.font)
       .attr("text-anchor", "middle")
       .attr("transform", (d) => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")");
@@ -217,7 +220,8 @@ $(function () {   //create color
       .append("text")
       .text((d) => d.text)
       .style("font-size", (d) => Math.sqrt(d.value))
-      .style("fill", (d, i) => fill(i))
+      // .style("fill", (d, i) => fill(i))
+      .style("fill", "#FF5370")
       .style("font-family", (d) => d.font)
       .attr("text-anchor", "middle")
       .attr("transform", (d) => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")");
