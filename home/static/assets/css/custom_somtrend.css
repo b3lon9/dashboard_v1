@@ -19,7 +19,7 @@
 }
 
 .right-box {
-    flex: 1;
+    flex-grow: 1;
 }
 
 .right-box3-height {
@@ -61,6 +61,7 @@
 
 .flex-box {
     display:flex !important;
+    flex-direction: column !important;
 }
 
 .card-star {

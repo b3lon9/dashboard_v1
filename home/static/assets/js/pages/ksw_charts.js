@@ -144,15 +144,20 @@ document.addEventListener('DOMContentLoaded', () => {
     var min_neg = Math.min(...negative_bar)
     var max_pos = Math.max(...positve_bar)
 
-    max_pos = parseInt(max_pos / 0.8);
-    min_neg = parseInt(min_neg / 0.8);
+    max_pos = parseInt(max_pos / 0.8)
+    min_neg = parseInt(min_neg / 0.8)
 
     var box_width = $('.card.p-4.right-box .card-body').width();
     var box_height = $('.card.p-4.right-box .card-body').height();
-
+    
     console.log("right box2 width:", box_width);
     console.log("right box2 height:", box_height);
+    // if (box_width > 388) box_width = 388;
+    // if (box_height > 214) box_height = 214;
 
+    // console.log("right box2 width:", box_width);
+    // console.log("right box2 height:", box_height);
+    
     var val = Math.max(max_pos,Math.abs(min_neg))
 
     const labels = [keyword1,keyword2];
