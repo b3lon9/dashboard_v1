@@ -80,9 +80,14 @@ function category(cat) {
   // Create series
   var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
   chart.legend = new am4charts.Legend();
+  let markerTemplate = chart.legend.markers.template;
+
   chart.fontSize = '12';
   chart.fontFamily = 'GyeonggiTitleM';
   chart.fontWeight = '0';
+
+  markerTemplate.width = 18;
+  markerTemplate.height = 18;
   // Set data
   // let title = chart.titles.create();
   // title.text = '커뮤니티 투표수';
