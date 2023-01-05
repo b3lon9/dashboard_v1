@@ -39,7 +39,10 @@ $(function () {   //create color
       type: 'donut',
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
+      style : {
+        fontFamily: 'GyeonggiTitleM',
+      }
     },
     labels: dataCate,
     colors: color,
@@ -54,6 +57,9 @@ $(function () {   //create color
     // title:{
     //   text:search1 + ' 별점별 비율', 
     // },
+    legend: {
+      fontFamily: 'GyeonggiTitleM',
+    },
     responsive: [{
       breakpoint: 480,
       options: {
@@ -62,7 +68,7 @@ $(function () {   //create color
           width: 200
         },
         legend: {
-          position: 'bottom'
+          position: 'bottom',
         }
       }
     }]
@@ -90,6 +96,9 @@ $(function () {   //create color
           size: '50%'
         }
       }
+    },
+    legend: {
+      fontFamily: 'GyeonggiTitleM',
     },
     // title:{
     //   text:search2 + ' 별점별 비율', 

@@ -80,7 +80,9 @@ function category(cat) {
   // Create series
   var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
   chart.legend = new am4charts.Legend();
-  console.log(chart.legend.position)
+  chart.fontSize = '12';
+  chart.fontFamily = 'GyeonggiTitleM';
+  chart.fontWeight = '0';
   // Set data
   // let title = chart.titles.create();
   // title.text = '커뮤니티 투표수';
@@ -170,8 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         borderColor: color_pos,            
         backgroundColor: color_pos,//Utils.transparentize('#4dc9f6', 0.5),
         pointStyle: 'circle',
-        borderRadius: 10,
-        
+        borderRadius: 5,
         },
         {
         label: '부정',
@@ -179,9 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
         borderColor: color_neg,
         backgroundColor: color_neg,//Utils.transparentize('#f67019',, 0.5),
         pointStyle: 'circle',
-        borderRadius: 10,
-        
-        
+        borderRadius: 5,
         }
     ]
     };
@@ -205,6 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 labels: {
                     usePointStyle: true,
                     
+                    font : {
+                      size:12,
+                      family:'GyeonggiTitleM',
+                      weight:'1',
+                    }
                     },
                 position: 'top',
                 pointRadius: 5,
