@@ -80,6 +80,9 @@ function category(cat) {
   // Create series
   var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
   chart.legend = new am4charts.Legend();
+  chart.fontSize = '12';
+  chart.fontFamily = 'Helvetica, Arial, sans-serif';
+  chart.fontWeight='0';
   // Set data
   // let title = chart.titles.create();
   // title.text = '커뮤니티 투표수';
@@ -202,7 +205,11 @@ document.addEventListener('DOMContentLoaded', () => {
             legend: {
                 labels: {
                     usePointStyle: true,
-                    
+                    font:{
+                      size:12,
+                      family:'Helvetica, Arial, sans-serif',
+                      weight:'0',
+                    },
                     },
                 position: 'top',
                 pointRadius: 5,
