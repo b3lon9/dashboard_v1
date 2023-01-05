@@ -86,6 +86,10 @@ function floatchart() {
             // }],
             legend: {
                 position: 'top',
+                markers: {
+                    width: 18,
+                    height: 18,
+                }
             },
             xaxis: {
                 categories: serise_xaxis,//['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000'],
