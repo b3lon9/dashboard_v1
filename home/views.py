@@ -40,7 +40,7 @@ def index(request):
     context = {}
     if request.POST: # 게시글 입력
         
-        context = eval(request.POST['context'])
+        # context = eval(request.POST['context'])
         keyword = ''
         text = ''
         
@@ -72,29 +72,29 @@ def index(request):
             
         comm.save()
         
-        # <----커뮤니티/투표 context
+        # # <----커뮤니티/투표 context
         
-        comm_qry_key1 = Community.objects.filter(cur_key=request.GET['keyword1']) & \
-        Community.objects.filter(key1=request.GET['keyword1']) & \
-        Community.objects.filter(key2=request.GET['keyword2'])
+        # comm_qry_key1 = Community.objects.filter(cur_key=request.GET['keyword1']) & \
+        # Community.objects.filter(key1=request.GET['keyword1']) & \
+        # Community.objects.filter(key2=request.GET['keyword2'])
         
-        comm_qry_key2 = Community.objects.filter(cur_key=request.GET['keyword2']) & \
-        Community.objects.filter(key1=request.GET['keyword1']) & \
-        Community.objects.filter(key2=request.GET['keyword2'])
+        # comm_qry_key2 = Community.objects.filter(cur_key=request.GET['keyword2']) & \
+        # Community.objects.filter(key1=request.GET['keyword1']) & \
+        # Community.objects.filter(key2=request.GET['keyword2'])
         
-        vote = [len(comm_qry_key1), len(comm_qry_key2)]
+        # vote = [len(comm_qry_key1), len(comm_qry_key2)]
         
-        # ---->커뮤니티/투표 context
+        # # ---->커뮤니티/투표 context
         
-        context['vote'] = vote
-        context['comm_qry_key1'] = comm_qry_key1
-        context['comm_qry_key2'] = comm_qry_key2
+        # context['vote'] = vote
+        # context['comm_qry_key1'] = comm_qry_key1
+        # context['comm_qry_key2'] = comm_qry_key2
          
-        tmp_context = {key:value for key,value in context.items() if 'comm_qry_key' not in key}
+        # tmp_context = {key:value for key,value in context.items() if 'comm_qry_key' not in key}
         
-        context['context'] = tmp_context
+        # context['context'] = tmp_context
           
-        return render(request, 'home/index.html',context)
+        # return render(request, 'home/index.html',context)
                 
 
     
@@ -280,9 +280,9 @@ def index(request):
         }
         
         
-        tmp_context = {key:value for key,value in context.items() if 'comm_qry_key' not in key}
+        # tmp_context = {key:value for key,value in context.items() if 'comm_qry_key' not in key}
         
-        context['context'] = tmp_context
+        # context['context'] = tmp_context
         
 
 

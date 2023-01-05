@@ -62,9 +62,7 @@ def crawling_news_ksw(keyword:str):
             text = ''
             for tag in news_html: # 카페 게시글
                 text += tag.text + ' '
-
-            text = re.sub("\n", "", text)
-            
+         
             if checking_ADword(text) == False:
 
                 title = item['title']
@@ -217,8 +215,7 @@ def crawling_cafe(keyword:str):
 
             for p in p_tags: # 카페 게시글
                 post += p.text + ' '
-                
-            post = re.sub("\n", "", post)
+            
                 
             if checking_ADword(post) == False:
                 text.append(post)
@@ -287,8 +284,7 @@ def crawling_blog(keyword:str):
     for j in range(len(links)):
         url = delete_iframe(links[j])
         text = text_scraping(url)
-        
-        text = re.sub("\n", "", text)
+         
         
         if checking_ADword(text) == True:
             continue
