@@ -53,6 +53,7 @@ function floatchart() {
                 height: chart_height,
                 width: chart_width,
                 type: 'line',
+                fontFamily: 'GyeonggiTitleM',
                 zoom: {
                     enabled: false
                 },
