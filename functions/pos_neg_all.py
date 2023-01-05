@@ -6,13 +6,14 @@ import re
 import json
 import pickle
 import urllib
-
+import html
 import numpy as np
 from tqdm import tqdm
 import urllib.request
 import tensorflow as tf
 from transformers import BertTokenizer, TFBertForSequenceClassification
 from .crawling_func import *
+from tensorflow_addons.optimizers import RectifiedAdam
 
 def crawling_news_ksw(keyword:str):
     #정보입력 
@@ -64,13 +65,13 @@ def crawling_news_ksw(keyword:str):
         
             
             if checking_ADword(text) == False:
-                
+
                 title = item['title']
                 for i in range(len(item['title'])):
                     title = title.replace('<b>','')
                     title = title.replace('</b>','')
-                    title = title.replace('&apos;',"'")
-                    title = title.replace('&apos;',"'")
+                    title = html.unescape(title)
+                
                 
                 titles.append(title)
                 texts.append(text)
@@ -426,9 +427,15 @@ def AD_filtering(keyword):
 
     return blog_df, cafe_df
 
-model = tf.keras.models.load_model('functions/best_model_adam.h5',
-                                        custom_objects={'TFBertForSequenceClassification': TFBertForSequenceClassification})
-with open('functions/tokenizer.pickle', 'rb') as handle:
+# model = tf.keras.models.load_model('functions/best_model_adam.h5',
+#                                         custom_objects={'TFBertForSequenceClassification': TFBertForSequenceClassification})
+# with open('functions/tokenizer.pickle', 'rb') as handle:
+#     tokenizer = pickle.load(handle)
+
+model = tf.keras.models.load_model('functions/best_model_RAdam.h5', 
+                                   custom_objects = {'RectifiedAdam' : RectifiedAdam, 
+                                                     'TFBertForSequenceClassification': TFBertForSequenceClassification})
+with open('functions/tokenizer_RADAM.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
 MAX_SEQ_LEN = 500
@@ -507,7 +514,7 @@ def predict_pos_neg(key1, key2) :
 # key1_b, key1_c = AD_filtering('아이폰14프로맥스')
 # key2_b, key2_c = AD_filtering('아이폰se')
 key_tmp = pd.DataFrame({'text' : ['아무노래나 일단 틀어']})
-
+predict_pos_neg(key_tmp, key_tmp)
 
 # c1, c2, c3, c4 = predict_pos_neg(key1_c, key2_c)
 # b1, b2, b3, b4 = predict_pos_neg(key1_b, key2_b)

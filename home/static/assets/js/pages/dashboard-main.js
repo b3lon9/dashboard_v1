@@ -51,7 +51,7 @@ function floatchart() {
         var options = {
             chart: {
                 height: chart_height,
-                width: chart_width,
+                //width: chart_width,
                 type: 'line',
                 zoom: {
                     enabled: false
