@@ -208,9 +208,9 @@ document.addEventListener('DOMContentLoaded', () => {
             legend: {
                 labels: {
                     usePointStyle: true,
-                    
+                    padding: 10,
                     font : {
-                      size:12,
+                      //size:12,
                       family:'GyeonggiTitleM',
                       weight:'1',
                     }

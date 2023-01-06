@@ -148,7 +148,7 @@ def crawling_cafe(keyword:str):
     client_id = 'wGaXs74pWvcYaDuk7Och' # 발급받은 id 입력
     client_secret = 'jeFcJ451Ww' # 발급받은 secret 입력 
     encText = urllib.parse.quote(keyword) 
-    display_num = "5" # 최대 100
+    display_num = "20" # 최대 100
     url = "https://openapi.naver.com/v1/search/cafearticle.json?query=" + encText + "&display=" + display_num # json 결과
 
     request = urllib.request.Request(url)
@@ -239,7 +239,7 @@ def crawling_blog(keyword:str):
     client_secret = 'jeFcJ451Ww' # 발급받은 secret 입력 
     quote = keyword # 검색어 입력
     encText = urllib.parse.quote(quote) 
-    display_num = "5" # 최대 100
+    display_num = "20" # 최대 100
     url = "https://openapi.naver.com/v1/search/blog?query=" + encText + "&display=" + display_num # json 결과
 
     request = urllib.request.Request(url)
