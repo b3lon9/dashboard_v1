@@ -8,10 +8,10 @@ import json
 import requests
 import re
 
-# Mecab = Mecab(dicpath=r"C:/mecab/mecab-ko-dic")
+# 토큰화를 위한 Mecab객체 생성
 Mecab = Mecab()
 
-## 토큰화 및 불용어 처리 ##
+# 토큰화 및 불용어 처리
 def text_preprocessing(text:str):
 
   # 한글/영어만 남기고 제거
@@ -86,7 +86,7 @@ def text_preprocessing(text:str):
                '핑','장소','유트','여니','응답','깃털','동종','시도','사인','바요','지향','은근','새벽','점심','구성','프라자','오른쪽','왼쪽','저장',
                '즈','적','띠','갤','적','띠','갤','짱']
 
-  # 필터링
+  # 불용어에 있는 단어가 포함된 글은 필터링
   token = [t for t in token if t not in stopwords]
 
   # 한글자인 토큰 제거
@@ -97,7 +97,7 @@ def text_preprocessing(text:str):
   return token
 
 
-### 데이터 크롤링 ###
+# 별점데이터 크롤링
 def crawling_rating_data(keyword:str):
   rating_df = pd.DataFrame(columns=['리뷰','별점'])
   review_list, star_list = [],[]
@@ -110,7 +110,7 @@ def crawling_rating_data(keyword:str):
   prod_list = soup.find_all('a', 'click_log_product_standard_title_')
   prod_link = prod_list[0]['href']
   pcode_index = prod_link.find('pcode')
-  pcode = prod_link[pcode_index+6:pcode_index+14]
+  pcode = prod_link[pcode_index+6:pcode_index+14] # pcode(상품고유코드)
   
   for page in range(1,20):
     url = 'https://prod.danawa.com/info/dpg/ajax/companyProductReview.ajax.php?prodCode=' + pcode + '&page={}&limit=10&score=0&sortType=&onlyPhotoReview=&usefullScore=Y&innerKeyword=&subjectWord=0&subjectWordString=&subjectSimilarWordString='.format(page)
@@ -124,21 +124,17 @@ def crawling_rating_data(keyword:str):
     stars = soup.find_all('span', 'star_mask')
 
     for rs in zip(reviews, stars[5:]):
-      review_list.append(rs[0].text)
-      star_list.append(rs[1].text)
+      review_list.append(rs[0].text) # 리뷰텍스트 데이터
+      star_list.append(rs[1].text) # 별점텍스트 데이터 
 
   # df 생성 및 반환
   rating_df = pd.DataFrame({'리뷰':review_list, '별점':star_list})
   return rating_df
 
-
-
-### 메인함수 시작 ###
-### 메인함수 시작 ###
+### 별점별 키워드 분류 메인함수 시작 ###
 def starRating_classisification(keyword1:str, keyword2:str):
 
-  # 크롤링으로 받아오는 데이터 => {'리뷰', '별점'}
-  # 검색어에 대한 크롤링 진행 후 데이터프레임(df_A, df_B) 생성
+  # 검색어에 대한 크롤링 진행 후 데이터프레임 생성
   df_A = crawling_rating_data(keyword1)
   df_B = crawling_rating_data(keyword2)
 
@@ -188,7 +184,6 @@ def starRating_classisification(keyword1:str, keyword2:str):
   df_B_text5 = review_tokenizer(df_B_5)
 
   # 불용어 처리 후 토큰 저장
-  # text_preprocessing(text:str)
   A_token_1 = text_preprocessing(df_A_text1)
   A_token_2 = text_preprocessing(df_A_text2)
   A_token_3 = text_preprocessing(df_A_text3)
@@ -204,7 +199,6 @@ def starRating_classisification(keyword1:str, keyword2:str):
   # 긍부정( 1~3 / 4~5 )으로 토큰 나눔
   A_neg_token = A_token_1 + A_token_2 + A_token_3
   A_pos_token = A_token_4 + A_token_5
-
   B_neg_token = B_token_1 + B_token_2 + B_token_3
   B_pos_token = B_token_4 + B_token_5
 
@@ -236,12 +230,13 @@ def starRating_classisification(keyword1:str, keyword2:str):
   keyword2_13_df = pd.DataFrame({'text':keyword2_13_keys, 'value':keyword2_13_values})
   keyword2_45_df = pd.DataFrame({'text':keyword2_45_keys, 'value':keyword2_45_values})
 
-  # minmax scaling 적용 후 *1000
+  # 데이터프레임에 minmax scaling 적용함수
   def scaling_data(df):
     scaler = MinMaxScaler()
     scaled_data = scaler.fit_transform(df[['value']].values)*1000
     return scaled_data.flatten().tolist()
 
+  # minmax scaling 적용 후 *1000
   keyword1_13_valsc = scaling_data(keyword1_13_df)
   keyword1_45_valsc = scaling_data(keyword1_45_df)
   keyword2_13_valsc = scaling_data(keyword2_13_df)

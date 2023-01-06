@@ -4,9 +4,9 @@ from urllib import request
 import pytesseract
 from PIL import Image
 from io import BytesIO
-
 pytesseract.pytesseract.tesseract_cmd = 'C:/Users/USER/AppData/Local/Tesseract-OCR/tesseract.exe'
 
+# 페이지번호 생성함수
 def makePgNum(num):
         if num == 1:
             return num
@@ -15,6 +15,7 @@ def makePgNum(num):
         else:
             return num+9*(num-1)
 
+# URL 생성함수
 def makeUrl(search, start_pg, end_pg):
     if start_pg == end_pg:
         start_page = makePgNum(start_pg)
@@ -28,20 +29,22 @@ def makeUrl(search, start_pg, end_pg):
             urls.append(url)
         return urls    
     
+# 목록 생성함수
 def makeList(newlist, content):
     for i in content:
         for j in i:
             newlist.append(j)
     return newlist
 
+# attrs 생성함수
 def news_attrs_crawler(articles,attrs):
     attrs_content=[]
     for i in articles:
         attrs_content.append(i.attrs[attrs])
     return attrs_content
 
+# 본문 크롤링함수
 def articles_crawler(url,headers):
-    #html 불러오기
     original_html = requests.get(url,headers=headers)
     html = bs(original_html.text, "html.parser")
 
@@ -54,22 +57,22 @@ def articles_crawler(url,headers):
 def delete_iframe(url): 
     headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"}
     res = requests.get(url, headers=headers)
-    res.raise_for_status() # 문제시 프로그램 종료
+    res.raise_for_status()
     soup = bs(res.text, "html.parser") 
 
     src_url = "https://blog.naver.com/" + soup.iframe["src"]
     return src_url
 
-# 수집한 블로그 링크를 하나씩 들어가서 본문을 긁어오는 함수 
+# 수집한 블로그 링크를 하나씩 들어가서 본문을 크롤링하는 함수 
 def text_scraping(url):
     headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"}
     res = requests.get(url, headers=headers)
     soup = bs(res.text, "html.parser") 
 
-    # 본문이 담겨있는 태그 : se-main-container
+    # 본문 텍스트를 크롤링하여 리턴하는 함수
     if soup.find("div", attrs={"class":"se-main-container"}):
         text = soup.find("div", attrs={"class":"se-main-container"}).get_text()
-        text = text.replace("\n","") #공백 제거
+        text = text.replace("\n","")
         return text
 
     elif soup.find("div", attrs={"id":"postViewArea"}):

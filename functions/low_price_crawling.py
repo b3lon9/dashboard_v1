@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import json
 import datetime
 
+# 최저가데이터 크롤링 함수
 def low_price(keyword):
     url = 'https://search.danawa.com/dsearch.php?query=' + keyword
     headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'}
@@ -24,8 +25,8 @@ def low_price(keyword):
     series_xaxis_list = []
     keyword_series_list = []
     for result in json_body['3']['result']:
-        keyword_series_list.append(result['minPrice'])
-        series_xaxis_list.append(result['Fulldate'])
+        keyword_series_list.append(result['minPrice']) # 최저가 데이터
+        series_xaxis_list.append(result['Fulldate']) # 날짜 데이터
 
     series_xaxis = []
     for i in series_xaxis_list:

@@ -11,17 +11,18 @@ import numpy as np
 from tqdm import tqdm
 import urllib.request
 import tensorflow as tf
-from transformers import BertTokenizer, TFBertForSequenceClassification
+from transformers import TFBertForSequenceClassification
 from .crawling_func import *
 from tensorflow_addons.optimizers import RectifiedAdam
 
+# home/views.py '키워드 별 긍부정 분류 명세' 뉴스 크롤링 함수
 def crawling_news_ksw(keyword:str):
-    #정보입력 
-    client_id = 'wGaXs74pWvcYaDuk7Och' # 발급받은 id 입력
-    client_secret = 'jeFcJ451Ww' # 발급받은 secret 입력 
+    # API 사용을 위한 정보입력 
+    client_id = 'wGaXs74pWvcYaDuk7Och'
+    client_secret = 'jeFcJ451Ww'
     encText = urllib.parse.quote(keyword) 
     display_num = "20" # 최대 100
-    url = "https://openapi.naver.com/v1/search/news.json?query=" + encText + "&display=" + display_num # json 결과
+    url = "https://openapi.naver.com/v1/search/news.json?query=" + encText + "&display=" + display_num
 
     request = urllib.request.Request(url)
     request.add_header("X-Naver-Client-Id",client_id)
@@ -29,17 +30,16 @@ def crawling_news_ksw(keyword:str):
     response = urllib.request.urlopen(request)
     rescode = response.getcode()
 
-    if(rescode==200): # 잘 응답하면..
-        res_body = response.read() # 읽고 받아와서
-        res_body_json = json.loads(res_body) # res_body_json에 저장함
-        # print(type(res_body_json)) # ..확인용..
+    if(rescode==200):
+        res_body = response.read() 
+        res_body_json = json.loads(res_body)
     else:
-        print("Error Code:" + rescode) # 응답안하면 에러코드 출력
+        print("Error Code:" + rescode) 
         return pd.DataFrame({'title':[], 'text':[], 'link':[], 'cate':[]})
 
     print("<<-- 뉴스 크롤링 시작 -->>")
-    items = res_body_json['items'] # json파일 내부에 item를 뽑아서 items변수에 저장
 
+    items = res_body_json['items'] 
     links = []
     titles = []
     texts = []
@@ -71,7 +71,6 @@ def crawling_news_ksw(keyword:str):
                     title = title.replace('</b>','')
                     title = html.unescape(title)
                 
-                
                 titles.append(title)
                 texts.append(text)
                 links.append(item['link'])
@@ -81,18 +80,16 @@ def crawling_news_ksw(keyword:str):
         if cnt == 5:
             break
 
-
     print("<<-- 뉴스 크롤링 종료 -->>")
     
     cate = 'news'
     cafe_df = pd.DataFrame({'title':titles, 'text':texts, 'link':links, 'cate':cate})
-    
     return cafe_df
 
+# 뉴스 크롤링
 def crawling_news(keyword:str, begin:int,cnt:int) :
 
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/98.0.4758.102"}
-
     urls = makeUrl(keyword,begin,cnt)
 
     news_titles = []
@@ -103,7 +100,6 @@ def crawling_news(keyword:str, begin:int,cnt:int) :
         news_url.append(articles_crawler(url,headers))
 
     news_url_1 = []
-
     makeList(news_url_1,news_url)
 
     final_urls = []
@@ -140,16 +136,16 @@ def crawling_news(keyword:str, begin:int,cnt:int) :
     cate = 'news'
     news_df = pd.DataFrame({'title':news_titles,'link':final_urls,'text':news_contents, 'cate':cate})
     news_df = news_df.drop_duplicates(keep='first',ignore_index=True)
-    
     return news_df
 
+# 카페 크롤링
 def crawling_cafe(keyword:str):
-    #정보입력 
-    client_id = 'wGaXs74pWvcYaDuk7Och' # 발급받은 id 입력
-    client_secret = 'jeFcJ451Ww' # 발급받은 secret 입력 
+    # API 사용을 위한 정보입력 
+    client_id = 'wGaXs74pWvcYaDuk7Och'
+    client_secret = 'jeFcJ451Ww'
     encText = urllib.parse.quote(keyword) 
     display_num = "20" # 최대 100
-    url = "https://openapi.naver.com/v1/search/cafearticle.json?query=" + encText + "&display=" + display_num # json 결과
+    url = "https://openapi.naver.com/v1/search/cafearticle.json?query=" + encText + "&display=" + display_num
 
     request = urllib.request.Request(url)
     request.add_header("X-Naver-Client-Id",client_id)
@@ -157,17 +153,15 @@ def crawling_cafe(keyword:str):
     response = urllib.request.urlopen(request)
     rescode = response.getcode()
 
-    if(rescode==200): # 잘 응답하면..
-        res_body = response.read() # 읽고 받아와서
-        res_body_json = json.loads(res_body) # res_body_json에 저장함
-        # print(type(res_body_json)) # ..확인용..
+    if(rescode==200): 
+        res_body = response.read() 
+        res_body_json = json.loads(res_body) 
     else:
-        print("Error Code:" + rescode) # 응답안하면 에러코드 출력
-        # return pd.DataFrame({'title':[], 'text':[], 'link':[], 'cate':[]})
+        print("Error Code:" + rescode)
 
     print("<<-- 카페 크롤링 시작 -->>")
-    items = res_body_json['items'] # json파일 내부에 item를 뽑아서 items변수에 저장
-
+    
+    items = res_body_json['items']
     links = []
     titles = []
     text = []
@@ -183,11 +177,9 @@ def crawling_cafe(keyword:str):
         title = title.replace('</b>','')
         
         res = requests.get(url, headers=headers)
-        # res.raise_for_status() # 문제시 프로그램 종료
         if(res.status_code != 200):
             continue
         soup = bs(res.text, "html.parser") 
-
 
         cafe_html = soup.find('script').text
         var_index = cafe_html.find('g_sClubId')
@@ -206,17 +198,15 @@ def crawling_cafe(keyword:str):
             articles_json_object = json.loads(articles_response.text)
             html = articles_json_object['result']['article']['contentHtml']
             
-            
             soup = bs(html, "html.parser")
 
             p_tags = soup.find_all('p','se-text-paragraph')
 
             post = ''
 
-            for p in p_tags: # 카페 게시글
+            for p in p_tags: 
                 post += p.text + ' '
             
-                
             if checking_ADword(post) == False:
                 text.append(post)
                 links.append(url)
@@ -229,18 +219,18 @@ def crawling_cafe(keyword:str):
     
     cate = 'cafe'
     cafe_df = pd.DataFrame({'title':titles, 'text':text, 'link':links, 'cate':cate})
-    
     return cafe_df
 
+# 블로그 크롤링
 def crawling_blog(keyword:str):
     
-    #정보입력 
-    client_id = 'wGaXs74pWvcYaDuk7Och' # 발급받은 id 입력
-    client_secret = 'jeFcJ451Ww' # 발급받은 secret 입력 
-    quote = keyword # 검색어 입력
+    # API 사용을 위한 정보입력 
+    client_id = 'wGaXs74pWvcYaDuk7Och'
+    client_secret = 'jeFcJ451Ww'
+    quote = keyword
     encText = urllib.parse.quote(quote) 
     display_num = "20" # 최대 100
-    url = "https://openapi.naver.com/v1/search/blog?query=" + encText + "&display=" + display_num # json 결과
+    url = "https://openapi.naver.com/v1/search/blog?query=" + encText + "&display=" + display_num
 
     request = urllib.request.Request(url)
     request.add_header("X-Naver-Client-Id",client_id)
@@ -248,22 +238,21 @@ def crawling_blog(keyword:str):
     response = urllib.request.urlopen(request)
     rescode = response.getcode()
 
-    if(rescode==200): # 잘 응답하면..
-        res_body = response.read() # 읽고 받아와서
-        res_body_json = json.loads(res_body) # res_body_json에 저장함
-        # print(type(res_body_json)) # ..확인용..
+    if(rescode==200): 
+        res_body = response.read()
+        res_body_json = json.loads(res_body) 
 
     else:
-        print("Error Code:" + rescode) # 응답안하면 에러코드 출력
+        print("Error Code:" + rescode)
 
     print("<<-- 블로그 크롤링 시작 -->>")
-    items = res_body_json['items'] # json파일 내부에 item를 뽑아서 items변수에 저장
 
+    items = res_body_json['items']
     links = []
     titles = []
     for i in range(int(display_num)):
-        links.append(items[i]['link']) # 링크 하나씩 저장
-        titles.append(items[i]['title']) # 제목 하나씩 저장
+        links.append(items[i]['link']) 
+        titles.append(items[i]['title']) 
         
     # 제목 다듬기 (<b></b>태그 제거)
     for i in range(len(titles)):
@@ -272,20 +261,17 @@ def crawling_blog(keyword:str):
 
     # 조립된 블로그 링크들을 담는 리스트
     blog_links = []
-    
     # 각 블로그들의 본문들을 담는 리스트
     contents = []
-    
     # 블로그의 이미지 문장을 담는 리스트
     images = []
-    
+    # 블로그의 제목을 담는 리스트
     titles_for_df = []
 
     for j in range(len(links)):
         url = delete_iframe(links[j])
         text = text_scraping(url)
          
-        
         if checking_ADword(text) == True:
             continue
         
@@ -298,8 +284,6 @@ def crawling_blog(keyword:str):
         contents.append(text)
         images.append(img_txt)
         titles_for_df.append(titles[j])
-            
-        # print(contents[o])
 
     print("<<-- 블로그 크롤링 끝 -->>") 
 
@@ -308,11 +292,10 @@ def crawling_blog(keyword:str):
     blog_df = pd.DataFrame({'title':titles_for_df, 'text':contents, 'link':blog_links, 'img':images, 'cate':cate})
     return blog_df
 
-### 광고단어 체크함수 시작 ###
+# 광고단어 체크함수 시작
 def checking_ADword(data):
 
     ad_word_detected = False
-
     word_list = ['성지' , '원고료' , '소정의' , '유플러스로부터', 'SKT로부터',
                 '본 포스팅은' , '본 콘텐츠는', '이 포스팅은' , '이 콘텐츠는',
                 '제공받아비대면상담' , '최대만족' , '약속드리는' , '금전적 보상',
@@ -330,14 +313,12 @@ def checking_ADword(data):
             ad_word_detected = True
             break
 
-    
     return ad_word_detected
 
 # 이미지 속 광고 단어 체크 함수
 def ad_words_filtering(stc):
-    
+
     ad_word_detected = False
-    
     ad_words = ['지원', '원고', '원고료', '제공', '파트너스', '활동', '업체', '브랜드',
                 '제작비', '수수료', '지급', '제품', '수수', '고료']
   
@@ -346,12 +327,8 @@ def ad_words_filtering(stc):
             ad_word_detected = True
             break
 
-
     return ad_word_detected
 
-
-
-### 메인함수 시작 ###
 ### 메인함수 시작 ###
 def AD_filtering(keyword):
 
@@ -380,58 +357,7 @@ def AD_filtering(keyword):
     print(f'cafe\n:{len(cafe_df)}')
     print("crawling done..!")
 
-    # # 카페/블로그 df에서 'text'(본문)만 뽑아서 리스트화
-    # blog_text_lst = blog_df['text'].to_list()
-    # cafe_text_lst = cafe_df['text'].to_list()
-       
-    # # filtering ad - blog
-    # blog_rmv_target = []
-    # for x in range(len(blog_df)):
-    #     blog_rmv_target.append(checking_ADword(blog_text_lst[x], x))
-
-    # # filtering ad - cafe
-    # cafe_rmv_target = []
-    # if len(cafe_df) != 0 :
-    #     for x in range(len(cafe_df)):
-    #         cafe_rmv_target.append(checking_ADword(cafe_text_lst[x], x))
- 
-    # # None값 제거
-    # blog_rmv_target = [i for i in blog_rmv_target if i is not None]
-    # if len(cafe_rmv_target) != 0 :
-    #     cafe_rmv_target = [i for i in cafe_rmv_target if i is not None]
-
-    # # 인덱스값으로 광고글 제거
-    # for i in range(len(blog_rmv_target)):
-    #     blog_df.drop(blog_rmv_target[i], axis=0, inplace=True)
-        
-    # if len(cafe_rmv_target) != 0 :
-    #     for i in range(len(cafe_rmv_target)):
-    #         cafe_df.drop(cafe_rmv_target[i], axis=0, inplace=True)
-        
-    # # 블로그 df에서 'img'만 뽑아서 리스트화
-    # blog_img_lst = blog_df['img'].to_list()
-    
-    # # image ad filtering
-    # blog_rmv_target_img = []
-    # for x in range(len(blog_df)):
-    #     blog_rmv_target_img.append(ad_words_filtering(blog_img_lst[x], x))
-        
-    # blog_rmv_target_img = [i for i in blog_rmv_target_img if i is not None]
-    # print('img로 rmv할 갯수 : ', len(blog_rmv_target_img))
-    
-    # for i in range(len(blog_rmv_target_img)):
-    #     blog_df.drop(blog_rmv_target_img[i], axis=0, inplace=True)
-
-    # 인덱스 초기화로 정리
-    # blog_df.reset_index(drop=True, inplace=True)
-    # cafe_df.reset_index(drop=True, inplace=True)
-
     return blog_df, cafe_df
-
-# model = tf.keras.models.load_model('functions/best_model_adam.h5',
-#                                         custom_objects={'TFBertForSequenceClassification': TFBertForSequenceClassification})
-# with open('functions/tokenizer.pickle', 'rb') as handle:
-#     tokenizer = pickle.load(handle)
 
 model = tf.keras.models.load_model('functions/best_model_RAdam.h5', 
                                    custom_objects = {'RectifiedAdam' : RectifiedAdam, 
@@ -442,11 +368,11 @@ with open('functions/tokenizer_RADAM.pickle', 'rb') as handle:
 MAX_SEQ_LEN = 500
 
 def convert_data(df):
-    # BERT 입력으로 들어가는 token, mask, segment, target 저장용 리스트
+    # BERT 입력으로 들어가는 token, mask, segment 저장용 리스트
     tokens, masks, segments = [], [], []
     
     if len(df) != 0 :
-        for X in df['text']: # text로 바꿔야함! -> test용 데이터가 'data'이기 때문
+        for X in df['text']: # test용 데이터가 'data' > 'text'로 변경
             # token: 입력 문장 토큰화
             token = tokenizer.encode(X, truncation = True, padding = 'max_length', max_length = MAX_SEQ_LEN)
             
@@ -470,6 +396,7 @@ def convert_data(df):
     
     return 0
 
+# 키워드별 긍부정 예측 및 분류 함수
 def predict_pos_neg(key1, key2) :
     cd_key1 = convert_data(key1)
     cd_key2 = convert_data(key2)
@@ -507,29 +434,3 @@ def predict_pos_neg(key1, key2) :
         keyword2_negative = []
     
     return keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative
-
-# crawling_blog('갤럭시')
-
-# n1, n2, n3, n4 = predict_pos_neg(crawling_news('아이폰14프로맥스', 1, 2), crawling_news('아이폰se', 1, 2))
-
-# key1_b, key1_c = AD_filtering('아이폰14프로맥스')
-# key2_b, key2_c = AD_filtering('아이폰se')
-key_tmp = pd.DataFrame({'text' : ['아무노래나 일단 틀어']})
-predict_pos_neg(key_tmp, key_tmp)
-
-# c1, c2, c3, c4 = predict_pos_neg(key1_c, key2_c)
-# b1, b2, b3, b4 = predict_pos_neg(key1_b, key2_b)
-
-# if c1 == 0 and c3 == 0 :
-#     keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+c1+b1, n2+c2+b2, n3+c3+b3, n4+c4+b4
-# else : 
-#     keyword1_positive, keyword1_negative, keyword2_positive, keyword2_negative = n1+b1, n2+b2, n3+b3, n4+b4
-    
-# print(keyword1_positive)
-# print('------------------------------------------------------------------------')
-# print(keyword1_negative)
-# print('------------------------------------------------------------------------')
-# print(keyword2_positive)
-# print('------------------------------------------------------------------------')
-# print(keyword2_negative)
-# print('------------------------------------------------------------------------')
