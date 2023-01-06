@@ -148,13 +148,9 @@ def index(request):
         # S22만 키워드로 주면 아이폰14를 같이 크롤링해서 데이터를 반환합니다
 
         keyword1_wordcloud_13_, keyword1_wordcloud_45_, keyword2_wordcloud_13_, keyword2_wordcloud_45_, keyword1_pie_, keyword2_pie_ = starRating_classisification(request.GET['keyword1'],request.GET['keyword2'])
-  
         keyword1_wordcloud_13 = keyword1_wordcloud_13_
-        
         keyword2_wordcloud_13 = keyword2_wordcloud_13_
-        
         keyword1_wordcloud_45 = keyword1_wordcloud_45_
-        
         keyword2_wordcloud_45 = keyword2_wordcloud_45_
         
         '''
@@ -167,7 +163,6 @@ def index(request):
         '''
         
         keyword1_pie = keyword1_pie_
-        
         keyword2_pie = keyword2_pie_
         
         # ---->장현광 context
@@ -217,15 +212,13 @@ def index(request):
             'vote' : vote,
             'comm_qry_key1' : comm_qry_key1,
             'comm_qry_key2' : comm_qry_key2,
-            
         }
-        
 
         return render(request, 'home/index.html',context)
     else :
         return render(request, 'home/index.html', {'profile_img':user_img, 'profile_id':user_id,})
 
-
+# SignUp
 def register_user(request):
     msg = None
     success = False
