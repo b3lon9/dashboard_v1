@@ -72,25 +72,21 @@ function category(cat) {
 
 (function() {
 
-  //am4core.useTheme(am4themes_animated);
 
-  // Create chart
+  // 커뮤니티 투표수 chart start
   var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
 
   // Create series
   var series = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
   chart.legend = new am4charts.Legend();
   let markerTemplate = chart.legend.markers.template;
+
   chart.fontSize = '12';
   chart.fontFamily = 'GyeonggiTitleM';
   chart.fontWeight = '0';
-  markerTemplate.width = 12;
-  markerTemplate.height = 12;
-  // Set data
-  // let title = chart.titles.create();
-  // title.text = '커뮤니티 투표수';
-  // title.fontSize=22;
-  // title.fontWeight='blod';
+
+  markerTemplate.width = 18;
+  markerTemplate.height = 18;
 
   series.data = [{
       "name": keyword1,
@@ -134,10 +130,12 @@ function category(cat) {
   series.minRadius = 15;
   series.maxRadius = 60;
   series.centerStrength = 0.5;
+  
 
 })();
+//커뮤니티 투표수 chart end
 
-
+//긍부정 chart start
 document.addEventListener('DOMContentLoaded', () => {
 
     const ctx = document.getElementById('myChart').getContext('2d');
@@ -156,11 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log("right box2 width:", box_width);
     console.log("right box2 height:", box_height);
-    // if (box_width > 388) box_width = 388;
-    // if (box_height > 214) box_height = 214;
-
-    // console.log("right box2 width:", box_width);
-    // console.log("right box2 height:", box_height);
     
     var val = Math.max(max_pos,Math.abs(min_neg))
 
@@ -210,9 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 labels: {
                     fontSize:6,
                     usePointStyle: true,
-
+                    padding: 10,
                     font : {
-                      size:12,
                       family:'GyeonggiTitleM',
                       weight:'1',
                     }
@@ -222,7 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             title: {
               display: false,
-              // text: '긍부정 리뷰수',
               align:'center',
               font:{
                 size:22
@@ -245,9 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         return '#000000';
                       },
                     },
-
-              
-
             },
             y:{
                 display:true,
@@ -263,4 +251,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var chart = new Chart(ctx, config);
 })();
-
+//긍부정 chart end

@@ -1,9 +1,4 @@
 from django.db import models
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User, AbstractBaseUser,BaseUserManager
-from allauth.socialaccount.models import SocialAccount
-from django.utils import timezone
 
 # word cloud용 DB
 class Wordcloud(models.Model):

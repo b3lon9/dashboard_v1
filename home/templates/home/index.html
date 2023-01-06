@@ -1,7 +1,5 @@
 {% extends "layouts/base.html" %}
 
-{% comment %} {% block title %} home {% endblock %} {% endcomment %}
-
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
 
@@ -379,9 +377,9 @@
                     <div class="card-header">
                         <h4>최저가 비교</h4>
                     </div>
-                    <div class="card-body">
-                        <div id="unique-visitor-chart"></div>                      
-                    </div>
+                    
+                    <div id="unique-visitor-chart"></div>                      
+                    
                 </div>
                 
             </div>
@@ -852,7 +850,7 @@
     <script type="text/javascript">
 
         var keyword1_pie = {{ keyword1_pie|safe }};
-        var keyword2_pie = {{ keyword1_pie|safe }};
+        var keyword2_pie = {{ keyword2_pie|safe }};
 
         var keyword1_wordcloud_13 = {{ keyword1_wordcloud_13_json|safe }};
         var keyword2_wordcloud_13 = {{ keyword2_wordcloud_13_json|safe }};
